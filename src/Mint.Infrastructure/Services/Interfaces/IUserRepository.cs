@@ -12,9 +12,15 @@ public interface IUserRepository
 
     Task<User> GetUserByPhoneAync(long phone);
 
-    Task<User> AddUserAync(User user);
+    Task<User> AddUserWithPhoneAync(User user);
+
+    Task<User> AddUserWithEmailAync(User user);
 
     Task<User> UpdateUserAync(User user);
 
     Task<User> DeleteUserAsync(User id);
+
+    Task<User> GetSigninUser(string login, string password);
+
+    Task<User> SigninAsync(User user);
 }

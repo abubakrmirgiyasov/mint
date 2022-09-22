@@ -2,30 +2,24 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mint.Domain.Extensions;
-using Mint.Infrastructure.Services.Interfaces;
 
 namespace Mint.Api.Controllers;
 
-[Authorize(Roles = Constants.ADMIN, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = Constants.ADMIN, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class HomeController : ControllerBase
 {
-    private readonly IUserRepository _user;
-
-    public HomeController(IUserRepository user)
-    {
-        _user = user;
-    }
-
     [HttpGet]
-    public async Task<IActionResult> GetUsers()
+    [AllowAnonymous]
+    public IActionResult Get()
     {
         return Ok();
     }
 
-    [AllowAnonymous]
     [HttpPost]
-    public async Task<IActionResult> SignUp()
+    [AllowAnonymous]
+    public IActionResult Post()
     {
         return Ok();
     }
