@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Mint.Domain.Extensions;
 using Mint.Domain.Models;
 
 namespace Mint.Infrastructure;
@@ -22,6 +23,49 @@ public class ApplicationDbContext : DbContext
 			.WithMany(x => x.Users)
 			.HasForeignKey(x => x.RoleId)
 			.OnDelete(DeleteBehavior.NoAction);
+
+		var roles = new Role[]
+		{
+			new Role()
+			{
+				Id = Guid.NewGuid(),
+				Name = "Admin",
+			},
+			new Role()
+			{
+				Id = Guid.NewGuid(),
+				Name = "Buyer",
+			}
+		};
+
+		var users = new User[]
+		{
+			new User()
+			{
+				FirstName = "Миргиясов",
+				SecondName = "Абубакр",
+				LastName = "Мукимжонович",
+				Email = "abubakrmirgiyasov@gmail.com",
+				Phone = 89502768428,
+				Password = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
+				ConfirmedPassword = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
+				RoleId = roles[0].Id,
+			},
+			new User()
+            {
+                FirstName = "Test",
+                SecondName = "User",
+                LastName = "",
+                Email = "test@gmail.com",
+                Phone = 89502768428,
+                Password = Encrypt.EncodePassword("test_1"),
+                ConfirmedPassword = Encrypt.EncodePassword("test_1"),
+                RoleId = roles[0].Id,
+            }
+        };
+
+		builder.Entity<Role>().HasData(roles);
+		builder.Entity<User>().HasData(users);
 	}
 
 	public async Task<List<Photo>> AddPhotoAsync(IFormFileCollection files)

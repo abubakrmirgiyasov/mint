@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Mint.Domain.Extensions;
 using Mint.Domain.Models;
-using Mint.Domain.ViewModels;
 using Mint.Infrastructure.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
