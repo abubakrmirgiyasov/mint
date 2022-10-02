@@ -14,4 +14,6 @@ public class Constants
 
     public const string ADMIN = "Admin";
     public const string BUYER = "Buyer";
+
+    public const string TOKEN_SCHEME = "Bearer";
 }
