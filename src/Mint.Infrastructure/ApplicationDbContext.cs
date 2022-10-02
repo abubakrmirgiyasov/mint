@@ -24,6 +24,12 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.RoleId)
 			.OnDelete(DeleteBehavior.NoAction);
 
+		builder.Entity<Photo>()
+			.HasOne(x => x.User)
+			.WithMany(x => x.Photos)
+			.HasForeignKey(x => x.UserId)
+			.OnDelete(DeleteBehavior.NoAction);
+
 		var roles = new Role[]
 		{
 			new Role()

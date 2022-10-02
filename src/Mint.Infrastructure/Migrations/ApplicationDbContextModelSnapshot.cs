@@ -28,6 +28,10 @@ namespace Mint.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<byte[]>("FileBytes")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("FileExtension")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -66,7 +70,19 @@ namespace Mint.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("f496094a-f265-4c0c-9d71-6f2bb0fa92f5"),
+                            Name = "Buyer"
+                        });
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.User", b =>
@@ -124,13 +140,46 @@ namespace Mint.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00941671-e324-4e08-a6de-60d53c53b08a"),
+                            ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
+                            CreatedDate = new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8695),
+                            Email = "abubakrmirgiyasov@gmail.com",
+                            FirstName = "Миргиясов",
+                            IsActiveAccount = true,
+                            LastName = "Мукимжонович",
+                            NumOfAttempts = 0,
+                            Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
+                            Phone = 89502768428L,
+                            RoleId = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            SecondName = "Абубакр"
+                        },
+                        new
+                        {
+                            Id = new Guid("4873fefa-0b70-4128-9f20-f4f86df04451"),
+                            ConfirmedPassword = "dGVzdF8x",
+                            CreatedDate = new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8727),
+                            Email = "test@gmail.com",
+                            FirstName = "Test",
+                            IsActiveAccount = true,
+                            LastName = "",
+                            NumOfAttempts = 0,
+                            Password = "dGVzdF8x",
+                            Phone = 89502768428L,
+                            RoleId = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            SecondName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
                 {
                     b.HasOne("Mint.Domain.Models.User", "User")
                         .WithMany("Photos")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("User");
                 });
