@@ -13,6 +13,8 @@ public class ApplicationDbContext : DbContext
 
 	public DbSet<Role> Roles { get; set; } = null!;
 
+	public DbSet<Error> Errors { get; set; } = null!;
+
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
 		: base(options) { }
 

@@ -1,4 +1,5 @@
-﻿using Mint.Domain.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Mint.Domain.Models;
 
 namespace Mint.Infrastructure.Services.Interfaces;
 
@@ -22,5 +23,5 @@ public interface IUserRepository
 
     Task<User> GetSigninUser(string login, string password);
 
-    Task<User> SigninAsync(User user);
+    Task<User> SigninAsync(User user, HttpContext httpContext);
 }

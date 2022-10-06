@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Mint.Api.Services;
 using Mint.Domain.Extensions;
 using Mint.Infrastructure;
 using Mint.Infrastructure.Services.Interfaces;
@@ -58,6 +59,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingEtensions>();
 
 app.UseHttpsRedirection();
 

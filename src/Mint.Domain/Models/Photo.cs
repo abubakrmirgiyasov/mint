@@ -1,9 +1,12 @@
-﻿namespace Mint.Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Mint.Domain.Models;
 
 public class Photo
 {
     public Guid Id { get; set; }
 
+    [MaxLength(100, ErrorMessage = "Название файла слишком большое")]
     public string FileName { get; set; } = "";
 
     public string FileExtension { get; set; } = "";
