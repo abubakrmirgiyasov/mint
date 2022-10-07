@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mint.Domain.BindingModels;
 using Mint.Domain.Models;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Mint.Infrastructure.Services.Interfaces;
 
@@ -21,7 +22,5 @@ public interface IUserRepository
 
     Task<User> DeleteUserAsync(User id);
 
-    Task<User> GetSigninUser(string login, string password);
-
-    Task<User> SigninAsync(User user, HttpContext httpContext);
+    Task<JwtSecurityToken> GetSigninUser(string login, string password);
 }

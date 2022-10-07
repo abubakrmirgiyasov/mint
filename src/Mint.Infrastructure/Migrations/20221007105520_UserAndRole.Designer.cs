@@ -12,8 +12,8 @@ using Mint.Infrastructure;
 namespace Mint.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221002090435_Init")]
-    partial class Init
+    [Migration("20221007105520_UserAndRole")]
+    partial class UserAndRole
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,41 +23,6 @@ namespace Mint.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte[]>("FileBytes")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileExtension")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("FileSize")
-                        .HasColumnType("float");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Photos");
-                });
 
             modelBuilder.Entity("Mint.Domain.Models.Role", b =>
                 {
@@ -77,12 +42,12 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            Id = new Guid("fa260391-177a-45b1-9c69-143b5c857b66"),
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("f496094a-f265-4c0c-9d71-6f2bb0fa92f5"),
+                            Id = new Guid("beab503a-f069-4501-a2d3-f76c306b65ac"),
                             Name = "Buyer"
                         });
                 });
@@ -146,9 +111,9 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("00941671-e324-4e08-a6de-60d53c53b08a"),
+                            Id = new Guid("01064f77-0f87-40f8-9c69-fbd3f59b7186"),
                             ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
-                            CreatedDate = new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8695),
+                            CreatedDate = new DateTime(2022, 10, 7, 17, 55, 20, 70, DateTimeKind.Local).AddTicks(6458),
                             Email = "abubakrmirgiyasov@gmail.com",
                             FirstName = "Миргиясов",
                             IsActiveAccount = true,
@@ -156,14 +121,14 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Phone = 89502768428L,
-                            RoleId = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            RoleId = new Guid("fa260391-177a-45b1-9c69-143b5c857b66"),
                             SecondName = "Абубакр"
                         },
                         new
                         {
-                            Id = new Guid("4873fefa-0b70-4128-9f20-f4f86df04451"),
+                            Id = new Guid("5ce936cc-d459-4ff1-808f-4cd8bccf557f"),
                             ConfirmedPassword = "dGVzdF8x",
-                            CreatedDate = new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8727),
+                            CreatedDate = new DateTime(2022, 10, 7, 17, 55, 20, 70, DateTimeKind.Local).AddTicks(6494),
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             IsActiveAccount = true,
@@ -171,19 +136,9 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "dGVzdF8x",
                             Phone = 89502768428L,
-                            RoleId = new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"),
+                            RoleId = new Guid("fa260391-177a-45b1-9c69-143b5c857b66"),
                             SecondName = "User"
                         });
-                });
-
-            modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
-                {
-                    b.HasOne("Mint.Domain.Models.User", "User")
-                        .WithMany("Photos")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.User", b =>
@@ -191,7 +146,7 @@ namespace Mint.Infrastructure.Migrations
                     b.HasOne("Mint.Domain.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Role");
                 });
@@ -199,11 +154,6 @@ namespace Mint.Infrastructure.Migrations
             modelBuilder.Entity("Mint.Domain.Models.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Mint.Domain.Models.User", b =>
-                {
-                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

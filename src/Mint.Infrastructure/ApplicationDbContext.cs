@@ -9,11 +9,11 @@ public class ApplicationDbContext : DbContext
 {
 	public DbSet<User> Users { get; set; } = null!;
 
-	public DbSet<Photo> Photos { get; set; } = null!;
+	//public DbSet<Photo> Photos { get; set; } = null!;
 
 	public DbSet<Role> Roles { get; set; } = null!;
 
-	public DbSet<Error> Errors { get; set; } = null!;
+	//public DbSet<Error> Errors { get; set; } = null!;
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
 		: base(options) { }
@@ -24,13 +24,13 @@ public class ApplicationDbContext : DbContext
 			.HasOne(x => x.Role)
 			.WithMany(x => x.Users)
 			.HasForeignKey(x => x.RoleId)
-			.OnDelete(DeleteBehavior.NoAction);
+			.OnDelete(DeleteBehavior.Cascade);
 
-		builder.Entity<Photo>()
-			.HasOne(x => x.User)
-			.WithMany(x => x.Photos)
-			.HasForeignKey(x => x.UserId)
-			.OnDelete(DeleteBehavior.NoAction);
+		//builder.Entity<Photo>()
+		//	.HasOne(x => x.User)
+		//	.WithMany(x => x.Photos)
+		//	.HasForeignKey(x => x.UserId)
+		//	.OnDelete(DeleteBehavior.NoAction);
 
 		var roles = new Role[]
 		{

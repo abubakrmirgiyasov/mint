@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mint.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class UserAndRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,55 +45,29 @@ namespace Mint.Infrastructure.Migrations
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Photos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileSize = table.Column<double>(type: "float", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileBytes = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Photos_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"), "Admin" });
+                values: new object[] { new Guid("beab503a-f069-4501-a2d3-f76c306b65ac"), "Buyer" });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("f496094a-f265-4c0c-9d71-6f2bb0fa92f5"), "Buyer" });
+                values: new object[] { new Guid("fa260391-177a-45b1-9c69-143b5c857b66"), "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "ConfirmedPassword", "CreatedDate", "Email", "FirstName", "IsActiveAccount", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
-                values: new object[] { new Guid("00941671-e324-4e08-a6de-60d53c53b08a"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8695), "abubakrmirgiyasov@gmail.com", "Миргиясов", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"), "Абубакр" });
+                values: new object[] { new Guid("01064f77-0f87-40f8-9c69-fbd3f59b7186"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 10, 7, 17, 55, 20, 70, DateTimeKind.Local).AddTicks(6458), "abubakrmirgiyasov@gmail.com", "Миргиясов", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("fa260391-177a-45b1-9c69-143b5c857b66"), "Абубакр" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "ConfirmedPassword", "CreatedDate", "Email", "FirstName", "IsActiveAccount", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
-                values: new object[] { new Guid("4873fefa-0b70-4128-9f20-f4f86df04451"), "dGVzdF8x", new DateTime(2022, 10, 2, 16, 4, 34, 979, DateTimeKind.Local).AddTicks(8727), "test@gmail.com", "Test", true, "", 0, "dGVzdF8x", 89502768428L, new Guid("356dc6f6-2efc-42b3-a540-f82e2d8b64e3"), "User" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photos_UserId",
-                table: "Photos",
-                column: "UserId");
+                values: new object[] { new Guid("5ce936cc-d459-4ff1-808f-4cd8bccf557f"), "dGVzdF8x", new DateTime(2022, 10, 7, 17, 55, 20, 70, DateTimeKind.Local).AddTicks(6494), "test@gmail.com", "Test", true, "", 0, "dGVzdF8x", 89502768428L, new Guid("fa260391-177a-45b1-9c69-143b5c857b66"), "User" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -103,9 +77,6 @@ namespace Mint.Infrastructure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Photos");
-
             migrationBuilder.DropTable(
                 name: "Users");
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Mint.Domain.BindingModels;
 using Mint.Domain.Exceptions;
 using Mint.Domain.Extensions;
 using Mint.Domain.Models;
@@ -22,7 +23,6 @@ public class UserRepository : IUserRepository
     public async Task<List<User>> GetUsersAync()
     {
         var users = await _context.Users
-            .Include(x => x.Role)
             .ToListAsync();
         return users;
     }
@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
         user.RoleId = role!.Id;
 
         var photos = await _context.AddPhotoAsync(user.Files!);
-        user.Photos = photos;
+        //user.Photos = photos;
 
         if (user.Password == user.ConfirmedPassword)
         {
@@ -80,7 +80,7 @@ public class UserRepository : IUserRepository
         user.RoleId = role!.Id;
 
         var photos = await _context.AddPhotoAsync(user.Files!);
-        user.Photos = photos;
+        //user.Photos = photos;
 
         if (user.Password == user.ConfirmedPassword)
         {
@@ -106,33 +106,63 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<User> GetSigninUser(string login, string password)
+    public async Task<JwtSecurityToken> GetSigninUser(string login, string password)
     {
         var encodedPassword = Encrypt.EncodePassword(password);
         var userWithEmail = await _context.Users
             .Include(x => x.Role)
-            .Include(x => x.Photos)
-            .FirstOrDefaultAsync(x => x.Email == login && x.Password == password);
+            //.Include(x => x.Photos)
+            .FirstOrDefaultAsync(x => x.Email == login && x.Password == encodedPassword);
+
+        if (userWithEmail == null)
+        {
+            var email = await _context.Users.FirstOrDefaultAsync(x => x.Email == login);
+
+            if (email != null)
+            {
+                await UpdateNumOfAttempts(email);
+            }
+
+            throw new Exception("Неправильный логин/пароль");
+        }
+        else
+        {
+            if (userWithEmail!.IsActiveAccount == false)
+            {
+                throw new UserBlockedException("Ваш аккаунт заблокирован");
+            }
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, userWithEmail.Email),
+                new Claim(ClaimTypes.Role, userWithEmail.Role!.Name),
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: Constants.ISSUER,
+                audience: Constants.AUDIENCE,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(1), // test
+                signingCredentials: new SigningCredentials(
+                    Constants.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+            return token;
+        }
         // add logic blocking user if count of attempts more then 10 
-        return userWithEmail ?? throw new Exception("Неправильный логин/пароль");
     }
 
-    public async Task<User> SigninAsync(User user, HttpContext httpContext)
+    private async Task UpdateNumOfAttempts(User user)
     {
-        var u = await GetSigninUser(user.Email, user.Password);
-
-        var claims = new List<Claim>
+        if (user.NumOfAttempts < 10)
         {
-            new Claim(ClaimTypes.Role, "Admin"),
-        };
+            user.NumOfAttempts += 1;
+        }
+        else
+        {
+            user.IsActiveAccount = false;
+        }
 
-        var token = new JwtSecurityToken(
-            issuer: Constants.ISSUER,
-            audience: Constants.AUDIENCE,
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(1), // test
-            signingCredentials: new SigningCredentials(
-                Constants.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
     }
 }

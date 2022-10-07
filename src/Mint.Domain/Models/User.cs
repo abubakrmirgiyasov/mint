@@ -50,7 +50,7 @@ public class User
 
     public Role? Role { get; set; }
 
-    public ICollection<Photo>? Photos { get; set; }
+    //public ICollection<Photo>? Photos { get; set; }
 
     [FromForm]
     [NotMapped]

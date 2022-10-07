@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+using Mint.Domain.Exceptions;
 using Mint.Domain.Extensions;
 using Mint.Domain.Models;
+using Mint.Domain.ViewModels;
 using Mint.Infrastructure.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Mint.Api.Controllers;
 
@@ -93,23 +93,22 @@ public class AuthenticationController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpPost]
     [AllowAnonymous]
-    public async Task<IActionResult> SignIn()
+    public async Task<IActionResult> SignIn(UserViewModel user)
     {
-        var claims = new List<Claim>
+        try
         {
-            new Claim(ClaimTypes.Role, "Admin"),
-        };
-
-        var token = new JwtSecurityToken(
-            issuer: Constants.ISSUER,
-            audience: Constants.AUDIENCE,
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(1), // test
-            signingCredentials: new SigningCredentials(
-                Constants.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-        return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+            var token = await _user.GetSigninUser(user.Email!, user.Password);
+            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+        }
+        catch (UserBlockedException ex)
+        {
+            return Forbid($"{ex.Message}. Ссылка для помощи {ex.HelpLink}");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

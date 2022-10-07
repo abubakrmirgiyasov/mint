@@ -1,6 +1,5 @@
 ﻿using Mint.Domain.BindingModels;
 using Mint.Domain.Exceptions;
-using Mint.Infrastructure;
 using System.Net;
 using System.Text.Json;
 
@@ -10,16 +9,13 @@ public class ExceptionHandlingEtensions
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionHandlingEtensions> _logger;
-    private readonly ApplicationDbContext _context;
 
     public ExceptionHandlingEtensions(
         RequestDelegate next,
-        ILogger<ExceptionHandlingEtensions> logger, 
-        ApplicationDbContext context)
+        ILogger<ExceptionHandlingEtensions> logger)
     {
         _next = next;
         _logger = logger;
-        _context = context;
     }
 
     public async Task InvokeAsync(HttpContext httpContext)
@@ -27,6 +23,13 @@ public class ExceptionHandlingEtensions
         try
         {
             await _next(httpContext);
+        }
+        catch (UserBlockedException ex)
+        {
+            await HandleExceptionAsync(
+                httpContext: httpContext,
+                message: ex.Message,
+                code: HttpStatusCode.Forbidden);
         }
         catch (ContentNotFoundException ex)
         {
