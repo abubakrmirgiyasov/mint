@@ -35,5 +35,9 @@ public class UsersModel : PageModel
         {
             ViewData["List"] = await _authentication.GetUsers();
         }
+        else
+        {
+            Response.Redirect("/authentication/signin");
+        }
     }
 }
