@@ -1,11 +1,13 @@
 ﻿using Mint.Domain.Extensions;
+using Mint.Middleware.Extensions;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace Mint.Middleware.Services;
 
 public class RequestService<T>
 {
-    private HttpClient _client;
+    private HttpClient _client = null!;
     private bool _auth;
 
     public HttpClient Client { get => _client; set => _client = value; }
@@ -25,7 +27,7 @@ public class RequestService<T>
         if (_auth)
         {
             Client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(Constants.TOKEN_SCHEME);
+                new AuthenticationHeaderValue(Constants.TOKEN_SCHEME, Params.AccessToken);
         }
     }
 
@@ -34,6 +36,20 @@ public class RequestService<T>
         try
         {
             var response = await _client.GetAsync(route);
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return new JsonResponse<T>().GetResponse(response, apiResponse);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
+
+    public async Task<T> PostRequestAsync(string content, string route)
+    {
+        try
+        {
+            var response = await _client.PostAsync(route, new StringContent(content, Encoding.UTF8, "application/json"));
             var apiResponse = await response.Content.ReadAsStringAsync();
             return new JsonResponse<T>().GetResponse(response, apiResponse);
         }

@@ -1,4 +1,20 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const dropdownItem = document.querySelector(".drop-down-menu");
+const rotateDropdownIco = document.querySelector(".header-top-dropdown-ico");
 
-// Write your JavaScript code.
+dropdownItem.addEventListener("click", () => {
+    rotateDropdownIco.classList.toggle("header-top-dropdown-ico-active");
+    document.querySelector("#menuList").classList.toggle("menu-dropdown-childs-active");
+});
+
+window.addEventListener("click", event => {
+    if (!event.target.matches("#activeDropDownMenu")) {
+        var list = document.getElementsByClassName("header-top-child-list");
+        for (var i = 0; i < list.length; i++) {
+            var openList = list[i];
+            if (openList.classList.contains("menu-dropdown-childs-active")) {
+                openList.classList.remove("menu-dropdown-childs-active");
+                rotateDropdownIco.classList.remove("header-top-dropdown-ico-active");
+            }
+        }
+    }
+});

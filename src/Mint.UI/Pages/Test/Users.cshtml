@@ -1,0 +1,11 @@
+﻿@page
+@model UsersModel
+@{
+}
+@if (Model.IsAuthenticated)
+{
+    @foreach (dynamic item in ViewBag.List)
+    {
+        @item.FirstName
+    }
+}

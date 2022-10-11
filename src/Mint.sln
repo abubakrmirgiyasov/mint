@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Domain", "Mint.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Api", "Mint.Api\Mint.Api.csproj", "{B5415DA4-AAE4-41F9-9B6E-5414F81E99B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mint.Infrastructure", "Mint.Infrastructure\Mint.Infrastructure.csproj", "{8AA10D90-1F4F-4CC4-BD71-820789AD3E22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Infrastructure", "Mint.Infrastructure\Mint.Infrastructure.csproj", "{8AA10D90-1F4F-4CC4-BD71-820789AD3E22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mint.Middleware", "Mint.Middleware\Mint.Middleware.csproj", "{DAAE5AB3-D378-47B3-A444-350F63437CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Middleware", "Mint.Middleware\Mint.Middleware.csproj", "{DAAE5AB3-D378-47B3-A444-350F63437CE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

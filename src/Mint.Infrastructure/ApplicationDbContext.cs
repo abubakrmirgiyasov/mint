@@ -68,7 +68,7 @@ public class ApplicationDbContext : DbContext
                 Phone = 89502768428,
                 Password = Encrypt.EncodePassword("test_1"),
                 ConfirmedPassword = Encrypt.EncodePassword("test_1"),
-                RoleId = roles[0].Id,
+                RoleId = roles[1].Id,
             }
         };
 

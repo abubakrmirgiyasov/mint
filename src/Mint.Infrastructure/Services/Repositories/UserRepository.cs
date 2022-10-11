@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Mint.Domain.BindingModels;
 using Mint.Domain.Exceptions;
 using Mint.Domain.Extensions;
 using Mint.Domain.Models;
@@ -51,7 +49,7 @@ public class UserRepository : IUserRepository
 
         user.Password = Encrypt.EncodePassword(user.Password);
         user.ConfirmedPassword = Encrypt.EncodePassword(user.ConfirmedPassword);
-        
+
         var role = await _context.Roles.FirstOrDefaultAsync(x => x.Name == Constants.BUYER);
         user.RoleId = role!.Id;
 
@@ -134,6 +132,7 @@ public class UserRepository : IUserRepository
 
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Name, $"{userWithEmail.FirstName} {userWithEmail.SecondName}"),
                 new Claim(ClaimTypes.Email, userWithEmail.Email),
                 new Claim(ClaimTypes.Role, userWithEmail.Role!.Name),
             };

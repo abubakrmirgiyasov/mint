@@ -5,18 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mint</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Mint.UI.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/media.css">
+    <link rel="stylesheet" href="~/lib/fonts/Lora/Lora-Regular.ttf" asp-append-version="true">
 </head>
 <body>
     <header class="header">
-        
+        <div class="top d-flex">
+            <div class="container d-flex ml-auto mr-auto" style="height: 30px;">
+                <ul class="top-list">
+                    <li class="top-list-item p-relative">
+                        <div class="top-list-menu-link">
+                            <div class="city-select d-flex">
+                                <div class="city-select-label">
+                                    <span class="location-ico svg-ico d-flex p-relative"></span>
+                                    <p class="cuttent-city">Новокузнецк</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="top-list-item">
+                        <a class="header-top-link d-flex" href="/">
+                            <div class="header-top-shop d-flex">
+                                <span class="header-top-shop-ico svg-ico d-flex"></span>
+                                <p class="header-shop-text">Магазины</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="top-list-item p-relative">
+                        <button class="header-top-link drop-down-menu" id="activeDropDownMenu">
+                            Покупателям
+                            <span  class="header-top-dropdown-ico svg-ico d-flex"></span>
+                        </button>
+                        <div class="header-top-child-list" id="menuList">
+                            <a class="buyer-content" href="/">Как оформить заказ</a>
+                            <a class="buyer-content" href="/">Доставка</a>
+                            <a class="buyer-content" href="/">Способы оплаты</a>
+                            <a class="buyer-content" href="/">Бонусная программа</a>
+                            <a class="buyer-content" href="/">Узнать статус заказа</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="header-top-phone-menu">
+                    <li class="header-top-info">
+                        <div class="header-top-phone">
+                            <span class="header-top-phone-ico svg-ico d-flex"></span>
+                            <p class="header-top-phone-text">+7 (987)-654-32-10</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom d-flex">
+            <div class="container d-flex ml-auto mr-auto">
+                <div class="logo-box p-relative">
+                    <a href="" class="logo-link"><img src="~/images/logos/logo-45x45.png" alt="Logo" class="logo"></a>
+                </div>
+                <div class="category-box">
+                    <div class="category-menu" id="categoryMenu">
+                        <button class="btn fill-btn category-btn d-flex">
+                            Каталог
+                            <span class="svg-ico category-ico p-relative d-flex"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <div class="search-text">
+                        <input type="text" class="form-search" name="search" id="search" placeholder="Поиск..." />
+                        <button type="submit" class="search-btn btn">
+                            <span class="search-ico svg-ico d-flex"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="compare-box">
+                        <span class="compare-png png-ico"></span>
+                        <div class="box compare">
+                            <a href="" class="">Сравнить</a>
+                        </div>
+                    </div>
+                    <div class="likes-box">
+                        <span class="likes-png png-ico"></span>
+                        <div class="box likes">
+                            <a asp-page="">Избранное</a>
+                        </div>
+                    </div>
+                    <div class="cart-box">
+                        <span class="cart-png png-ico"></span>
+                        <div class="box cart">
+                            <a asp-page="">Корзина</a>
+                        </div>
+                    </div>
+                    <div class="sign-in-box">
+                        <span class="sign-in-png png-ico"></span>
+                        <div class="box sign-in">
+                            <a asp-page="test/users">Войти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
-    <main role="main" class="main">
+    <main role="main" class="main d-flex flex-nowrap">
+
+        <span class="loader"></span>
+
         @RenderBody()
     </main>
     <footer class="footer">
         <div class="container">
-            &copy; 2022 - Mint.UI - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - Mint - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 

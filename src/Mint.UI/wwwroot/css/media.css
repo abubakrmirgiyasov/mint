@@ -1,5 +1,22 @@
-﻿@media (min-width: 768px) {
+﻿@media (min-width: 1200px) {
     html {
         font-size: 16px;
     }
 }
+
+@media (max-width: 1190px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .footer {
+        display: none;
+    }
+
+    .top {
+        display: none;
+    }
+}
+
