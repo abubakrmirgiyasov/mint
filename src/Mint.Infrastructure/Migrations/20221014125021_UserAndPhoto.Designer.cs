@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mint.Infrastructure;
 
@@ -11,9 +12,10 @@ using Mint.Infrastructure;
 namespace Mint.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221014125021_UserAndPhoto")]
+    partial class UserAndPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,29 +24,10 @@ namespace Mint.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Mint.Domain.Models.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("FileBytes")
@@ -72,8 +55,6 @@ namespace Mint.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Photos");
@@ -97,18 +78,13 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c728e145-da15-466e-b58e-f96ba7deabb3"),
+                            Id = new Guid("0c145641-e847-46c9-a1f2-7b443c2c4897"),
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("d22d6248-5b12-4063-b74a-42bb1e14fece"),
+                            Id = new Guid("4834bf3d-58d7-43af-a48c-e5ed1da4fb9e"),
                             Name = "Buyer"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d9cf464-5a60-4a01-9623-961a2224d865"),
-                            Name = "Deliver"
                         });
                 });
 
@@ -171,9 +147,9 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("12d4567f-edc5-4279-a279-2bf29f0b88ad"),
+                            Id = new Guid("c34df810-9cad-414a-a710-03ad6a9a7904"),
                             ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
-                            CreatedDate = new DateTime(2022, 10, 14, 19, 57, 47, 715, DateTimeKind.Local).AddTicks(1946),
+                            CreatedDate = new DateTime(2022, 10, 14, 19, 50, 21, 433, DateTimeKind.Local).AddTicks(8443),
                             Email = "abubakrmirgiyasov@gmail.com",
                             FirstName = "Миргиясов",
                             IsActiveAccount = true,
@@ -181,14 +157,14 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Phone = 89502768428L,
-                            RoleId = new Guid("c728e145-da15-466e-b58e-f96ba7deabb3"),
+                            RoleId = new Guid("0c145641-e847-46c9-a1f2-7b443c2c4897"),
                             SecondName = "Абубакр"
                         },
                         new
                         {
-                            Id = new Guid("a43206c9-12ed-49c5-b86e-d6c739b26671"),
+                            Id = new Guid("6befe321-5790-42ec-a8d5-907b7e3b403e"),
                             ConfirmedPassword = "dGVzdF8x",
-                            CreatedDate = new DateTime(2022, 10, 14, 19, 57, 47, 715, DateTimeKind.Local).AddTicks(1983),
+                            CreatedDate = new DateTime(2022, 10, 14, 19, 50, 21, 433, DateTimeKind.Local).AddTicks(8483),
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             IsActiveAccount = true,
@@ -196,24 +172,17 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "dGVzdF8x",
                             Phone = 89502768428L,
-                            RoleId = new Guid("d22d6248-5b12-4063-b74a-42bb1e14fece"),
+                            RoleId = new Guid("4834bf3d-58d7-43af-a48c-e5ed1da4fb9e"),
                             SecondName = "User"
                         });
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
                 {
-                    b.HasOne("Mint.Domain.Models.Category", "Category")
-                        .WithMany("Photos")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("Mint.Domain.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });
@@ -226,11 +195,6 @@ namespace Mint.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Mint.Domain.Models.Category", b =>
-                {
-                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.Role", b =>

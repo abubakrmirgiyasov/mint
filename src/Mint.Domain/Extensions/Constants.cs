@@ -16,4 +16,6 @@ public class Constants
     public const string BUYER = "Buyer";
 
     public const string TOKEN_SCHEME = "Bearer";
+
+    public const string CONNECTION_STRING = "Default";
 }

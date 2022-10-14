@@ -1,12 +1,14 @@
+using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
 using Mint.Middleware.Services.Requests;
+using Mint.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "Mint.Sessions";
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = TimeSpan.FromDays(1);
     options.Cookie.IsEssential = true;
 });
 
@@ -15,7 +17,7 @@ builder.Services.AddCookiePolicy(options =>
     options.CheckConsentNeeded = context => false;
     options.OnAppendCookie = context =>
     {
-        context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddSeconds(30);
+        context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(Params.ExpireTokenTime);
     };
 });
 

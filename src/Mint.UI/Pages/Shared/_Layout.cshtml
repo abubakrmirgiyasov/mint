@@ -58,7 +58,7 @@
         <div class="bottom d-flex">
             <div class="container d-flex ml-auto mr-auto">
                 <div class="logo-box p-relative">
-                    <a href="" class="logo-link"><img src="~/images/logos/logo-45x45.png" alt="Logo" class="logo"></a>
+                    <a href="/" class="logo-link"><img src="~/images/logos/logo-45x45.png" alt="Logo" class="logo"></a>
                 </div>
                 <div class="category-box">
                     <div class="category-menu" id="categoryMenu">
@@ -78,47 +78,80 @@
                 </div>
                 <div class="content-box">
                     <div class="compare-box">
-                        <span class="compare-png png-ico"></span>
-                        <div class="box compare">
-                            <a href="" class="">Сравнить</a>
+                        <div class="compare-png png-ico compare-popover">
+                            <div class="box compare">
+                                <h3 class="h3 compare-text al-te">Сравнение</h3>
+                                <h5 class="h5 compare-desc al-de">
+                                    Сравните товары по характеристикам! Начните свой выбор с каталога товаров 
+                                    или воспользуйтесь поиском, если ищете что-
+                                    то конкретное.
+                                </h5>
+                                <a href="/" class="btn outlined-btn open-category">Перейти в Каталог</a>
+                            </div>
                         </div>
                     </div>
                     <div class="likes-box">
-                        <span class="likes-png png-ico"></span>
-                        <div class="box likes">
-                            <a asp-page="">Избранное</a>
+                        <div class="likes-png png-ico likes-popover">
+                            <div class="box likes">
+                                <h3 class="h3 like-text al-te">Избранное</h3>
+                                <h5 class="h5 like-desc al-de">
+                                    <a href="/authentication/signin" class="link-sign">Войдите,</a>
+                                    если уже добавляли товары в своем аккаунте 
+                                    или добавьте новые из каталога
+                                </h5>
+                                <a href="/" class="btn outlined-btn open-category">Перейти в Каталог</a>
+                            </div>
                         </div>
                     </div>
                     <div class="cart-box">
-                        <span class="cart-png png-ico"></span>
-                        <div class="box cart">
-                            <a asp-page="">Корзина</a>
+                        <div class="cart-png png-ico cart-popover">
+                            <div class="box cart">
+                                <h3 class="h3 cart-text al-te">Корзина</h3>
+                                <h5 class="h5 cart-desc al-de">
+                                    В вашей корзине пусто?
+                                    Это не страшно!
+                                </h5>
+                                <a href="/" class="btn outlined-btn open-category">Перейти к Покупкам</a>
+                            </div>
                         </div>
                     </div>
                     <div class="sign-in-box">
-                        <span class="sign-in-png png-ico"></span>
-                        <div class="box sign-in">
-                            <a asp-page="test/users">Войти</a>
-                        </div>
+                        @if (Context.IsAuthenticated())
+                        {
+                            <div class="">
+
+                            </div>
+
+                            <a href="/adminpanel">Admin</a>
+                        }
+                        else
+                        {
+                            <div class="sign-in-png png-ico sign-popover">
+                                <div class="box sign-in">
+                                    <a href="/authentication/signin" class="btn outlined-btn sign-in-btn">Войти</a>
+                                    <a href="/authentication/signup" class="btn outlined-btn sign-up-btn">Зарегистрироваться</a>
+                                    <hr class="hr">
+                                    <a href="/" class="btn fill-btn order-status">Статус заказа</a>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <main role="main" class="main d-flex flex-nowrap">
-
-        <span class="loader"></span>
-
         @RenderBody()
     </main>
     <footer class="footer">
         <div class="container">
-            &copy; 2022 - Mint - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - Mint - <a href="/Privacy">Privacy</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/requests.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

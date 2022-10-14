@@ -9,9 +9,11 @@ public class ApplicationDbContext : DbContext
 {
 	public DbSet<User> Users { get; set; } = null!;
 
-	//public DbSet<Photo> Photos { get; set; } = null!;
+	public DbSet<Photo> Photos { get; set; } = null!;
 
 	public DbSet<Role> Roles { get; set; } = null!;
+
+	public DbSet<Category> Categories { get; set; } = null!;
 
 	//public DbSet<Error> Errors { get; set; } = null!;
 
@@ -26,11 +28,17 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.RoleId)
 			.OnDelete(DeleteBehavior.Cascade);
 
-		//builder.Entity<Photo>()
-		//	.HasOne(x => x.User)
-		//	.WithMany(x => x.Photos)
-		//	.HasForeignKey(x => x.UserId)
-		//	.OnDelete(DeleteBehavior.NoAction);
+		builder.Entity<Photo>()
+			.HasOne(x => x.User)
+			.WithMany(x => x.Photos)
+			.HasForeignKey(x => x.UserId)
+			.OnDelete(DeleteBehavior.NoAction);
+
+		builder.Entity<Photo>()
+			.HasOne(x => x.Category)
+			.WithMany(x => x.Photos)
+			.HasForeignKey(x => x.CategoryId)
+			.OnDelete(DeleteBehavior.NoAction);
 
 		var roles = new Role[]
 		{
@@ -43,6 +51,11 @@ public class ApplicationDbContext : DbContext
 			{
 				Id = Guid.NewGuid(),
 				Name = "Buyer",
+			},
+			new Role()
+			{
+				Id = Guid.NewGuid(),
+				Name = "Deliver",
 			}
 		};
 

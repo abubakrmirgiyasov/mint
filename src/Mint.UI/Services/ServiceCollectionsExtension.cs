@@ -8,16 +8,24 @@ public static class ServiceCollectionsExtension
 {
     public static void SetSession<T>(this ISession session, string key, T value)
     {
-        session.SetString(key, JsonSerializer.Serialize(value));
+        if (session.GetString(key) == null)
+        {
+            session.SetString(key, JsonSerializer.Serialize(value));
+        }
+        else
+        {
+            session.Remove(key);
+            session.SetString(key, JsonSerializer.Serialize(value));
+        }
     }
 
-    public static T? GetSession<T>(this ISession session, string key)
+    public static string GetSession(this ISession session, string key)
     {
         var value = session.GetString(key);
-        return value == null ? default : JsonSerializer.Deserialize<T>(value);
+        return value!;
     }
 
-    public static string GetRole<T>(this ISession session, string key)
+    public static string GetRole(this ISession session, string key)
     {
         try
         {
@@ -29,6 +37,14 @@ public static class ServiceCollectionsExtension
         catch
         {
             return null!;
+        }
+    }
+
+    public static void RemoveSession(this ISession session, string key)
+    {
+        if (session.GetString(key) != null)
+        {
+            session.Remove(key);
         }
     }
 }

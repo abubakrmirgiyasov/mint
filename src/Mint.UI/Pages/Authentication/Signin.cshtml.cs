@@ -1,17 +1,17 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Mint.Domain.Extensions;
+using Mint.Domain.Models;
 using Mint.Domain.ViewModels;
+using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
 using Mint.UI.Services;
-using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Mint.UI.Pages.Authentication
 {
     public class SigninModel : PageModel
     {
+        public User UserModel { get; set; } = null!;
+
         private readonly IAuthenticationRequest _authentication;
 
         public SigninModel(IAuthenticationRequest authentication)
@@ -21,9 +21,9 @@ namespace Mint.UI.Pages.Authentication
 
         public void OnGet()
         {
-            if (User.Identity!.IsAuthenticated)
+            if (HttpContext.IsAuthenticated())
             {
-                Response.Redirect("/test/users");
+                Response.Redirect("/");
             }
         }
 
@@ -31,14 +31,29 @@ namespace Mint.UI.Pages.Authentication
         {
             try
             {
-                var token = await _authentication.SignIn(user);
+                if (ModelState.IsValid)
+                {
+                    var token = await _authentication.SignIn(user);
 
-                HttpContext.Session.SetString("__ID-acces-token", token);
+                    if (user.RememberMe)
+                    {
+                        Params.ExpireTokenTime = 7;
+                    }
 
-                Response.Redirect("/test/users");
+                    HttpContext.Session.SetString("__ID-acces-token", token);
+
+                    User.AddIdentity(HttpContext.GetClaimsIdentity());
+
+                    Response.Redirect("/");
+                }
+                else
+                {
+                    ViewData["Message"] = "Неправильный логин/пароль";
+                }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 ViewData["Errors"] = ex.Message;
             }
         }
