@@ -140,6 +140,23 @@
             </div>
         </div>
     </header>
+    @if (ViewBag.BreadCrumbs != null)
+    {
+        <div class="container d-flex ml-auto mr-auto">
+            @foreach (var breadCrumb in ViewBag.BreadCrumbs)
+            {
+                if (breadCrumb.Active)
+                {
+                    <span class="breadcrumb-item active"><a href="/@breadCrumb.Page">@breadCrumb.Text</a> > </span>
+                }
+                else
+                {
+                    <span class="breadcrumb-item" aria-current="@breadCrumb.Page">@breadCrumb.Text</span>
+                }
+            }
+        </div>
+    }
+
     <main role="main" class="main d-flex flex-nowrap">
         @RenderBody()
     </main>

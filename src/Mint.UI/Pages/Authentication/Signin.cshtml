@@ -5,6 +5,14 @@
     ViewData["Title"] = "Авторизация";
 }
 
+@{
+    ViewBag.BreadCrumbs = new List<BreadCrumb>()
+    {
+        new BreadCrumb("Главная страница", "index", true),
+        new BreadCrumb(ViewBag.Title, "signin", false)
+    };
+}
+
 @ViewBag.Errors
 
 <div class="container d-flex ml-auto mr-auto">

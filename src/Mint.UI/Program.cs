@@ -1,7 +1,6 @@
 using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
 using Mint.Middleware.Services.Requests;
-using Mint.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

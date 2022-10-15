@@ -3,6 +3,7 @@ using Mint.Domain.Models;
 using Mint.Domain.ViewModels;
 using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
+using Mint.UI.Attributes;
 using Mint.UI.Services;
 using System.Security.Claims;
 
@@ -10,8 +11,6 @@ namespace Mint.UI.Pages.Authentication
 {
     public class SigninModel : PageModel
     {
-        public User UserModel { get; set; } = null!;
-
         private readonly IAuthenticationRequest _authentication;
 
         public SigninModel(IAuthenticationRequest authentication)
