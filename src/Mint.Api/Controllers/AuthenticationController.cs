@@ -12,7 +12,7 @@ namespace Mint.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-[Authorize(Roles = Constants.ADMIN, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class AuthenticationController : ControllerBase
 {
     private readonly IUserRepository _user;
@@ -23,6 +23,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = Constants.ADMIN)]
     public async Task<IActionResult> GetUsers()
     {
         try
@@ -51,6 +52,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpGet("{email}")]
+    [Authorize(Roles = Constants.ADMIN)]
     public async Task<IActionResult> GetUserByEmail(string email)
     {
         try
@@ -65,6 +67,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpGet("{phone}")]
+    [Authorize(Roles = Constants.ADMIN)]
     public async Task<IActionResult> GetUserByPhone(long phone)
     {
         try

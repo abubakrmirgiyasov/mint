@@ -569,6 +569,7 @@ body {
 }
 
 .loader {
+    margin-top: 1px;
     display: inline-block;
 }
 
@@ -598,4 +599,18 @@ body {
     border-color: var(--m-mint-back);
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(17, 206, 159, 0.25);
+}
+
+/* Content */
+
+.breadcrumb-item > a {
+    color: var(--m-black-color); 
+    text-decoration: none; 
+    border-bottom: 1px solid;
+}
+
+.breadcrumb-item {
+    color: #757575;
+    margin-right: 5px;
+    margin-left: 5px;
 }

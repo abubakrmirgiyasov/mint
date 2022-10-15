@@ -8,7 +8,5 @@ namespace Mint.Middleware.Services.Interfaces
         Task<string> SignIn(UserViewModel user);
 
         Task SignOut(UserViewModel user);
-
-        Task<List<User>> GetUsers();
     }
 }

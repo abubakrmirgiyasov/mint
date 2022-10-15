@@ -1,0 +1,18 @@
+﻿@page
+@model ProfileModel
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+<div class="container d-flex ml-auto mr-auto">
+    <form method="post">
+        <div class="form-floating">
+            <label>Image</label>
+            <input type="file" class="form-control" name="File" />
+        </div>
+    </form>
+</div>
+
+<div>
+    @Model.UserViewModel.FirstName @Model.UserViewModel.SecondName @Model.UserViewModel.Email
+</div>

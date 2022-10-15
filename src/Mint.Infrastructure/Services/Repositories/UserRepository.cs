@@ -109,7 +109,7 @@ public class UserRepository : IUserRepository
         var encodedPassword = Encrypt.EncodePassword(password);
         var userWithEmail = await _context.Users
             .Include(x => x.Role)
-            //.Include(x => x.Photos)
+            .Include(x => x.Photos)
             .FirstOrDefaultAsync(x => x.Email == login && x.Password == encodedPassword);
 
         if (userWithEmail == null)
@@ -135,7 +135,14 @@ public class UserRepository : IUserRepository
                 new Claim(ClaimTypes.Name, $"{userWithEmail.FirstName} {userWithEmail.SecondName}"),
                 new Claim(ClaimTypes.Email, userWithEmail.Email),
                 new Claim(ClaimTypes.Role, userWithEmail.Role!.Name),
+                new Claim(ClaimTypes.NameIdentifier, userWithEmail.Id.ToString()),
+                new Claim(ClaimTypes.UserData, "")
             };
+
+            foreach (var item in userWithEmail.Photos!)
+            {
+                claims.Add(new Claim(ClaimTypes.UserData, item.FileBytes.ToString()!));
+            }
 
             var token = new JwtSecurityToken(
                 issuer: Constants.ISSUER,

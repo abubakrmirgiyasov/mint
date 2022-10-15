@@ -119,11 +119,25 @@
                         @if (Context.IsAuthenticated())
                         {
                             <div class="user-profile">
-                                <img src="" alt="">
+                                @if (Context.GetUserPicture() == null)
+                                {
+                                    <img src="~/images/icons/auth-header-avatar.png">
+                                }
+                                else
+                                {
+                                    <img src="@Context.GetUserPicture()">
+                                }
                             </div>
                             <div class="user-list">
                                 <ul class="user-ul">
-                                    <li class="user-item"><a href="/">Профиль</a></li>
+                                    @if (Context.GetUserId() == Guid.Empty)
+                                    {
+                                        <li class="user-item"><a href="/">Профиль</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="user-item"><a href="/user/profile?user=@Context.GetUserId()">Профиль</a></li>
+                                    }
                                     <li class="user-item"><a href="/">Ностройки</a></li>
                                     <li class="user-item"><a href="/">Корзина</a></li>
                                     <li class="user-item"><a href="/">Заказы</a></li>
@@ -154,11 +168,11 @@
             {
                 if (breadCrumb.Active)
                 {
-                    <span class="breadcrumb-item active"><a href="@breadCrumb.Page" style="color: #505050;">@breadCrumb.Text</a> > </span>
+                    <span class="breadcrumb-item active"><a href="@breadCrumb.Page">@breadCrumb.Text</a></span><span>/</span>
                 }
                 else
                 {
-                    <span class="breadcrumb-item" aria-current="@breadCrumb.Page" style="color: #757575;">@breadCrumb.Text</span>
+                    <span class="breadcrumb-item" aria-current="@breadCrumb.Page"> @breadCrumb.Text</span>
                 }
             }
         </div>

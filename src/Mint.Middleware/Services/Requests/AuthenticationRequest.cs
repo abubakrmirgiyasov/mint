@@ -7,12 +7,6 @@ namespace Mint.Middleware.Services.Requests;
 
 public class AuthenticationRequest : IAuthenticationRequest
 {
-    public async Task<List<User>> GetUsers()
-    {
-        var baseRequestService = new RequestService<List<User>>(true);
-        return await baseRequestService.GetRequestAsync("api/authentication/getusers");
-    }
-
     public async Task<string> SignIn(UserViewModel user)
     {
         var baseRequestService = new RequestService<string>(false);
