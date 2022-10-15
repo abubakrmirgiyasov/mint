@@ -118,11 +118,18 @@
                     <div class="sign-in-box">
                         @if (Context.IsAuthenticated())
                         {
-                            <div class="">
-
+                            <div class="user-profile">
+                                <img src="" alt="">
                             </div>
-
-                            <a href="/adminpanel">Admin</a>
+                            <div class="user-list">
+                                <ul class="user-ul">
+                                    <li class="user-item"><a href="/">Профиль</a></li>
+                                    <li class="user-item"><a href="/">Ностройки</a></li>
+                                    <li class="user-item"><a href="/">Корзина</a></li>
+                                    <li class="user-item"><a href="/">Заказы</a></li>
+                                    <li class="user-item"><a href="/">Выйти</a></li>
+                                </ul>
+                            </div>
                         }
                         else
                         {
@@ -142,21 +149,20 @@
     </header>
     @if (ViewBag.BreadCrumbs != null)
     {
-        <div class="container d-flex ml-auto mr-auto">
+        <div class="container d-flex ml-auto mr-auto" style="margin: 10px auto;">
             @foreach (var breadCrumb in ViewBag.BreadCrumbs)
             {
                 if (breadCrumb.Active)
                 {
-                    <span class="breadcrumb-item active"><a href="/@breadCrumb.Page">@breadCrumb.Text</a> > </span>
+                    <span class="breadcrumb-item active"><a href="@breadCrumb.Page" style="color: #505050;">@breadCrumb.Text</a> > </span>
                 }
                 else
                 {
-                    <span class="breadcrumb-item" aria-current="@breadCrumb.Page">@breadCrumb.Text</span>
+                    <span class="breadcrumb-item" aria-current="@breadCrumb.Page" style="color: #757575;">@breadCrumb.Text</span>
                 }
             }
         </div>
     }
-
     <main role="main" class="main d-flex flex-nowrap">
         @RenderBody()
     </main>

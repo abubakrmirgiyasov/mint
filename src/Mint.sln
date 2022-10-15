@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Infrastructure", "Mint
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Middleware", "Mint.Middleware\Mint.Middleware.csproj", "{DAAE5AB3-D378-47B3-A444-350F63437CE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF8FDEEC-217E-43AE-8371-E1C08243616F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ACA18981-FA7B-4D85-B12A-B0F17DE46FAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E06EEE81-326B-4DC3-9363-75EBE9C203C2} = {DF8FDEEC-217E-43AE-8371-E1C08243616F}
+		{9BD29EF5-B697-4A2F-8A45-EBACE6A2EF21} = {DF8FDEEC-217E-43AE-8371-E1C08243616F}
+		{B5415DA4-AAE4-41F9-9B6E-5414F81E99B0} = {DF8FDEEC-217E-43AE-8371-E1C08243616F}
+		{8AA10D90-1F4F-4CC4-BD71-820789AD3E22} = {DF8FDEEC-217E-43AE-8371-E1C08243616F}
+		{DAAE5AB3-D378-47B3-A444-350F63437CE0} = {DF8FDEEC-217E-43AE-8371-E1C08243616F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15D38639-FD5D-436A-A990-E81FFD499A20}
