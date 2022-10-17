@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Mint.UI.Services;
 
-public static class ServiceCollectionsExtension
+public static class SessionCollectionsExtension
 {
     public static void SetSession<T>(this ISession session, string key, T value)
     {

@@ -25,7 +25,7 @@ public static class UserAuthenticationService
     {
         try
         {
-            var token = ServiceCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -85,7 +85,7 @@ public static class UserAuthenticationService
     {
         try
         {
-            var token = ServiceCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -105,7 +105,7 @@ public static class UserAuthenticationService
     {
         try
         {
-            var token = ServiceCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();

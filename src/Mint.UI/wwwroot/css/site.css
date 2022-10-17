@@ -555,7 +555,70 @@ body {
 }
 
 .image-logo {
-    margin-top: 35px;
+    margin-top: 20px;
+}
+
+/* Custom check box */
+
+.check-label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.check-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid var(--m-mint-back);
+}
+
+.check-label:hover input ~ .checkmark {
+    background-color: var(--m-mint-back);
+}
+
+.check-label input:checked ~ .checkmark {
+    background-color: var(--m-mint-back);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.check-label input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.check-label .checkmark:after {
+    left: 7px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .login-btn-w {
@@ -563,10 +626,34 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #FFF;
     font-size: 18px;
     width: 200px;
+    transition: border-color .15s 
+        ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.login-btn-w:hover {
+    background-color: #058b7f;
+}
+
+.login-btn-w:focus {
+    box-shadow: 0 0 0 4px rgba(17, 206, 159, 0.25);
+}
+
+/* .login-btn-w::before {
+    content: '';
+    background-image: url(../images/icons/sign-in.svg);
+    background-size: 25px 25px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 300;
+    line-height: 1;
+    text-transform: none;
+    width: 25px;
+    height: 25px;
+} */
 
 .loader {
     margin-top: 1px;
@@ -598,7 +685,20 @@ body {
     background-color: #fff;
     border-color: var(--m-mint-back);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(17, 206, 159, 0.25);
+    box-shadow: 0 0 0 0.8px rgba(17, 206, 159, 0.25);
+}
+
+.sign-up-text {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.sign-in-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px 0;
+    padding: 10px;
 }
 
 /* Content */
