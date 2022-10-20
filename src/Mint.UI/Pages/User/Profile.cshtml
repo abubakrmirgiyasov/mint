@@ -4,15 +4,124 @@
     ViewData["Title"] = "Профиль";
 }
 
-<div class="container d-flex ml-auto mr-auto">
-    <form method="post">
-        <div class="form-floating">
-            <label>Image</label>
-            <input type="file" class="form-control" name="File" />
-        </div>
-    </form>
-</div>
+<style>
+    .user-image {
+        margin-right: 15px;
+        margin-top: 15px;
+        border-radius: 107px;
+        width: 120px;
+        height: 120px;
+        background: #000;
+    }
 
-<div>
-    @Model.UserViewModel.FirstName @Model.UserViewModel.SecondName @Model.UserViewModel.Email
+    .user-image > .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .setting-box {
+        background: #F0F0F0;
+        width: 900px;
+        background: #EFEFEF;
+        box-shadow: 0px 3px 10px -3px rgba(0, 0, 0, 0.47);
+        border-radius: 20px;
+    }
+
+    .cnt-menu {
+        display: flex;
+        color: #505050;
+        justify-content: space-between;
+        margin: 20px 20px 0px 20px;
+        padding: 0px 20px;
+        list-style: none;
+        border-bottom: 1px solid #505050;
+    }
+
+    .cnt-menu > li > a {
+        color: #505050;
+        display: block;
+        margin-bottom: -1px;
+        background-color: #f0f0f0;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: color .15s 
+            ease-in-out, background-color .15s 
+            ease-in-out, border-color .15s 
+            ease-in-out;
+    }
+
+    .cnt-a-active {
+        color: #808080 !important;
+        border: 1px solid #505050;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-color: transparent;
+    }
+</style>
+
+@{
+    ViewBag.BreadCrumbs = new List<BreadCrumb>()
+    {
+        new BreadCrumb("Главная страница", "/", true),
+        new BreadCrumb(ViewBag.Title, "/profile", false)
+    };
+}
+
+<div class="container d-flex ml-auto mr-auto">
+    <div class="user-image">
+        @if (HttpContext.GetUserPicture() == null)
+        {
+            <img src="~/images/icons/auth-header-avatar.png" class="profile-pic">
+        }
+        else
+        {
+            <img src="@HttpContext.GetUserPicture()" class="profile-pic">
+        }
+    </div>
+    <div class="setting-box">
+        <div class="cnt-content">
+            <ul class="cnt-menu">
+                <li><a href="" class="abubakr-c cnt-a-active" id="profile">Профиль</a></li>
+                <li><a href="" class="abubakr-c" id="orders">Заказы</a></li>
+                <li><a href="" class="abubakr-c">Корзина</a></li>
+                <li><a href="" class="abubakr-c">Избранное</a></li>
+                <li><a href="" class="abubakr-c">Купоны</a></li>
+            </ul>
+        </div>
+        <form action="post" class="profile-settings-fm tb-content profile">
+            <div class="form-floating">
+                <label for="fname">Фамилия</label>
+                <input type="text" class="form-control" name="FirstName" id="fname" value="@Model.UserViewModel.FirstName" readonly />
+            </div>
+            <div class="form-floating">
+                <label for="sname">Имя</label>
+                <input type="text" class="form-control" name="SecondName" id="sname" value="@Model.UserViewModel.SecondName" readonly />
+            </div>
+            <div class="form-floating">
+                <label for="lname">Отчество</label>
+                <input type="text" class="form-control" name="LastName" id="lname" value="@Model.UserViewModel.LastName" readonly />
+            </div>
+            <div class="form-floating">
+                <label>Дата создание</label>
+                <input type="text" class="form-control" name="Date" value="@Model.UserViewModel.CreatedDate" readonly />
+            </div>
+            <div class="form-floating">
+                <label for="email">Почта</label>
+                <input type="email" class="form-control" name="Email" id="email" value="@Model.UserViewModel.Email" readonly />
+            </div>
+            <div class="form-floating">
+                <label for="phone">Телефон</label>
+                <input type="tel" class="form-control" name="Phone" id="phone" value="@Model.UserViewModel.Phone" readonly />
+            </div>
+            <div class="form-floating">
+                <label for="file">Картинка</label>
+                <input type="file" class="form-control" name="File" id="file" readonly />
+            </div>
+        </form>
+        <div class="tb-content orders" style="display: none;">
+            ljksad  gfaksddgf f jkasddgff  jhdkaas
+            <br>
+            asihfdiopaH FIUSABHFD  UIS FGAIUS FPIBS FAPIUBSD
+        </div>
+    </div>
 </div>

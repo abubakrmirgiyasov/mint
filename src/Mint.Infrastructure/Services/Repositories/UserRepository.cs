@@ -132,7 +132,7 @@ public class UserRepository : IUserRepository
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, $"{userWithEmail.FirstName} {userWithEmail.SecondName}"),
+                new Claim(ClaimTypes.Name, userWithEmail.FirstName),
                 new Claim(ClaimTypes.Email, userWithEmail.Email),
                 new Claim(ClaimTypes.Role, userWithEmail.Role!.Name),
                 new Claim(ClaimTypes.NameIdentifier, userWithEmail.Id.ToString()),
@@ -148,7 +148,7 @@ public class UserRepository : IUserRepository
                 issuer: Constants.ISSUER,
                 audience: Constants.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(1), // test
+                expires: DateTime.UtcNow.AddMinutes(10), // test
                 signingCredentials: new SigningCredentials(
                     Constants.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 

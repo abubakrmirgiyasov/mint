@@ -46,6 +46,8 @@ public class User
     [MaxLength(255, ErrorMessage = "Перевышено макс. длина строки (255).")]
     public string ConfirmedPassword { get; set; } = "";
 
+    public string Ip { get; set; } = "";
+
     public Guid? RoleId { get; set; }
 
     public Role? Role { get; set; }

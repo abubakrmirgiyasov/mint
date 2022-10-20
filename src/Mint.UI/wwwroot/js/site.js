@@ -18,3 +18,27 @@ window.addEventListener("click", event => {
         }
     }
 });
+
+const buttons = document.querySelectorAll("a[class^=abubakr-c");
+buttons.forEach(button => {
+    button.addEventListener("click", event => {
+        event.preventDefault();
+
+        var tabContent = document.getElementsByClassName("tb-content");
+        var tablinks = document.getElementsByClassName("abubakr-c");
+
+        for (var i = 0; i < tabContent.length; i++) {
+            tabContent[i].style.display = "none";
+        }
+
+        for (var i = 0; i < tabContent.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" cnt-a-active", "");
+        }
+
+        console.log(button.className);
+        const x = document.querySelector("." + button.id);
+        console.log(x);
+        x.style.display = "block";
+        event.currentTarget.className += " cnt-a-active";
+    });
+});

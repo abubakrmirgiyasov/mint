@@ -40,6 +40,14 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.CategoryId)
 			.OnDelete(DeleteBehavior.NoAction);
 
+		builder.Entity<User>()
+			.HasIndex(x => x.Email)
+			.IsUnique(true);
+
+		builder.Entity<User>()
+			.HasIndex(x => x.Phone)
+			.IsUnique(true);
+
 		var roles = new Role[]
 		{
 			new Role()
@@ -68,6 +76,7 @@ public class ApplicationDbContext : DbContext
 				LastName = "Мукимжонович",
 				Email = "abubakrmirgiyasov@gmail.com",
 				Phone = 89502768428,
+				Ip = "127.0.0.1",
 				Password = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
 				ConfirmedPassword = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
 				RoleId = roles[0].Id,
@@ -76,9 +85,9 @@ public class ApplicationDbContext : DbContext
             {
                 FirstName = "Test",
                 SecondName = "User",
-                LastName = "",
                 Email = "test@gmail.com",
-                Phone = 89502768428,
+                Phone = 89502768529,
+                Ip = "127.0.0.2",
                 Password = Encrypt.EncodePassword("test_1"),
                 ConfirmedPassword = Encrypt.EncodePassword("test_1"),
                 RoleId = roles[1].Id,

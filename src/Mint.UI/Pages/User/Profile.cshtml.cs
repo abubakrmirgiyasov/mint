@@ -4,28 +4,27 @@ using Mint.Domain.ViewModels;
 using Mint.Middleware.Services.Interfaces;
 using Mint.UI.Services;
 
-namespace Mint.UI.Pages.User
+namespace Mint.UI.Pages.User;
+
+public class ProfileModel : PageModel
 {
-    public class ProfileModel : PageModel
+    internal UserViewModel UserViewModel { get; set; } = null!;
+
+    private readonly IUserRequest _userRequest;
+
+    public ProfileModel(IUserRequest userRequest)
     {
-        internal UserViewModel UserViewModel { get; set; } = null!;
+        _userRequest = userRequest;
+    }
 
-        private readonly IUserRequest _userRequest;
-
-        public ProfileModel(IUserRequest userRequest)
+    public async Task OnGet()
+    {
+        if (!HttpContext.IsAuthenticated())
         {
-            _userRequest = userRequest;
+            Response.Redirect("/authentication/signin");
         }
 
-        public async Task OnGet()
-        {
-            if (!HttpContext.IsAuthenticated())
-            {
-                Response.Redirect("/authentication/signin");
-            }
-
-            var user = await _userRequest.GetUserById(Guid.Parse(Request.Query["user"]));
-            UserViewModel = new UserManager().FormingViewModel(user);
-        }
+        var user = await _userRequest.GetUserById(Guid.Parse(Request.Query["user"]));
+        UserViewModel = new UserManager().FormingViewModel(user);
     }
 }

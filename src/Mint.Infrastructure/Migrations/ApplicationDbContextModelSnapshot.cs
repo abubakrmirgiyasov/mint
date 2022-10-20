@@ -97,17 +97,17 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c728e145-da15-466e-b58e-f96ba7deabb3"),
+                            Id = new Guid("d6c67490-4d73-4a93-8977-075f5f544fc1"),
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("d22d6248-5b12-4063-b74a-42bb1e14fece"),
+                            Id = new Guid("9a1b2b39-3cb5-47f1-b3cc-40b407bf5ee0"),
                             Name = "Buyer"
                         },
                         new
                         {
-                            Id = new Guid("4d9cf464-5a60-4a01-9623-961a2224d865"),
+                            Id = new Guid("39f5d241-ffb8-4d96-ad8f-c0d3593f2f3e"),
                             Name = "Deliver"
                         });
                 });
@@ -135,6 +135,10 @@ namespace Mint.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Ip")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActiveAccount")
                         .HasColumnType("bit");
@@ -164,6 +168,12 @@ namespace Mint.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
@@ -171,32 +181,33 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("12d4567f-edc5-4279-a279-2bf29f0b88ad"),
+                            Id = new Guid("25eb59cd-ce55-4b86-8b70-50519894ca2f"),
                             ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
-                            CreatedDate = new DateTime(2022, 10, 14, 19, 57, 47, 715, DateTimeKind.Local).AddTicks(1946),
+                            CreatedDate = new DateTime(2022, 10, 20, 20, 0, 12, 384, DateTimeKind.Local).AddTicks(9187),
                             Email = "abubakrmirgiyasov@gmail.com",
                             FirstName = "Миргиясов",
+                            Ip = "127.0.0.1",
                             IsActiveAccount = true,
                             LastName = "Мукимжонович",
                             NumOfAttempts = 0,
                             Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Phone = 89502768428L,
-                            RoleId = new Guid("c728e145-da15-466e-b58e-f96ba7deabb3"),
+                            RoleId = new Guid("d6c67490-4d73-4a93-8977-075f5f544fc1"),
                             SecondName = "Абубакр"
                         },
                         new
                         {
-                            Id = new Guid("a43206c9-12ed-49c5-b86e-d6c739b26671"),
+                            Id = new Guid("74f74828-851b-4662-8692-999b6bf2ca3d"),
                             ConfirmedPassword = "dGVzdF8x",
-                            CreatedDate = new DateTime(2022, 10, 14, 19, 57, 47, 715, DateTimeKind.Local).AddTicks(1983),
+                            CreatedDate = new DateTime(2022, 10, 20, 20, 0, 12, 384, DateTimeKind.Local).AddTicks(9229),
                             Email = "test@gmail.com",
                             FirstName = "Test",
+                            Ip = "127.0.0.2",
                             IsActiveAccount = true,
-                            LastName = "",
                             NumOfAttempts = 0,
                             Password = "dGVzdF8x",
-                            Phone = 89502768428L,
-                            RoleId = new Guid("d22d6248-5b12-4063-b74a-42bb1e14fece"),
+                            Phone = 89502768529L,
+                            RoleId = new Guid("9a1b2b39-3cb5-47f1-b3cc-40b407bf5ee0"),
                             SecondName = "User"
                         });
                 });
