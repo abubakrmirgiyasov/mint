@@ -21,7 +21,7 @@ public class Photo
 
     public User? User { get; set; }
 
-    public Guid? CategoryId { get; set; }
+    public Guid? BrandId { get; set; }
 
-    public Category? Category { get; set; }
+    public Brand? Brand { get; set; }
 }

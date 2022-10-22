@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Дашборд</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>150</h3>
+                    <p>Новые Заказы</p>
+                </div>
+                <div class="icon">
+                    <i class="bi bi-table bi-table-2"></i>
+                </div>
+                <a href="#" class="small-box-footer bg-info-2">More info <i class="bi bi-arrow-right-circle"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <p data-toggle="tooltip" data-placement="top" title="Тут считается сколько из 100 пользователей добавили товар в избранное">Добавлено в Избранное <i class="bi bi-question-circle"></i></p>
+                </div>
+                <div class="icon">
+                    <i class="bi bi-heart"></i>
+                </div>
+                <a href="#" class="small-box-footer bg-success-2">More info <i class="bi bi-arrow-right-circle"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>44</h3>
+                    <p>Новые Регистрации</p>
+                </div>
+                <div class="icon">
+                    <i class="bi bi-person-plus"></i>
+                </div>
+                <a href="#" class="small-box-footer bg-warning-2">More info <i class="bi bi-arrow-right-circle"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>65</h3>
+                    <p>Уникальные Посетители</p>
+                </div>
+                <div class="icon">
+                    <i class="bi bi-pie-chart-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer bg-danger-2">More info <i class="bi bi-arrow-right-circle"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

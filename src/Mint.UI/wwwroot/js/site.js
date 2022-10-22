@@ -35,9 +35,7 @@ buttons.forEach(button => {
             tablinks[i].className = tablinks[i].className.replace(" cnt-a-active", "");
         }
 
-        console.log(button.className);
         const x = document.querySelector("." + button.id);
-        console.log(x);
         x.style.display = "block";
         event.currentTarget.className += " cnt-a-active";
     });

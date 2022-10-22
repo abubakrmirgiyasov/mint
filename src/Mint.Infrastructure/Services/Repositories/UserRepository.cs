@@ -54,7 +54,7 @@ public class UserRepository : IUserRepository
         user.RoleId = role!.Id;
 
         var photos = await _context.AddPhotoAsync(user.Files!);
-        //user.Photos = photos;
+        user.Photos = photos;
 
         if (user.Password == user.ConfirmedPassword)
         {
@@ -78,7 +78,7 @@ public class UserRepository : IUserRepository
         user.RoleId = role!.Id;
 
         var photos = await _context.AddPhotoAsync(user.Files!);
-        //user.Photos = photos;
+        user.Photos = photos;
 
         if (user.Password == user.ConfirmedPassword)
         {

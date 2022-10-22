@@ -15,7 +15,7 @@ public class ApplicationDbContext : DbContext
 
 	public DbSet<Category> Categories { get; set; } = null!;
 
-	//public DbSet<Error> Errors { get; set; } = null!;
+	public DbSet<Brand> Brands { get; set; } = null!;
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
 		: base(options) { }
@@ -34,12 +34,6 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.UserId)
 			.OnDelete(DeleteBehavior.NoAction);
 
-		builder.Entity<Photo>()
-			.HasOne(x => x.Category)
-			.WithMany(x => x.Photos)
-			.HasForeignKey(x => x.CategoryId)
-			.OnDelete(DeleteBehavior.NoAction);
-
 		builder.Entity<User>()
 			.HasIndex(x => x.Email)
 			.IsUnique(true);
@@ -48,7 +42,19 @@ public class ApplicationDbContext : DbContext
 			.HasIndex(x => x.Phone)
 			.IsUnique(true);
 
-		var roles = new Role[]
+        builder.Entity<Photo>()
+            .HasOne(x => x.Brand)
+            .WithMany(x => x.Photos)
+            .HasForeignKey(x => x.BrandId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+		builder.Entity<Brand>()
+			.HasOne(x => x.Category)
+			.WithMany(x => x.Brands)
+			.HasForeignKey(x => x.CategoryId)
+			.OnDelete(DeleteBehavior.NoAction);
+
+        var roles = new Role[]
 		{
 			new Role()
 			{
@@ -94,8 +100,58 @@ public class ApplicationDbContext : DbContext
             }
         };
 
+		var categories = new Category[]
+		{
+			new Category() 
+			{
+				Id = Guid.NewGuid(),
+				Name = "Смартфоны",
+			},
+            new Category() 
+			{
+				Id = Guid.NewGuid(),
+				Name = "Аксессуары",
+			},
+            new Category() 
+			{ 
+				Id = Guid.NewGuid(),
+				Name = "Гаджеты",
+			},
+        };
+
+		var brands = new Brand[]
+		{
+			new Brand()
+			{
+				Name = "Apple Iphone",
+				CategoryId = categories[0].Id,
+			},
+			new Brand()
+			{
+                Name = "Xiaomi",
+                CategoryId = categories[0].Id,
+            },
+            new Brand()
+            {
+                Name = "Экшн-камеры",
+                CategoryId = categories[2].Id,
+            },
+            new Brand()
+            {
+                Name = "Умные брелоки",
+                CategoryId = categories[2].Id,
+            },
+			new Brand()
+			{
+				Name = "Смарт часы",
+				CategoryId = categories[1].Id,
+			}
+		};
+
 		builder.Entity<Role>().HasData(roles);
 		builder.Entity<User>().HasData(users);
+		builder.Entity<Brand>().HasData(brands);
+		builder.Entity<Category>().HasData(categories);
 	}
 
 	public async Task<List<Photo>> AddPhotoAsync(IFormFileCollection files)
