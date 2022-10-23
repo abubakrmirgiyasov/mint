@@ -153,45 +153,4 @@ public class ApplicationDbContext : DbContext
 		builder.Entity<Brand>().HasData(brands);
 		builder.Entity<Category>().HasData(categories);
 	}
-
-	public async Task<List<Photo>> AddPhotoAsync(IFormFileCollection files)
-	{
-		try
-		{
-            var photos = new List<Photo>();
-
-			if (files.Count > 0)
-			{
-				foreach (var file in files)
-				{
-					if (file.Length > 0)
-					{
-						using var ms = new MemoryStream();
-
-						await file.CopyToAsync(ms);
-
-						if (ms.Length < 4194304)
-						{
-							var newPhoto = new Photo()
-							{
-								FileName = Path.GetFileName(file.FileName),
-								FileSize = ms.Length,
-								FileExtension = Path.GetExtension(file.FileName.Contains(".webp") ? file.FileName : ".webp"),
-								FilePath = Path.GetFullPath(file.FileName),
-								FileBytes = ms.ToArray(),
-							};
-
-							photos.Add(newPhoto);
-						}
-					}
-				}
-			}
-
-            return photos;
-        }
-        catch (Exception ex)
-		{
-			throw new Exception(ex.Message, ex);
-		}
-	}
 }

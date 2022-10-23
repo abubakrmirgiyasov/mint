@@ -118,7 +118,7 @@
                     <div class="sign-in-box">
                         @if (Context.IsAuthenticated())
                         {
-                            <div class="user-profile">
+                            <div class="user-profile sst-box" id="userBox">
                                 @if (Context.GetUserPicture() == null)
                                 {
                                     <img src="~/images/icons/auth-header-avatar.png">
@@ -128,21 +128,20 @@
                                     <img src="@Context.GetUserPicture()">
                                 }
                             </div>
-                            <div class="user-list signed-user-func signed-user-func-active">
-                                <ul class="user-ul">
-                                    @if (Context.GetUserId() == Guid.Empty)
-                                    {
-                                        <li class="user-item"><a href="/">Профиль</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="user-item d-flex"><a href="/user/profile?user=@Context.GetUserId()">Профиль</a></li>
-                                    }
-                                    <li class="user-item d-flex"><a href="/">Купоны</a></li>
-                                    <li class="user-item d-flex"><a href="/">Корзина</a></li>
-                                    <li class="user-item d-flex"><a href="/">Заказы</a></li>
-                                    <li class="user-item d-flex"><a href="/authentication/logout">Выйти</a></li>
-                                </ul>
+                            <div class="user-list signed-user-func" id="activeUserFunc">
+                                @if (Context.GetUserId() == Guid.Empty)
+                                {
+                                    <a href="/">Профиль</a>
+                                }
+                                else
+                                {
+                                    <a href="/user/profile?user=@Context.GetUserId()">Профиль</a>
+                                }
+                                <a href="/">Купоны</a>
+                                <a href="/">Корзина</a>
+                                <a href="/">Заказы</a>
+                                <hr>
+                                <a href="/authentication/logout">Выйти</a>
                             </div>
                         }
                         else

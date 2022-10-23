@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mint.Domain.BindingModels;
 using Mint.Domain.ViewModels;
 using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
@@ -23,7 +24,7 @@ namespace Mint.UI.Pages.Authentication
             }
         }
 
-        public async Task OnPost(UserViewModel user)
+        public async Task OnPost(UserBindingModel user)
         {
             try
             {
@@ -31,10 +32,10 @@ namespace Mint.UI.Pages.Authentication
                 {
                     var token = await _authentication.SignIn(user);
 
-                    if (user.RememberMe)
-                    {
-                        Params.ExpireTokenTime = 7;
-                    }
+                    //if (bool.Parse(Request.Query["RememberMe"]) == true)
+                    //{
+                    //    Params.ExpireTokenTime = 7;
+                    //}
 
                     HttpContext.Session.SetString("__ID-acces-token", token);
 

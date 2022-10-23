@@ -1,0 +1,56 @@
+﻿@page
+@model SingupModel
+@{
+    ViewData["Title"] = "Регистрация";
+
+    ViewBag.BreadCrumbs = new List<BreadCrumb>()
+    {
+        new BreadCrumb("Главная страница", "/", true),
+        new BreadCrumb(ViewBag.Title, "/signup", false)
+    };
+}
+
+<div class="container d-flex ml-auto mr-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="fname" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" name="FirstName" id="fname" placeholder="Фамилия">
+            <span class="text-danger field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+        </div>
+        <div class="mb-3">
+            <label for="sname" class="form-label">Имя</label>
+            <input type="text" class="form-control" name="SecondName" id="sname" placeholder="Имя" required>
+        </div>
+        <div class="mb-3">
+            <label for="lname" class="form-label">Отчество</label>
+            <input type="text" class="form-control" name="LastName" id="lname" placeholder="Отчество">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="Email" id="email" placeholder="name@example.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="tel" class="form-control" name="Phone" id="phone" placeholder="+7(987)-654-32-10" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" name="Password" id="password" placeholder="Пароль" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Повторите Пароль</label>
+            <input type="password" class="form-control" name="ConfirmPassword" id="confirmPassword" placeholder="Повторите Пароль" required>
+        </div>
+        <div class="mb-3">
+            <label for="file" class="form-label">Выберете фото</label>
+            <input type="file" class="form-control" name="Files" id="file">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts { 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

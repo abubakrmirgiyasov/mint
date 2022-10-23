@@ -3,9 +3,7 @@
 
 @{
     ViewData["Title"] = "Авторизация";
-}
 
-@{
     ViewBag.BreadCrumbs = new List<BreadCrumb>()
     {
         new BreadCrumb("Главная страница", "/", true),
@@ -23,11 +21,11 @@
         </div>
         <div class="form-floating">
             <label for="email">Почта</label>
-            <input type="email" class="form-control" id="email" name="Email" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" name="Email" placeholder="name@example.com" required>
         </div>
         <div class="form-floating">
             <label for="password">Пароль</label>
-            <input type="password" class="form-control" id="password" name="Password" placeholder="Пароль">
+            <input type="password" class="form-control" id="password" name="Password" placeholder="Пароль" required>
         </div>
         <div class="checkbox mb-3 sign-up-text">
             <div class="ii-3">

@@ -14,9 +14,7 @@ public interface IUserRepository
 
     Task<User> GetUserByPhoneAync(long phone);
 
-    Task<User> AddUserWithPhoneAync(User user);
-
-    Task<User> AddUserWithEmailAync(User user);
+    Task<User> AddUserAync(UserBindingModel user);
 
     Task<User> UpdateUserAync(User user);
 

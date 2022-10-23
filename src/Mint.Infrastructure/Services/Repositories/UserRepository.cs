@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Mint.Domain.BindingModels;
 using Mint.Domain.Exceptions;
 using Mint.Domain.Extensions;
+using Mint.Domain.FormingModels;
 using Mint.Domain.Models;
 using Mint.Infrastructure.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
@@ -43,55 +45,24 @@ public class UserRepository : IUserRepository
         return user ?? throw new ContentNotFoundException("Пользователь не найден");
     }
 
-    public async Task<User> AddUserWithPhoneAync(User user)
+    public async Task<User> AddUserAync(UserBindingModel user)
     {
-        _ = await GetUserByPhoneAync(user.Phone) ?? throw new Exception("Пользователь с таким телефоном существует");
+        var similarUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.Email!);
 
-        user.Password = Encrypt.EncodePassword(user.Password);
-        user.ConfirmedPassword = Encrypt.EncodePassword(user.ConfirmedPassword);
-
-        var role = await _context.Roles.FirstOrDefaultAsync(x => x.Name == Constants.BUYER);
-        user.RoleId = role!.Id;
-
-        var photos = await _context.AddPhotoAsync(user.Files!);
-        user.Photos = photos;
-
-        if (user.Password == user.ConfirmedPassword)
+        if (similarUser != null)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
-            return user;
+            throw new SimilarUserException("Пользователь с такой почтой существует");
         }
 
-        return null!;
-    }
-
-    public async Task<User> AddUserWithEmailAync(User user)
-    {
-        _ = await GetUserByEmailAync(user.Email) ?? throw new Exception("Пользователь с такой почтой существует");
-
-        user.Password = Encrypt.EncodePassword(user.Password);
-        user.ConfirmedPassword = Encrypt.EncodePassword(user.ConfirmedPassword);
+        var newUser = new UserManager().FormingBindingModel(user);
 
         var role = await _context.Roles.FirstOrDefaultAsync(x => x.Name == Constants.BUYER);
-        user.RoleId = role!.Id;
+        newUser.RoleId = role!.Id;
 
-        var photos = await _context.AddPhotoAsync(user.Files!);
-        user.Photos = photos;
-
-        if (user.Password == user.ConfirmedPassword)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
-        await _context.Users.AddAsync(user);
+        await _context.Users.AddAsync(newUser);
         await _context.SaveChangesAsync();
 
-        return user;
+        return newUser;
     }
 
     public Task<User> UpdateUserAync(User user)

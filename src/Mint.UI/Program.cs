@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Mint.Middleware.Extensions;
 using Mint.Middleware.Services.Interfaces;
 using Mint.Middleware.Services.Requests;
@@ -32,6 +33,12 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions()
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                       ForwardedHeaders.XForwardedProto
+});
 
 app.UseCookiePolicy();
 app.UseSession();

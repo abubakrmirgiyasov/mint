@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4D1CC201-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.UserApi", "..\test\Test.UserApi\Test.UserApi.csproj", "{B472F744-F03D-42C6-BE2C-E221CF09157D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mint.Admin", "Mint.Admin\Mint.Admin.csproj", "{A23564C4-BFC3-47C3-9A6B-669D67FA16FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mint.Admin", "Mint.Admin\Mint.Admin.csproj", "{A23564C4-BFC3-47C3-9A6B-669D67FA16FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

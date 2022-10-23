@@ -24,6 +24,13 @@ public class ExceptionHandlingEtensions
         {
             await _next(httpContext);
         }
+        catch (SimilarUserException ex)
+        {
+            await HandleExceptionAsync(
+                httpContext: httpContext,
+                message: ex.Message,
+                code: HttpStatusCode.Forbidden);
+        }
         catch (ForbiddenException ex)
         {
             await HandleExceptionAsync(

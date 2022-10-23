@@ -4,7 +4,8 @@ namespace Mint.Domain.Models;
 
 public class Photo
 {
-    public Guid Id { get; set; }
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [MaxLength(100, ErrorMessage = "Название файла слишком большое")]
     public string FileName { get; set; } = "";

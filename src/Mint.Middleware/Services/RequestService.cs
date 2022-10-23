@@ -20,7 +20,7 @@ public class RequestService<T>
 
     private void SetHttpClient()
     {
-        Client = new HttpClient { BaseAddress = new Uri("https://localhost:7190") };
+        Client = new HttpClient { BaseAddress = new Uri(BaseUrl.BASE) };
         Client.DefaultRequestHeaders.Accept.Clear();
         Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

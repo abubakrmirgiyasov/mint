@@ -38,11 +38,13 @@ public class User
 
     [Required(ErrorMessage = "Заполните поле Пароль")]
     [DataType(DataType.Password)]
+    [MinLength(6, ErrorMessage = "Минимальное кол. букв 6")]
     [MaxLength(255, ErrorMessage = "Перевышено макс. длина строки (255).")]
     public string Password { get; set; } = "";
 
     [Required(ErrorMessage = "Заполните поле Повторите Пароль")]
     [DataType(DataType.Password)]
+    [MinLength(6, ErrorMessage = "Минимальное кол. букв 6")]
     [MaxLength(255, ErrorMessage = "Перевышено макс. длина строки (255).")]
     public string ConfirmedPassword { get; set; } = "";
 
@@ -53,8 +55,4 @@ public class User
     public Role? Role { get; set; }
 
     public ICollection<Photo>? Photos { get; set; }
-
-    [FromForm]
-    [NotMapped]
-    public IFormFileCollection? Files { get; set; }
 }
