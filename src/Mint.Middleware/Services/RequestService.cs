@@ -1,4 +1,5 @@
-﻿using Mint.Domain.Extensions;
+﻿using Mint.Domain.Exceptions;
+using Mint.Domain.Extensions;
 using Mint.Middleware.Extensions;
 using System.Net.Http.Headers;
 using System.Text;
@@ -53,9 +54,18 @@ public class RequestService<T>
             var apiResponse = await response.Content.ReadAsStringAsync();
             return new JsonResponse<T>().GetResponse(response, apiResponse);
         }
+        catch (SimilarUserException ex)
+        {
+            throw new SimilarUserException(ex.Message);
+        }
         catch (Exception ex)
         {
             throw new Exception(ex.Message, ex);
         }
+    }
+
+    private void Validation()
+    {
+
     }
 }

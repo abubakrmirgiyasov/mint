@@ -34,30 +34,35 @@ public class UserManager
 			var newUser = new User()
 			{
 				Id = Guid.NewGuid(),
-                FirstName = user.FirstName!,
-                SecondName = user.SecondName!,
-                LastName = user.LastName,
-                Email = user.Email!,
-                Phone = (long)user.Phone!,
+				FirstName = user.FirstName!,
+				SecondName = user.SecondName!,
+				LastName = user.LastName,
+				Email = user.Email!,
+				Phone = (long)user.Phone!,
 				Ip = user.Ip!,
-                Password = user.Password,
-                ConfirmedPassword = user.ConfirmPassword,
-				Photos = new List<Photo>(),
+				Password = user.Password,
+				ConfirmedPassword = user.ConfirmPassword,
 			};
 
-            newUser.Photos!.Add(new Photo()
-            {
-                FileName = user.Photo!.FileName,
-                FileExtension = user.Photo.FileExtension,
-                FilePath = user.Photo.FilePath,
-                FileSize = user.Photo.FileSize,
-                FileBytes = user.Photo.FileBytes,
-                UserId = newUser.Id,
-            });
+			if (user.Photo != null)
+			{
+				newUser.Photos = new List<Photo>();
+				newUser.Photos!.Add(new Photo()
+				{
+					FileName = user.Photo!.FileName,
+					FileExtension = user.Photo.FileExtension,
+					FilePath = user.Photo.FilePath,
+					FileSize = user.Photo.FileSize,
+					FileBytes = user.Photo.FileBytes,
+					UserId = newUser.Id,
+				});
 
-            return newUser;
-        }
-        catch (Exception ex)
+				return newUser;
+			}
+
+			return newUser;
+		}
+		catch (Exception ex)
 		{
 			throw new Exception(ex.Message, ex);
 		}

@@ -69,7 +69,7 @@ app.UseCors(options => options
     .AllowAnyMethod()
     .AllowCredentials());
 
-app.UseMiddleware<ExceptionHandlingEtensions>();
+//app.UseMiddleware<ExceptionHandlingEtensions>();
 
 app.UseHttpsRedirection();
 

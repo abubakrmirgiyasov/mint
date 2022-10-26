@@ -34,18 +34,23 @@ public class PhotoManager
 
     public PhotoBindingModel GetSinglePhoto(List<PhotoBindingModel> photos)
     {
-        var newPhoto = new PhotoBindingModel();
-
-        foreach (var photo in photos)
+        if (photos != null)
         {
-            newPhoto.FileName = photo.FileName;
-            newPhoto.FileSize = photo.FileSize;
-            newPhoto.FileExtension = photo.FileExtension;
-            newPhoto.FileBytes = photo.FileBytes;
-            newPhoto.FilePath = photo.FilePath;
+            var newPhoto = new PhotoBindingModel();
+
+            foreach (var photo in photos)
+            {
+                newPhoto.FileName = photo.FileName;
+                newPhoto.FileSize = photo.FileSize;
+                newPhoto.FileExtension = photo.FileExtension;
+                newPhoto.FileBytes = photo.FileBytes;
+                newPhoto.FilePath = photo.FilePath;
+            }
+
+            return newPhoto;
         }
 
-        return newPhoto;
+        return null!;
     }
 
     public async Task<List<PhotoBindingModel>> AddPhotoAsync(IFormFileCollection? files)
@@ -76,6 +81,7 @@ public class PhotoManager
                             };
 
                             photos.Add(newPhoto);
+                            return photos;
                         }
                         else
                         {
@@ -85,7 +91,7 @@ public class PhotoManager
                 }
             }
 
-            return photos;
+            return null!;
         }
         catch (Exception ex)
         {

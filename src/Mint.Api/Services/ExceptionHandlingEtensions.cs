@@ -24,40 +24,50 @@ public class ExceptionHandlingEtensions
         {
             await _next(httpContext);
         }
-        catch (SimilarUserException ex)
-        {
-            await HandleExceptionAsync(
-                httpContext: httpContext,
-                message: ex.Message,
-                code: HttpStatusCode.Forbidden);
-        }
-        catch (ForbiddenException ex)
-        {
-            await HandleExceptionAsync(
-                httpContext: httpContext,
-                message: ex.Message,
-                code: HttpStatusCode.Forbidden);
-        }
-        catch (UserBlockedException ex)
-        {
-            await HandleExceptionAsync(
-                httpContext: httpContext,
-                message: ex.Message,
-                code: HttpStatusCode.Forbidden);
-        }
-        catch (ContentNotFoundException ex)
-        {
-            await HandleExceptionAsync(
-                httpContext: httpContext,
-                message: ex.Message,
-                code: HttpStatusCode.NotFound);
-        }
+        //catch (ForbiddenException ex)
+        //{
+        //    await HandleExceptionAsync(
+        //        httpContext: httpContext,
+        //        message: ex.Message,
+        //        code: HttpStatusCode.Forbidden);
+        //}
+        //catch (UserBlockedException ex)
+        //{
+        //    await HandleExceptionAsync(
+        //        httpContext: httpContext,
+        //        message: ex.Message,
+        //        code: HttpStatusCode.Forbidden);
+        //}
+        //catch (ContentNotFoundException ex)
+        //{
+        //    await HandleExceptionAsync(
+        //        httpContext: httpContext,
+        //        message: ex.Message,
+        //        code: HttpStatusCode.NotFound);
+        //}
         catch (Exception ex)
         {
-            await HandleExceptionAsync(
-                httpContext: httpContext,
-                message: ex.Message,
-                code: HttpStatusCode.BadRequest);
+            switch (ex)
+            {
+                case ContentNotFoundException e:
+                    await HandleExceptionAsync(
+                        httpContext: httpContext,
+                        message: e.Message,
+                        code: HttpStatusCode.Forbidden);
+                    break; 
+                case SimilarUserException e:
+                    await HandleExceptionAsync(
+                        httpContext: httpContext,
+                        message: e.Message,
+                        code: HttpStatusCode.Forbidden);
+                    break;
+                default:
+                    await HandleExceptionAsync(
+                        httpContext: httpContext,
+                        message: ex.Message,
+                        code: HttpStatusCode.BadRequest);
+                    break;
+            }
         }
     }
 

@@ -4,6 +4,27 @@
     }
 }
 
+@media (min-width: 1152px) {
+    
+}
+
+@media (max-width: 1280px) {
+    .header,
+    .top,
+    .bottom {
+        width: 100%;
+    }
+
+    .search-text,
+    .category-menu {
+        margin: 10px 10px 0px 0px;
+    }
+
+    .logo-link {
+        margin-right: 10px;
+    }
+}
+
 @media (max-width: 1190px) {
     .container {
         width: 100%;
@@ -11,6 +32,10 @@
 }
 
 @media (max-width: 1024px) {
+    .header {
+        display: none;
+    }
+
     .footer {
         display: none;
     }
@@ -18,5 +43,8 @@
     .top {
         display: none;
     }
+    
+    .mobile-menu {
+        display: flex;
+    }
 }
-

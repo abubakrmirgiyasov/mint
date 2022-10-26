@@ -1,13 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Mint</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/media.css">
+    <link rel="stylesheet" href="~/css/media.css" asp-append-version="true">
     <link rel="stylesheet" href="~/lib/fonts/Lora/Lora-Regular.ttf" asp-append-version="true">
 </head>
+
 <body>
     <header class="header">
         <div class="top d-flex">
@@ -34,7 +36,7 @@
                     <li class="top-list-item p-relative">
                         <button class="header-top-link drop-down-menu" id="activeDropDownMenu">
                             Покупателям
-                            <span  class="header-top-dropdown-ico svg-ico d-flex"></span>
+                            <span class="header-top-dropdown-ico svg-ico d-flex"></span>
                         </button>
                         <div class="header-top-child-list" id="menuList">
                             <a class="buyer-content" href="/">Как оформить заказ</a>
@@ -76,13 +78,13 @@
                         </button>
                     </div>
                 </div>
-                <div class="content-box">
+                <div class="content-box d-flex">
                     <div class="compare-box">
                         <div class="compare-png png-ico compare-popover">
                             <div class="box compare">
                                 <h3 class="h3 compare-text al-te">Сравнение</h3>
                                 <h5 class="h5 compare-desc al-de">
-                                    Сравните товары по характеристикам! Начните свой выбор с каталога товаров 
+                                    Сравните товары по характеристикам! Начните свой выбор с каталога товаров
                                     или воспользуйтесь поиском, если ищете что-
                                     то конкретное.
                                 </h5>
@@ -96,7 +98,7 @@
                                 <h3 class="h3 like-text al-te">Избранное</h3>
                                 <h5 class="h5 like-desc al-de">
                                     <a href="/authentication/signin" class="link-sign">Войдите,</a>
-                                    если уже добавляли товары в своем аккаунте 
+                                    если уже добавляли товары в своем аккаунте
                                     или добавьте новые из каталога
                                 </h5>
                                 <a href="/" class="btn outlined-btn open-category">Перейти в Каталог</a>
@@ -149,7 +151,8 @@
                             <div class="sign-in-png png-ico sign-popover">
                                 <div class="box sign-in">
                                     <a href="/authentication/signin" class="btn outlined-btn sign-in-btn">Войти</a>
-                                    <a href="/authentication/signup" class="btn outlined-btn sign-up-btn">Зарегистрироваться</a>
+                                    <a href="/authentication/signup"
+                                    class="btn outlined-btn sign-up-btn">Зарегистрироваться</a>
                                     <hr class="hr">
                                     <a href="/" class="btn fill-btn order-status">Статус заказа</a>
                                 </div>
@@ -179,6 +182,58 @@
     <main role="main" class="main d-flex flex-nowrap">
         @RenderBody()
     </main>
+    <div class="mobile-menu">
+        <div class="mobile-cart-box">
+            <a href="/mobile/cart">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.479 7.03063L11.4791 7.03083L12.4511 10.9213L12.5458 11.3001H12.9362H40.8006C40.9034 11.3002 41.0049 11.323 41.0979 11.3667C41.1909 11.4105 41.2732 11.4742 41.3388 11.5533C41.4044 11.6324 41.4518 11.725 41.4776 11.8245C41.5034 11.924 41.507 12.0279 41.4881 12.1288C41.4881 12.1289 41.4881 12.1289 41.4881 12.129L37.888 31.3294L37.8879 31.3296C37.8579 31.49 37.7728 31.6349 37.6473 31.7392C37.5217 31.8435 37.3637 31.9007 37.2005 31.9008H34.8009H18.0004H15.6008C15.4376 31.9007 15.2795 31.8435 15.154 31.7392C15.0285 31.6349 14.9434 31.49 14.9133 31.3296L14.9133 31.3293L11.3156 12.1647L11.3129 12.1504L11.3093 12.1362L10.3493 8.2793L10.2549 7.90007H9.86412H7.20004C7.01438 7.90007 6.83632 7.82632 6.70504 7.69504C6.57375 7.56376 6.5 7.3857 6.5 7.20004C6.5 7.01438 6.57375 6.83632 6.70504 6.70504C6.83632 6.57375 7.01438 6.5 7.20004 6.5L10.8 6.5C10.8 6.5 10.8001 6.5 10.8001 6.5C10.8001 6.5 10.8001 6.5 10.8001 6.5C10.9563 6.50007 11.1079 6.55232 11.2309 6.64844C11.3539 6.74459 11.4413 6.87912 11.479 7.03063ZM14.9597 34.1603C15.7661 33.3539 16.8599 32.9008 18.0004 32.9008C19.1408 32.9008 20.2346 33.3539 21.041 34.1603C21.8475 34.9667 22.3005 36.0605 22.3005 37.201C22.3005 38.3414 21.8475 39.4352 21.041 40.2416C20.2346 41.0481 19.1408 41.5011 18.0004 41.5011C16.8599 41.5011 15.7661 41.0481 14.9597 40.2416C14.1533 39.4352 13.7002 38.3414 13.7002 37.201C13.7002 36.0605 14.1533 34.9667 14.9597 34.1603ZM31.7602 34.1603C32.5667 33.3539 33.6604 32.9008 34.8009 32.9008C35.9414 32.9008 37.0351 33.3539 37.8416 34.1603C38.648 34.9667 39.101 36.0605 39.101 37.201C39.101 38.3414 38.648 39.4352 37.8416 40.2416C37.0351 41.0481 35.9414 41.5011 34.8009 41.5011C33.6604 41.5011 32.5667 41.0481 31.7602 40.2416C30.9538 39.4352 30.5007 38.3414 30.5007 37.201C30.5007 36.0605 30.9538 34.9667 31.7602 34.1603ZM20.051 35.1503C19.5072 34.6064 18.7695 34.3009 18.0004 34.3009C17.2312 34.3009 16.4936 34.6064 15.9497 35.1503C15.4058 35.6942 15.1003 36.4318 15.1003 37.201C15.1003 37.9701 15.4058 38.7078 15.9497 39.2516C16.4936 39.7955 17.2312 40.101 18.0004 40.101C18.7695 40.101 19.5072 39.7955 20.051 39.2516C20.5949 38.7078 20.9004 37.9701 20.9004 37.201C20.9004 36.4318 20.5949 35.6942 20.051 35.1503ZM36.8516 35.1503C36.3077 34.6064 35.57 34.3009 34.8009 34.3009C34.0317 34.3009 33.2941 34.6064 32.7502 35.1503C32.2064 35.6942 31.9008 36.4318 31.9008 37.201C31.9008 37.9701 32.2064 38.7078 32.7502 39.2516C33.2941 39.7955 34.0317 40.101 34.8009 40.101C35.57 40.101 36.3077 39.7955 36.8516 39.2516C37.3954 38.7078 37.701 37.9701 37.701 37.201C37.701 36.4318 37.3954 35.6942 36.8516 35.1503Z"
+                        fill="#FEFFEF" stroke="#00A99D" />
+                </svg>
+            </a>
+        </div>
+        <div class="mobile-services-box">
+            <a href="/mobile/services">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5.5" y="6.5" width="14" height="14" rx="1.5" stroke="#00A99D" />
+                    <rect x="5.5" y="27.5" width="14" height="14" rx="1.5" stroke="#00A99D" />
+                    <rect x="23.7071" y="12.6066" width="14" height="14" rx="1.5"
+                        transform="rotate(-45 23.7071 12.6066)" stroke="#00A99D" />
+                    <rect x="27.5" y="27.5" width="14" height="14" rx="1.5" stroke="#00A99D" />
+                </svg>
+            </a>
+        </div>
+        <div class="moble-home-box mobile-box-active">
+            <a href="/">
+                <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0.98546 14.5048L16.7354 0.946094C16.7354 0.946078 16.7354 0.946062 16.7355 0.946046C17.0599 0.666888 17.5138 0.5 18 0.5C18.4862 0.5 18.9401 0.666888 19.2645 0.946046C19.2646 0.946062 19.2646 0.946078 19.2646 0.946094L35.0145 14.5048L35.0146 14.5048C35.3367 14.782 35.4999 15.1405 35.5 15.4953C35.5 15.4953 35.5 15.4954 35.5 15.4954V34.063C35.5 34.4179 35.3369 34.7765 35.0148 35.0537C34.6904 35.333 34.2363 35.5 33.75 35.5H23V22.4413V21.9413H22.5H13.5H13V22.4413V35.5H2.25C1.76369 35.5 1.30963 35.333 0.98522 35.0537C0.663139 34.7765 0.5 34.4179 0.5 34.063L0.5 15.4954C0.5 15.4954 0.5 15.4954 0.5 15.4953C0.500119 15.1405 0.663322 14.782 0.985404 14.5048L0.660654 14.1275L0.98546 14.5048Z"
+                        stroke="#00A99D" />
+                </svg>
+            </a>
+        </div>
+        <div class="mobile-likes-box">
+            <a href="/mobile/likes">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M15 6C10.0302 6 6 10.4734 6 15.9924C6 20.4476 7.575 31.0214 23.0784 41.7103C23.3561 41.8998 23.6749 42 24 42C24.3251 42 24.6439 41.8998 24.9216 41.7103C40.425 31.0214 42 20.4476 42 15.9924C42 10.4734 37.9698 6 33 6C28.0302 6 24 12.056 24 12.056C24 12.056 19.9698 6 15 6Z"
+                        stroke="#00A99D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+        <div class="mobile-user-box">
+            <a href="/mobile/user">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M23.9999 21C28.2604 21 31.7142 17.6421 31.7142 13.5C31.7142 9.35786 28.2604 6 23.9999 6C19.7394 6 16.2856 9.35786 16.2856 13.5C16.2856 17.6421 19.7394 21 23.9999 21Z"
+                        stroke="#00A99D" stroke-miterlimit="10" />
+                    <path
+                        d="M24 25.6364C14.0583 25.6364 6 31.4977 6 38.7285C6.00055 39.8385 6.19192 40.9419 6.56742 42H41.4326C41.8081 40.9419 41.9995 39.8385 42 38.7285C42 31.4977 33.9417 25.6364 24 25.6364Z"
+                        stroke="#00A99D" stroke-miterlimit="10" />
+                </svg>
+            </a>
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             &copy; 2022 - Mint - <a href="/Privacy">Privacy</a>
@@ -192,4 +247,5 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

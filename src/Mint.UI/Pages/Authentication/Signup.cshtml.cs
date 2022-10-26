@@ -39,6 +39,7 @@ namespace Mint.UI.Pages.Authentication
                     user.Password = Encrypt.EncodePassword(user.Password);
                     user.ConfirmPassword = Encrypt.EncodePassword(user.ConfirmPassword);
                     user.Photo =  new PhotoManager().GetSinglePhoto(await new PhotoManager().AddPhotoAsync(Files));
+                    user.Ip = clientAddress!.ToString();
 
                     if (user.Password == user.ConfirmPassword)
                     {
