@@ -90,10 +90,10 @@ public class AuthenticationController : ControllerBase
             var newUser = await _user.AddUserAync(user);
             return Ok(newUser);
         }
-        //catch (SimilarUserException ex)
-        //{
-        //    return Forbid(ex.Message);
-        //}
+        catch (SimilarUserException ex)
+        {
+            return BadRequest(ex.Message);
+        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);

@@ -8,6 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Mint.Admin/Mint.Admin.csproj", "Mint.Admin/"]
+COPY ["Mint.Domain/Mint.Domain.csproj", "Mint.Domain/"]
+COPY ["Mint.Middleware/Mint.Middleware.csproj", "Mint.Middleware/"]
 RUN dotnet restore "Mint.Admin/Mint.Admin.csproj"
 COPY . .
 WORKDIR "/src/Mint.Admin"

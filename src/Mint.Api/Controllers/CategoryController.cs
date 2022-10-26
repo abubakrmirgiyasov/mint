@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mint.Infrastructure.Services.Interfaces;
 
 namespace Mint.Api.Controllers;
 
+[ApiController]
+[Route("api/[controller]/[action]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class CategoryController : ControllerBase
 {
 	private readonly ICategoryRepository _category;
@@ -12,6 +17,8 @@ public class CategoryController : ControllerBase
 		_category = category;
 	}
 
+	[HttpGet]
+	[AllowAnonymous]
 	public async Task<IActionResult> GetCategories()
 	{
 		try

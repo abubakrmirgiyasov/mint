@@ -24,42 +24,33 @@ public class ExceptionHandlingEtensions
         {
             await _next(httpContext);
         }
-        //catch (ForbiddenException ex)
-        //{
-        //    await HandleExceptionAsync(
-        //        httpContext: httpContext,
-        //        message: ex.Message,
-        //        code: HttpStatusCode.Forbidden);
-        //}
-        //catch (UserBlockedException ex)
-        //{
-        //    await HandleExceptionAsync(
-        //        httpContext: httpContext,
-        //        message: ex.Message,
-        //        code: HttpStatusCode.Forbidden);
-        //}
-        //catch (ContentNotFoundException ex)
-        //{
-        //    await HandleExceptionAsync(
-        //        httpContext: httpContext,
-        //        message: ex.Message,
-        //        code: HttpStatusCode.NotFound);
-        //}
         catch (Exception ex)
         {
             switch (ex)
             {
+                case ForbiddenException e:
+                    await HandleExceptionAsync(
+                        httpContext: httpContext,
+                        message: e.Message,
+                        code: HttpStatusCode.BadRequest);
+                    break;
                 case ContentNotFoundException e:
                     await HandleExceptionAsync(
                         httpContext: httpContext,
                         message: e.Message,
-                        code: HttpStatusCode.Forbidden);
+                        code: HttpStatusCode.BadGateway);
                     break; 
                 case SimilarUserException e:
                     await HandleExceptionAsync(
                         httpContext: httpContext,
                         message: e.Message,
-                        code: HttpStatusCode.Forbidden);
+                        code: HttpStatusCode.BadRequest);
+                    break;
+                case UserBlockedException e:
+                    await HandleExceptionAsync(
+                        httpContext: httpContext,
+                        message: e.Message,
+                        code: HttpStatusCode.NoContent);
                     break;
                 default:
                     await HandleExceptionAsync(
