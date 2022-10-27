@@ -4,28 +4,21 @@
 
 }
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ico</th>
+        </tr>
+    </thead>
 @foreach (var category in Model.Categories)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>@category.Name</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>@category.Name</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>@category.Name</td>
-            </tr>
-        </tbody>
-    </table>
+    
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>@category.Name</td>
+        </tr>
+    </tbody>
 }
+</table>
