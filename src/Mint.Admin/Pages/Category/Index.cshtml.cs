@@ -17,7 +17,7 @@ namespace Mint.Admin.Pages.Category
 
         public async Task OnGet()
         {
-            Categories = await _category.GetCategories();
+            //Categories = await _category.GetCategories();
         }
     }
 }
