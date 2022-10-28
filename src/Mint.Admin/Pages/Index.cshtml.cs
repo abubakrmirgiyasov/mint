@@ -14,7 +14,7 @@ namespace Mint.Admin.Pages
 
         public void OnGet()
         {
-
+            ViewData["Home"] = "active";
         }
     }
 }

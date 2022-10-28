@@ -17,7 +17,8 @@ namespace Mint.Admin.Pages.Category
 
         public async Task OnGet()
         {
-            //Categories = await _category.GetCategories();
+            ViewData["Category"] = "active";
+            Categories = await _category.GetCategories();
         }
     }
 }
