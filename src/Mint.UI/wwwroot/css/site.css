@@ -431,6 +431,7 @@ input:focus {
 .cart-popover:hover .box,
 .sign-popover:hover .box {
     visibility: visible;
+    z-index: 9999;
 }
 
 .h3 {
@@ -532,8 +533,8 @@ input:focus {
 
 .user-profile {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--color-gray);
     border-radius: 50%;
     overflow: hidden;
@@ -601,6 +602,10 @@ input:focus {
     text-transform: none;
     width: 25px;
     height: 25px;
+}
+
+.sign-in-box {
+    position: relative;
 }
 
 .signed-user-func-active {
@@ -772,7 +777,73 @@ input:focus {
 }
 
 input:read-only {
-    background-color: #efefef;
+    background-color: #EFEFEF;
+}
+
+.category-opened-menu {
+    position: absolute;
+    flex-wrap: nowrap;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #dff4e5;
+    height: 100vh;
+    padding: 30px; 
+}
+
+.catalog-ul {
+    list-style: none;
+}
+
+.catalog-item > a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #505050;
+    height: 40px;
+    padding: 10px;
+    font-size: var(--m-fs-sixteen);
+}
+
+.catalog-item-ico {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-image: url(../images/icons/category.svg);
+}
+
+.catalog-item:hover {
+    border-radius: 10px;
+    border: 1px solid var(--m-blue-color);
+    box-shadow: 0 0 0 4px hsla(202, 100%, 60%, 0.4);
+}
+
+.catalog-item > a .right-ico {
+    display: none;
+}
+
+.right-ico {
+    position: absolute;
+    right: 10px;
+    width: 7px;
+    height: 14px;
+    background-repeat: no-repeat;
+}
+
+.catalog-item > a:hover .right-ico {
+    display: block;
+}
+
+.catalog-item {
+    margin-bottom: 5px;
+}
+
+.catalog {
+    overflow-x: auto;
+    padding: 10px;
+    width: 15%;
 }
 
 /* Mobile Menu */
@@ -784,7 +855,7 @@ input:read-only {
 .mobile-menu {
     width: 100%;
     height: 60px;
-    background: #feffef;
+    background: #EFEFEF;
     box-shadow: 0px -1px 7px rgb(0 0 0 / 48%);
     bottom: 0;
     position: fixed;

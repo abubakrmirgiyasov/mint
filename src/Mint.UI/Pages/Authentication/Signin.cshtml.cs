@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mint.Domain.BindingModels;
-using Mint.Domain.ViewModels;
-using Mint.Middleware.Extensions;
+using Mint.Middleware.Services;
 using Mint.Middleware.Services.Interfaces;
-using Mint.UI.Services;
 
 namespace Mint.UI.Pages.Authentication
 {

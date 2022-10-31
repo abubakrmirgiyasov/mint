@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mint.Domain.Extensions;
+using Mint.Domain.Models;
 
 namespace Mint.Api.Controllers;
 
@@ -14,7 +15,14 @@ public class HomeController : ControllerBase
     [AllowAnonymous]
     public IActionResult Get()
     {
-        return Ok();
+        return Ok(new User()
+        {
+            FirstName = "Test",
+            SecondName = "User",
+            CreatedDate = new DateTime(2001, 12, 05),
+            Email = "abubakrmirgiyasov@gmail.com",
+            Ip = "127.0.0.1:1011",
+        });
     }
 
     [HttpPost]

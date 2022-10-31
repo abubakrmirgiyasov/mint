@@ -11,5 +11,5 @@ public class Country
     [MaxLength(60, ErrorMessage = "Перевышено макс. длина строки (60).")]
     public string Name { get; set; } = "";
 
-    public ICollection<Address>? Cities { get; set; }
+    public ICollection<Address>? Addresses { get; set; }
 }

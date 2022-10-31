@@ -54,5 +54,9 @@ public class User
 
     public Role? Role { get; set; }
 
+    public Guid? AddressId { get; set; }
+
+    public Address? Address { get; set; }
+
     public ICollection<Photo>? Photos { get; set; }
 }

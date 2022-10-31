@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using Mint.Middleware.Extensions;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 
-namespace Mint.UI.Services;
+namespace Mint.Middleware.Services;
 
 public static class UserAuthenticationService
 {
@@ -21,11 +20,30 @@ public static class UserAuthenticationService
         }
     }
 
+    public static ClaimsIdentity GetClaimsIdentity(this HttpContext context)
+    {
+        try
+        {
+            var claims = GetClaims(context);
+            if (claims.Count != 0)
+            {
+                var identity = new ClaimsIdentity(claims, Params.AuthenticationType);
+                return identity;
+            }
+
+            return new ClaimsIdentity();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
+
     public static List<Claim> GetClaims(this HttpContext context)
     {
         try
         {
-            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, Params.SESSION_TOKEN_NAME);
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -42,25 +60,6 @@ public static class UserAuthenticationService
             }
 
             return new List<Claim>();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message, ex);
-        }
-    }
-
-    public static ClaimsIdentity GetClaimsIdentity(this HttpContext context)
-    {
-        try
-        {
-            var claims = GetClaims(context);
-            if (claims.Count != 0)
-            {
-                var identity = new ClaimsIdentity(claims, "oauth2");
-                return identity;
-            }
-
-            return new ClaimsIdentity();
         }
         catch (Exception ex)
         {
@@ -85,7 +84,7 @@ public static class UserAuthenticationService
     {
         try
         {
-            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, Params.SESSION_TOKEN_NAME);
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -105,7 +104,7 @@ public static class UserAuthenticationService
     {
         try
         {
-            var token = SessionCollectionsExtension.GetSession(context.Session, "__ID-acces-token");
+            var token = SessionCollectionsExtension.GetSession(context.Session, Params.SESSION_TOKEN_NAME);
             if (token != null)
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -122,5 +121,23 @@ public static class UserAuthenticationService
         {
             return null!;
         }
+    }
+
+    public static bool IsInRole(this HttpContext context, string role)
+    {
+        var token = SessionCollectionsExtension.GetSession(context.Session, Params.SESSION_TOKEN_NAME);
+        if (token != null)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(token);
+            var userRole = jwt.Claims.First(claim => claim.Type == ClaimTypes.Role).Value;
+
+            if (role == userRole)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

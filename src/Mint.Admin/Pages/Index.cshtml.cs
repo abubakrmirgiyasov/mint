@@ -1,20 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mint.Domain.BindingModels;
+using Mint.Middleware.Extensions;
+using Mint.Middleware.Services;
+using Mint.Middleware.Services.Interfaces;
 
 namespace Mint.Admin.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IAdminRequestService _admin;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IAdminRequestService admin)
         {
             _logger = logger;
+            _admin = admin;
         }
 
         public void OnGet()
         {
-            ViewData["Home"] = "active";
+            if (HttpContext.IsAuthenticated())
+            {
+                Response.Redirect("/dashboard/");
+            }
+        }
+
+        public async Task OnPost(AdminBindingModel admin)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var token = await _admin.Login(admin);
+
+                    HttpContext.Session.SetSession(Params.SESSION_TOKEN_NAME, token);
+
+                    Response.Redirect("/dashboard/");
+                }
+                else
+                {
+                    ViewData["Error"] = "Заполните все поля";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = ex.Message;
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

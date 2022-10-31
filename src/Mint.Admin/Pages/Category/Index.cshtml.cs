@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mint.Domain.FormingModels;
 using Mint.Domain.ViewModels;
 using Mint.Middleware.Services.Interfaces;
 
@@ -18,7 +19,7 @@ namespace Mint.Admin.Pages.Category
         public async Task OnGet()
         {
             ViewData["Category"] = "active";
-            Categories = await _category.GetCategories();
+            Categories = new CategoryManager().FormingViewModels(await _category.GetCategories());
         }
     }
 }

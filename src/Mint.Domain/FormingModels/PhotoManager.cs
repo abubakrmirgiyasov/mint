@@ -6,7 +6,7 @@ namespace Mint.Domain.FormingModels;
 
 public class PhotoManager
 {
-    public List<Photo> FormingPhotoBindingModel(List<PhotoBindingModel> photos)
+    public List<Photo> FormingBindingModel(List<PhotoBindingModel> photos)
     {
         try
         {
@@ -32,7 +32,7 @@ public class PhotoManager
         }
     }
 
-    public PhotoBindingModel GetSinglePhoto(List<PhotoBindingModel> photos)
+    public PhotoBindingModel FormingSinglePhoto(List<PhotoBindingModel> photos)
     {
         if (photos != null)
         {

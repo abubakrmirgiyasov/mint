@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mint.Domain.BindingModels;
 using Mint.Domain.Extensions;
 using Mint.Domain.FormingModels;
+using Mint.Middleware.Services;
 using Mint.Middleware.Services.Interfaces;
-using Mint.UI.Services;
-using System.ComponentModel.DataAnnotations;
 
 namespace Mint.UI.Pages.Authentication
 {
@@ -38,7 +36,7 @@ namespace Mint.UI.Pages.Authentication
 
                     user.Password = Encrypt.EncodePassword(user.Password);
                     user.ConfirmPassword = Encrypt.EncodePassword(user.ConfirmPassword);
-                    user.Photo =  new PhotoManager().GetSinglePhoto(await new PhotoManager().AddPhotoAsync(Files));
+                    user.Photo =  new PhotoManager().FormingSinglePhoto(await new PhotoManager().AddPhotoAsync(Files));
                     user.Ip = clientAddress!.ToString();
 
                     if (user.Password == user.ConfirmPassword)

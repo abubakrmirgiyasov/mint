@@ -1,4 +1,5 @@
-﻿using Mint.Domain.Models;
+﻿using Mint.Domain.BindingModels;
+using Mint.Domain.Models;
 
 namespace Mint.Infrastructure.Services.Interfaces;
 
@@ -6,9 +7,11 @@ public interface ICategoryRepository
 {
     Task<List<Category>> GetCategoriesAsync();
 
-    Task<Category> AddCategoryAsync(Category category);
+    Task<Category> GetCategoryByIdAsync(Guid id);
 
-    Task<Category> UpdateCategoryAsync(Category category);
+    Task<Category> AddCategoryAsync(CategoryBindingModel category);
 
-    Task<Category> DeleteCategoryAsync(Category category);
+    Task<Category> UpdateCategoryAsync(CategoryBindingModel category);
+
+    Task<Category> DeleteCategoryAsync(CategoryBindingModel category);
 }

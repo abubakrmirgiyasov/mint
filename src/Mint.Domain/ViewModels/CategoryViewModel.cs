@@ -1,4 +1,6 @@
-﻿namespace Mint.Domain.ViewModels;
+﻿using Mint.Domain.BindingModels;
+
+namespace Mint.Domain.ViewModels;
 
 public class CategoryViewModel
 {
@@ -6,5 +8,5 @@ public class CategoryViewModel
 
     public string Name { get; set; } = "";
 
-    public List<string> Brands { get; set; } = null!;
+    public List<BrandViewModel> Brands { get; set; } = null!;
 }

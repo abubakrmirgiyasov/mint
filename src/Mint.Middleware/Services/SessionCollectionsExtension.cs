@@ -1,8 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
-namespace Mint.UI.Services;
+namespace Mint.Middleware.Services;
 
 public static class SessionCollectionsExtension
 {
@@ -23,21 +22,6 @@ public static class SessionCollectionsExtension
     {
         var value = session.GetString(key);
         return value!;
-    }
-
-    public static string GetRole(this ISession session, string key)
-    {
-        try
-        {
-            var value = session.GetString(key);
-            var handler = new JwtSecurityTokenHandler();
-            var token = handler.ReadJwtToken(value);
-            return token.Claims.First(c => c.Type == ClaimTypes.Role).Value ?? null!;
-        }
-        catch
-        {
-            return null!;
-        }
     }
 
     public static void RemoveSession(this ISession session, string key)

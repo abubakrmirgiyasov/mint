@@ -25,4 +25,8 @@ public class Photo
     public Guid? BrandId { get; set; }
 
     public Brand? Brand { get; set; }
+
+    public Guid? AdminId { get; set; }
+
+    public Admin? Admin { get; set; }
 }

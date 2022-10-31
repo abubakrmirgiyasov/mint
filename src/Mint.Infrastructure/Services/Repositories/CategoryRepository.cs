@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Mint.Domain.BindingModels;
+using Mint.Domain.FormingModels;
 using Mint.Domain.Models;
 using Mint.Infrastructure.Services.Interfaces;
 
@@ -18,7 +20,8 @@ public class CategoryRepository : ICategoryRepository
         try
         {
             var categories = await _context.Categories
-               .ToListAsync();
+                .Include(x => x.Brands)
+                .ToListAsync();
             return categories;
         }
         catch (Exception ex)
@@ -27,17 +30,47 @@ public class CategoryRepository : ICategoryRepository
         }
     }
 
-    public Task<Category> AddCategoryAsync(Category category)
+    public async Task<Category> GetCategoryByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = await _context.Categories
+                .Include(x => x.Brands)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return category!;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
     }
 
-    public Task<Category> UpdateCategoryAsync(Category category)
+    public async Task<Category> AddCategoryAsync(CategoryBindingModel category)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var newCategory = new CategoryManager().FormingBindingModel(category);
+
+            await _context.Categories.AddAsync(newCategory);
+            await _context.SaveChangesAsync();
+            return newCategory;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
     }
 
-    public Task<Category> DeleteCategoryAsync(Category category)
+    public async Task<Category> UpdateCategoryAsync(CategoryBindingModel category)
+    {
+        var newCategory = await GetCategoryByIdAsync(category.Id);
+
+        newCategory.Name = category.Name;
+        //newCategory.Brands = new BrandManager().
+            return newCategory;
+    }
+
+    public Task<Category> DeleteCategoryAsync(CategoryBindingModel category)
     {
         throw new NotImplementedException();
     }

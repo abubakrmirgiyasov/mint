@@ -1,12 +1,12 @@
 ﻿const dropdownItem = document.querySelector(".drop-down-menu");
 const rotateDropdownIco = document.querySelector(".header-top-dropdown-ico");
 const mList = document.querySelector("#menuList");
-const userBox = document.querySelector("#userBox");
-const userMenuList = document.querySelector(".signed-user-func");
+// const userBox = document.querySelector("#userBox");
+// const userMenuList = document.querySelector(".signed-user-func");
 
-userBox.addEventListener("click", () => {
-    userMenuList.classList.toggle("signed-user-func-active");
-});
+// userBox.addEventListener("click", () => {
+//     userMenuList.classList.toggle("signed-user-func-active");
+// });
 
 dropdownItem.addEventListener("click", () => {
     rotateDropdownIco.classList.toggle("header-top-dropdown-ico-active");
@@ -14,14 +14,14 @@ dropdownItem.addEventListener("click", () => {
 });
 
 window.addEventListener("click", event => {
-    if (!event.target.matches("#userBox")) {
-        var list = document.getElementsByClassName("signed-user-func");
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].classList.contains("signed-user-func-active")) {
-                list[i].classList.remove("signed-user-func-active");
-            }
-        }
-    }
+    // if (!event.target.matches("#userBox")) {
+    //     var list = document.getElementsByClassName("signed-user-func");
+    //     for (var i = 0; i < list.length; i++) {
+    //         if (list[i].classList.contains("signed-user-func-active")) {
+    //             list[i].classList.remove("signed-user-func-active");
+    //         }
+    //     }
+    // }
 
     if (!event.target.matches("#activeDropDownMenu")) {
         var list = document.getElementsByClassName("header-top-child-list");

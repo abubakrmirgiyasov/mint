@@ -69,6 +69,102 @@
                             <span class="svg-ico category-ico p-relative d-flex"></span>
                         </button>
                     </div>
+                    <div class="category-opened-menu ctmm d-flex">
+                        <div class="catalog">
+                            <ul class="catalog-ul">
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Электроника
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Бытовая техника
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Смартфоны и гаджеты
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        ТВ и мультимедиа
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Компьютеры
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Офис и сеть
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Отдых и развлечения
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Инструменты
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Строительство и ремонт
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                                <li class="catalog-item">
+                                    <a href="">
+                                        <span class="catalog-item-ico" style="background-image: url(../images/icons/category.svg);"></span>
+                                        Автотовары
+                                        <span class="right-ico" style="background-image: url(../images/icons/right-arrow.svg);"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-category">
+                            <div class="catalog-header">
+                                <h1>Электроника <small>300 товара</small></h1>
+                            </div>
+                            <div class="list-of-items">
+                                <ul class="list-category-ul">
+                                    <li><h3>Телефоны и смарт-часы</h3></li>
+                                    <li><a href="">Смартфоны</a></li>
+                                    <li><a href="">Смарт-часы и фитнес-браслеты</a></li>
+                                    <li><a href="">Аксессуары для смартфонов и телефонов</a></li>
+                                    <li><a href="">Аксессуары для умных часов и фитнес-браслетов</a></li>
+                                    <li><a href="">Мобильные телефоны</a></li>
+                                    <li><a href="">DECT-телефоны</a></li>
+                                    <li><a href="">Проводные телефоны</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="brands">
+                            
+                        </div>
+                    </div>
                 </div>
                 <div class="search-box">
                     <div class="search-text">
@@ -130,21 +226,29 @@
                                     <img src="@Context.GetUserPicture()">
                                 }
                             </div>
-                            <div class="user-list signed-user-func" id="activeUserFunc">
-                                @if (Context.GetUserId() == Guid.Empty)
-                                {
-                                    <a href="/">Профиль</a>
-                                }
-                                else
-                                {
+                            @if (Context.IsInRole("Admin"))
+                            {
+                                <div class="user-list signed-user-func signed-user-func-active" id="activeUserFunc">
                                     <a href="/user/profile?user=@Context.GetUserId()">Профиль</a>
-                                }
-                                <a href="/">Купоны</a>
-                                <a href="/">Корзина</a>
-                                <a href="/">Заказы</a>
-                                <hr>
-                                <a href="/authentication/logout">Выйти</a>
-                            </div>
+                                    <a href="/">Купоны</a>
+                                    <a href="/">Корзина</a>
+                                    <a href="/">Заказы</a>
+                                    <hr>
+                                    <a href="/authentication/logout">Выйти</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="user-list signed-user-func" id="activeUserFunc">
+                                    <a href="/user/profile?user=@Context.GetUserId()">Профиль</a>
+                                    <a href="https://localhost:7653/">Админский панель</a>
+                                    <a href="/">Купоны</a>
+                                    <a href="/">Корзина</a>
+                                    <a href="/">Заказы</a>
+                                    <hr>
+                                    <a href="/authentication/logout">Выйти</a>
+                                </div>
+                            }
                         }
                         else
                         {
