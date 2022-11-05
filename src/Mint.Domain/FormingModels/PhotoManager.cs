@@ -73,9 +73,9 @@ public class PhotoManager
                         {
                             var newPhoto = new PhotoBindingModel()
                             {
-                                FileName = Path.GetFileName(file.FileName),
+                                FileName = Path.GetFileName(file.FileName/*.Split('.')[0]*/),
                                 FileSize = ms.Length,
-                                FileExtension = Path.GetExtension(file.FileName),
+                                FileExtension = Path.GetExtension(file.FileName/*.Split('.')[file.FileName.Length - 1]*/),
                                 FilePath = Path.GetFullPath(file.FileName),
                                 FileBytes = ms.ToArray(),
                             };

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mint.Admin.Services;
 using Mint.Domain.BindingModels;
 using Mint.Middleware.Extensions;
 using Mint.Middleware.Services;
@@ -45,7 +46,7 @@ namespace Mint.Admin.Pages
             catch (Exception ex)
             {
                 ViewData["Error"] = ex.Message;
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message, ex);
             }
         }
     }

@@ -18,9 +18,11 @@ public class CategoryRequest : ICategoryRequest
         return await baseRequestService.GetRequestAsync("api/category/getcategorybyid/" + id);
     }
 
-    public Task<CategoryBindingModel> AddCategory(CategoryBindingModel category)
+    public async Task<CategoryBindingModel> AddCategory(CategoryBindingModel category)
     {
-        throw new NotImplementedException();
+        var baseRequestService = new RequestService<CategoryBindingModel>(true);
+        var content = new JsonContent<CategoryBindingModel>().GetContent(category);
+        return await baseRequestService.PostRequestAsync(content, "api/category/addcategory");
     }
     
     public async Task<CategoryBindingModel> UpdateCategory(CategoryBindingModel category)

@@ -98,7 +98,10 @@ namespace Mint.Infrastructure.Migrations
                     Phone = table.Column<long>(type: "bigint", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConfirmedPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    NumOfAttempts = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,6 +110,12 @@ namespace Mint.Infrastructure.Migrations
                         name: "FK_Admins_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Admins_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -158,11 +167,17 @@ namespace Mint.Infrastructure.Migrations
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FileBytes = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AdminId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Photos_Admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Admins",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Photos_Brands_BrandId",
                         column: x => x.BrandId,
@@ -180,57 +195,64 @@ namespace Mint.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("32cbd5d9-8d27-4982-b3b8-eefefde14519"), "Гаджеты" },
-                    { new Guid("9aef5baa-3fed-4dac-a93e-6539e8358ac8"), "Смартфоны" },
-                    { new Guid("f0d9ff98-04d8-483c-bf5e-3b15b5cf2037"), "Аксессуары" }
+                    { new Guid("86403426-fc40-4a59-b8e4-36a8fcb879f4"), "Гаджеты" },
+                    { new Guid("a818ecb7-3609-4c27-9adb-3a330d925a9b"), "Аксессуары" },
+                    { new Guid("bd70f9f3-5435-45c3-a3a8-59607c0e72c7"), "Смартфоны" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("3ab57d1d-0b9e-4216-a2fd-13a082777047"), "Россия" });
+                values: new object[] { new Guid("c27377d7-a41d-41a4-b153-51126b33c1ca"), "Россия" });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("695b4d9d-cc94-4826-be91-fc3b1fd10f11"), "Admin" },
-                    { new Guid("6f52e195-1f17-4827-88dd-f93e07867819"), "Deliver" },
-                    { new Guid("e2147fb1-0a85-4a16-b90c-9bf9c42c83dc"), "Buyer" }
+                    { new Guid("2724d58d-67ee-4d7f-8be5-fd5b80b135df"), "Deliver" },
+                    { new Guid("6ab85d7b-6f75-495e-8e02-95808cdd867f"), "Admin" },
+                    { new Guid("cd0dadc9-a00c-4c82-91f5-ac8304011bc6"), "Buyer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "City", "CountryId", "Description", "Home", "PostCode", "Street" },
-                values: new object[] { new Guid("83ddb109-4c6b-45d8-bfc1-1cadf4ef5282"), "Новокузнецк", new Guid("3ab57d1d-0b9e-4216-a2fd-13a082777047"), "г. Новокузнецк ул. Бардина 23, ком. 302", "302", 640000, "Бардина 23" });
+                values: new object[,]
+                {
+                    { new Guid("153edc84-06d3-4c1f-ae04-ea6ee389426e"), "Новокузнецк", new Guid("c27377d7-a41d-41a4-b153-51126b33c1ca"), "г. Новокузнецк ул. Бардина 23, ком. 302", "302", 640000, "Бардина 23" },
+                    { new Guid("dd466c62-a6b3-475c-89a1-9b7e7b2a4cdc"), "Test", new Guid("c27377d7-a41d-41a4-b153-51126b33c1ca"), "г. Test Street, ком. 302", "302", 123456, "Street" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Brands",
                 columns: new[] { "Id", "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("4bdf8769-75fa-4bb9-b638-203dadd504f9"), new Guid("9aef5baa-3fed-4dac-a93e-6539e8358ac8"), "Xiaomi" },
-                    { new Guid("593e90aa-71e1-4872-8e38-4006cebe72c9"), new Guid("32cbd5d9-8d27-4982-b3b8-eefefde14519"), "Умные брелоки" },
-                    { new Guid("682b968f-f38d-494d-86da-eb3406d020ac"), new Guid("f0d9ff98-04d8-483c-bf5e-3b15b5cf2037"), "Смарт часы" },
-                    { new Guid("826b6dfd-69fc-44b9-8c0b-3b0905ad37d5"), new Guid("32cbd5d9-8d27-4982-b3b8-eefefde14519"), "Экшн-камеры" },
-                    { new Guid("914db199-c42c-43ac-bfef-de993eb83cfb"), new Guid("9aef5baa-3fed-4dac-a93e-6539e8358ac8"), "Apple Iphone" }
+                    { new Guid("10bb14e3-3c40-476b-886f-dd32daa0a3eb"), new Guid("bd70f9f3-5435-45c3-a3a8-59607c0e72c7"), "Xiaomi" },
+                    { new Guid("38c0dac5-d93a-423f-b5e2-c235d864ce0f"), new Guid("86403426-fc40-4a59-b8e4-36a8fcb879f4"), "Умные брелоки" },
+                    { new Guid("87d5e54e-4e9f-4d2e-8ce1-73dec743576e"), new Guid("bd70f9f3-5435-45c3-a3a8-59607c0e72c7"), "Apple Iphone" },
+                    { new Guid("e3f619fa-5aa4-4edb-8204-52ca782e2c13"), new Guid("a818ecb7-3609-4c27-9adb-3a330d925a9b"), "Смарт часы" },
+                    { new Guid("f35610ba-811b-4786-a956-3ea26f8e5f1a"), new Guid("86403426-fc40-4a59-b8e4-36a8fcb879f4"), "Экшн-камеры" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Admins",
-                columns: new[] { "Id", "AddressId", "ConfirmedPassword", "Email", "FirstName", "LastName", "Password", "Phone", "SecondName" },
-                values: new object[] { new Guid("611fb824-68b8-43df-a5f3-9d92cd1c79ba"), new Guid("83ddb109-4c6b-45d8-bfc1-1cadf4ef5282"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", "abubakrmirgiyasov@gmail.com", "Миргиясов", "Мукимжонович", "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, "Абубакр" });
+                columns: new[] { "Id", "AddressId", "ConfirmedPassword", "Email", "FirstName", "IsActive", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
+                values: new object[,]
+                {
+                    { new Guid("0a18c7c4-c394-4680-9aa8-020db354c1b7"), new Guid("153edc84-06d3-4c1f-ae04-ea6ee389426e"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", "abubakrmirgiyasov@gmail.com", "Миргиясов", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("6ab85d7b-6f75-495e-8e02-95808cdd867f"), "Абубакр" },
+                    { new Guid("59db23ad-18ff-46eb-98dc-ac46c025cc78"), new Guid("dd466c62-a6b3-475c-89a1-9b7e7b2a4cdc"), "dGVzdF8x", "test@gmail.com", "Test", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("6ab85d7b-6f75-495e-8e02-95808cdd867f"), "User" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AddressId", "ConfirmedPassword", "CreatedDate", "Email", "FirstName", "Ip", "IsActiveAccount", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
-                values: new object[] { new Guid("1ea7a394-fdb0-4b4d-8a6c-5070b7be78ae"), new Guid("83ddb109-4c6b-45d8-bfc1-1cadf4ef5282"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 10, 30, 18, 46, 51, 541, DateTimeKind.Local).AddTicks(7889), "abubakrmirgiyasov@gmail.com", "Миргиясов", "127.0.0.1", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("695b4d9d-cc94-4826-be91-fc3b1fd10f11"), "Абубакр" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AddressId", "ConfirmedPassword", "CreatedDate", "Email", "FirstName", "Ip", "IsActiveAccount", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
-                values: new object[] { new Guid("213e788c-5f27-4669-96ee-e95a30e9105f"), new Guid("83ddb109-4c6b-45d8-bfc1-1cadf4ef5282"), "dGVzdF8x", new DateTime(2022, 10, 30, 18, 46, 51, 541, DateTimeKind.Local).AddTicks(7929), "test@gmail.com", "Test", "127.0.0.2", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("e2147fb1-0a85-4a16-b90c-9bf9c42c83dc"), "User" });
+                values: new object[,]
+                {
+                    { new Guid("f4924e92-7aca-4c0a-9aba-d92c91525d59"), new Guid("153edc84-06d3-4c1f-ae04-ea6ee389426e"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 11, 2, 17, 26, 11, 566, DateTimeKind.Local).AddTicks(4147), "abubakrmirgiyasov@gmail.com", "Миргиясов", "127.0.0.1", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("6ab85d7b-6f75-495e-8e02-95808cdd867f"), "Абубакр" },
+                    { new Guid("f7bb4ff1-6df7-4e96-95c3-4bced6e96bb5"), new Guid("153edc84-06d3-4c1f-ae04-ea6ee389426e"), "dGVzdF8x", new DateTime(2022, 11, 2, 17, 26, 11, 566, DateTimeKind.Local).AddTicks(4185), "test@gmail.com", "Test", "127.0.0.1", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("6ab85d7b-6f75-495e-8e02-95808cdd867f"), "User" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CountryId",
@@ -243,9 +265,31 @@ namespace Mint.Infrastructure.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Admins_Email",
+                table: "Admins",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Admins_Phone",
+                table: "Admins",
+                column: "Phone",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Admins_RoleId",
+                table: "Admins",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Brands_CategoryId",
                 table: "Brands",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_AdminId",
+                table: "Photos",
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_BrandId",
@@ -283,10 +327,10 @@ namespace Mint.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admins");
+                name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "Photos");
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "Brands");

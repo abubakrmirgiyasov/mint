@@ -48,18 +48,44 @@ public class CategoryController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-    
+
 	[HttpPost]
-	public async Task<IActionResult> AddCategory(CategoryBindingModel category)
+	public IActionResult AddCategory(CategoryBindingModel category)
 	{
 		try
 		{
-			var newCategory = await _category.AddCategoryAsync(category);
+			return Ok(category);
+		}
+		catch (Exception ex)
+		{
+			throw new Exception(ex.Message, ex);
+		}
+	}
+    
+	[HttpPut]
+	public async Task<IActionResult> UpdateCategory(CategoryBindingModel category)
+	{
+		try
+		{
+			var newCategory = await _category.UpdateCategoryAsync(category);
 			return Ok(newCategory);
 		}
 		catch (Exception ex)
 		{
 			return BadRequest(ex.Message);
+		}
+	}
+
+	[HttpDelete("{id}")]
+	public IActionResult DeleteCategory(Guid id)
+	{
+		try
+		{
+			return Ok();
+		}
+		catch (Exception ex)
+		{
+			throw new Exception(ex.Message, ex);
 		}
 	}
 }

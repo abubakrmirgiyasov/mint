@@ -23,13 +23,19 @@
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
                 Бренды
-                <button class="btn btn-success" id="addNewField"><i class="bi bi-plus-square"></i></button>
+                <div>
+                    <button class="btn btn-outline-danger" id="removeField"><i class="bi bi-dash-square"></i></button>
+                    <button class="btn btn-outline-success" id="addNewField"><i class="bi bi-plus-square"></i></button>
+                </div>
             </div>
             @if (Model.CategoryViewModel == null)
             {
                 <div class="mb-3 px-2">
                     <label for="brand" class="form-label">Бренд</label>
                     <input type="text" class="form-control" name="BrandName" id="brand" placeholder="Название" value="" required>
+                    <label for="b-2">Фото</label>
+                    <input type="file" class="form-control" name="BrandImage" id="b-2" onchange="showPhoto(this);" required>
+                    <img src="#" id="test2" />
                 </div>
             }
             else
@@ -43,14 +49,16 @@
                         @if (Model.CategoryViewModel.Brands[i].Photos == null)
                         {
                             <label for="@Model.CategoryViewModel.Brands[i].Id">Фото для - @Model.CategoryViewModel.Brands[i].Name</label>
-                            <input type="file" class="form-control" name="BrandImage" id="@(Model.CategoryViewModel.Brands[i].Id)">
+                            <input type="file" class="form-control" name="BrandImage" id="@(Model.CategoryViewModel.Brands[i].Id)" onchange="showPhoto(this);" required>
+                            <img src="#" id="test2" />
                         }
                         else
                         {
                             @for (int j = 0; j < Model.CategoryViewModel.Brands[i].Photos?.Count; j++)
                             {
                                 <label for="file@(j)">Фото для - @Model.CategoryViewModel.Brands[i].Name</label>
-                                <input type="file" class="form-control" name="BrandImage" id="file@(j)" value="@Model.CategoryViewModel.Brands[i].Photos?[j].FileName">
+                                <input type="file" class="form-control" name="BrandImage" id="file@(j)" value="@Model.CategoryViewModel.Brands[i].Photos?[j].FileName" onchange="showPhoto(this);" required>
+                                <img src="#" id="test2" />
                             }
                         }
                     </div>
@@ -62,3 +70,85 @@
         </div>
     </form>
 </div>
+
+<script>
+
+    function showPhoto(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $("#test2")
+                    .attr("src", e.target.result)
+                    .width(200)
+                    .height(200)
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    const plus = document.querySelector("#addNewField");
+    const minus = document.querySelector("#removeField");
+    const card = document.querySelector(".card");
+    let i = 1;
+
+    var divList = [];
+
+    plus.addEventListener("click", (event) => {
+        event.preventDefault();
+
+
+        var div = document.createElement("div");
+        div.className = "mb-3 px-2";
+
+        var nameLabel = document.createElement("label");
+        nameLabel.textContent = "Бренд";
+        nameLabel.className = "form-label";
+        nameLabel.htmlFor = "BrandName";
+
+        var nameInput = document.createElement("input");
+        nameInput.className = "form-control";
+        nameInput.placeholder = "Название";
+        nameInput.name = "BrandName";
+        nameInput.id = "name" + i;
+
+        var fileLabel = document.createElement("label");
+        fileLabel.className = "form-label";
+        fileLabel.textContent = "Фото для - ";
+        fileLabel.htmlFor = "file" + i;
+
+        var fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.className = "form-control";
+        fileInput.name = "BrandImage";
+        fileInput.id = "file" + i;
+        fileInput.addEventListener("change", showPhoto);
+
+        var photo = document.createElement("img");
+        photo.src = "#";
+        photo.width = 200;
+        photo.height = 200;
+
+        div.appendChild(nameLabel);
+        div.appendChild(nameInput);
+        div.appendChild(fileLabel);
+        div.appendChild(fileInput);
+        div.appendChild(photo);
+
+        card.appendChild(div);
+
+        divList.push(div);
+
+        i++;
+    });
+
+    minus.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        for (let x = 0; x < divList.length; x++) {
+            divList[x].remove();
+        }
+
+        i--;
+    });
+</script>

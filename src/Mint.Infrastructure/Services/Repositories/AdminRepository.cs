@@ -46,6 +46,7 @@ public class AdminRepository : IAdminRepository
     {
         var encodedPassword = Encrypt.EncodePassword(password);
         var admin = await _context.Admins
+            .Include(x => x.Role)
             .Include(x => x.Photos)
             .FirstOrDefaultAsync(x => x.Email == login && x.Password == encodedPassword);
 
@@ -72,6 +73,7 @@ public class AdminRepository : IAdminRepository
                 new Claim(ClaimTypes.Name, admin.FirstName),
                 new Claim(ClaimTypes.GivenName, admin.SecondName),
                 new Claim(ClaimTypes.Email, admin.Email),
+                new Claim(ClaimTypes.Role, admin.Role!.Name),
             };
 
             foreach (var item in admin.Photos!)

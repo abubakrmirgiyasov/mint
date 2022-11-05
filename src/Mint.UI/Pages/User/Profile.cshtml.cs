@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mint.Domain.FormingModels;
 using Mint.Domain.ViewModels;
-using Mint.Middleware.Services;
 using Mint.Middleware.Services.Interfaces;
+using Mint.UI.Services;
 
 namespace Mint.UI.Pages.User;
 

@@ -35,6 +35,14 @@ public class ApplicationDbContext : DbContext
 			.HasIndex(x => x.Phone)
 			.IsUnique(true);
 
+		builder.Entity<Admin>()
+			.HasIndex(x => x.Email)
+			.IsUnique(true);
+
+		builder.Entity<Admin>()
+			.HasIndex(x => x.Phone)
+			.IsUnique(true);
+
 		builder.Entity<User>()
 			.HasOne(x => x.Role)
 			.WithMany(x => x.Users)
@@ -82,6 +90,12 @@ public class ApplicationDbContext : DbContext
 			.WithMany(x => x.Photos)
 			.HasForeignKey(x => x.AdminId)
 			.OnDelete(DeleteBehavior.NoAction);
+
+		builder.Entity<Admin>()
+			.HasOne(x => x.Role)
+			.WithMany(x => x.Admins)
+			.HasForeignKey(x => x.RoleId)
+			.OnDelete(DeleteBehavior.Cascade);
 
 		var roles = new Role[]
 		{
@@ -159,8 +173,8 @@ public class ApplicationDbContext : DbContext
 				Ip = "127.0.0.1",
 				Password = Encrypt.EncodePassword("test_1"),
 				ConfirmedPassword = Encrypt.EncodePassword("test_1"),
-				RoleId = roles[1].Id,
-				AddressId = addresses[1].Id,
+				RoleId = roles[0].Id,
+				AddressId = addresses[0].Id,
 			}
 		};
 
@@ -176,6 +190,7 @@ public class ApplicationDbContext : DbContext
 				Password = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
 				ConfirmedPassword = Encrypt.EncodePassword("AbuakrMirgiyasov@))!M"),
 				AddressId = addresses[0].Id,
+				RoleId = roles[0].Id,
 			},
             new Admin()
             {
@@ -185,8 +200,9 @@ public class ApplicationDbContext : DbContext
                 Phone = 89502768529,
                 Password = Encrypt.EncodePassword("test_1"),
                 ConfirmedPassword = Encrypt.EncodePassword("test_1"),
+				RoleId = roles[0].Id,
                 AddressId = addresses[1].Id,
-            }
+			}
         };
 
 		var categories = new Category[]

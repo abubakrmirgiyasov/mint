@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Mint.Middleware.Extensions;
+﻿using Mint.Middleware.Extensions;
+using Mint.Middleware.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Mint.Middleware.Services;
+namespace Mint.UI.Services;
 
-public static class UserAuthenticationService
+public static class UserServiceExtension
 {
     public static bool IsAuthenticated(this HttpContext context)
     {

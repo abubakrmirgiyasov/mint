@@ -45,5 +45,9 @@ public class Admin
 
     public Address? Address { get; set; }
 
+    public Guid? RoleId { get; set; }
+
+    public Role? Role { get; set; }
+
     public ICollection<Photo>? Photos { get; set; }
 }

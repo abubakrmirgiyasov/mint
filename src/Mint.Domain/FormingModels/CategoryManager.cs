@@ -25,15 +25,12 @@ public class CategoryManager
 
     public CategoryViewModel FormingViewModel(Category category)
     {
-        var categoryViewModel = new CategoryViewModel();
-
-        for (int i = 0; i < category.Brands!.Count; i++)
+        var categoryViewModel = new CategoryViewModel
         {
-            categoryViewModel.Id = category.Id;
-            categoryViewModel.Name = category.Name;
-            categoryViewModel.Brands = new BrandManager().FormingViewModels(category.Brands.ToList());
-        }
-
+            Id = category.Id,
+            Name = category.Name,
+            Brands = new BrandManager().FormingViewModels(category.Brands!.ToList())
+        };
         return categoryViewModel;
     }
 
@@ -44,6 +41,8 @@ public class CategoryManager
             Id = category.Id,
             Name = category.Name
         };
+
+        newCategory.Brands = new List<Brand>();
 
         for (int i = 0; i < category.Brands.Count; i++)
         {

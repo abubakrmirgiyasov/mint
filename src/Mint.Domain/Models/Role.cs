@@ -11,5 +11,7 @@ public class Role
     [MaxLength(32, ErrorMessage = "Перевышено макс. длина строки (32).")]
     public string Name { get; set; } = "";
 
+    public ICollection<Admin>? Admins { get; set; }
+
     public ICollection<User>? Users { get; set; }
 }

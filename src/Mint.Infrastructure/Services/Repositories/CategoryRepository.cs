@@ -66,8 +66,12 @@ public class CategoryRepository : ICategoryRepository
         var newCategory = await GetCategoryByIdAsync(category.Id);
 
         newCategory.Name = category.Name;
-        //newCategory.Brands = new BrandManager().
-            return newCategory;
+        newCategory.Brands = new BrandManager().FormingBindingModels(category.Brands, category.Id);
+
+        _context.Categories.Update(newCategory);
+        await _context.SaveChangesAsync();
+       
+        return newCategory;
     }
 
     public Task<Category> DeleteCategoryAsync(CategoryBindingModel category)
