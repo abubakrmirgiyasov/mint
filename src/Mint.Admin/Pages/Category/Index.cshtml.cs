@@ -19,7 +19,7 @@ namespace Mint.Admin.Pages.Category
         public async Task OnGet()
         {
             ViewData["Category"] = "active";
-            Categories = new CategoryManager().FormingViewModels(await _category.GetCategories());
+            //Categories = new CategoryManager().FormingViewModels(await _category.GetCategories());
         }
     }
 }

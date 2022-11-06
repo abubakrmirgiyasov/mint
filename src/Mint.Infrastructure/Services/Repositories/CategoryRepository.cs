@@ -20,7 +20,7 @@ public class CategoryRepository : ICategoryRepository
         try
         {
             var categories = await _context.Categories
-                .Include(x => x.Brands)
+                //.Include(x => x.Brands)
                 .ToListAsync();
             return categories;
         }
@@ -35,7 +35,7 @@ public class CategoryRepository : ICategoryRepository
         try
         {
             var category = await _context.Categories
-                .Include(x => x.Brands)
+                //.Include(x => x.Brands)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return category!;
         }
@@ -49,7 +49,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var newCategory = new CategoryManager().FormingBindingModel(category);
+            var newCategory = new Category(); // CategoryManager().FormingBindingModel(category);
 
             await _context.Categories.AddAsync(newCategory);
             await _context.SaveChangesAsync();
@@ -66,7 +66,7 @@ public class CategoryRepository : ICategoryRepository
         var newCategory = await GetCategoryByIdAsync(category.Id);
 
         newCategory.Name = category.Name;
-        newCategory.Brands = new BrandManager().FormingBindingModels(category.Brands, category.Id);
+        //newCategory.Brands = new BrandManager().FormingBindingModels(category.Brands, category.Id);
 
         _context.Categories.Update(newCategory);
         await _context.SaveChangesAsync();

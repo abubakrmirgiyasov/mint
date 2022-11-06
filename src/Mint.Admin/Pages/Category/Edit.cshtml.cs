@@ -25,7 +25,7 @@ public class EditModel : PageModel
             return;
         }
         var category = await _category.GetCategoryById(Guid.Parse(id));
-        CategoryViewModel = new CategoryManager().FormingViewModel(category);
+        //CategoryViewModel = new CategoryManager().FormingViewModel(category);
     }
 
     public void OnPost()

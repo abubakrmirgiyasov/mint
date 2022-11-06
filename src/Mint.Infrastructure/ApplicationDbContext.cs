@@ -22,6 +22,8 @@ public class ApplicationDbContext : DbContext
 
 	public DbSet<Admin> Admins { get; set; } = null!;
 
+	public DbSet<SubCategory> SubCategories { get; set; } = null!;
+
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 		: base(options) { }
 
@@ -61,9 +63,27 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.BrandId)
 			.OnDelete(DeleteBehavior.NoAction);
 
-		builder.Entity<Brand>()
+		builder.Entity<Photo>()
 			.HasOne(x => x.Category)
-			.WithMany(x => x.Brands)
+			.WithMany(x => x.Photos)
+			.HasForeignKey(x => x.CategoryId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.Entity<Photo>()
+			.HasOne(x => x.SubCategory)
+			.WithMany(x => x.Photos)
+			.HasForeignKey(x => x.SubCategoryId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.Entity<Category>()
+			.HasOne(x => x.Brand)
+			.WithMany(x => x.Categories)
+			.HasForeignKey(x => x.BrandId)
+			.OnDelete(DeleteBehavior.Cascade);
+
+		builder.Entity<SubCategory>()
+			.HasOne(x => x.Category)
+			.WithMany(x => x.SubCategories)
 			.HasForeignKey(x => x.CategoryId)
 			.OnDelete(DeleteBehavior.NoAction);
 
@@ -205,52 +225,72 @@ public class ApplicationDbContext : DbContext
 			}
         };
 
-		var categories = new Category[]
+        var brands = new Brand[]
+        {
+            new Brand()
+            {
+				Id = Guid.NewGuid(),
+                Name = "Apple",
+            },
+            new Brand()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Xiaomi",
+            },
+            new Brand()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Samsung",
+            },
+        };
+
+        var categories = new Category[]
 		{
 			new Category()
 			{
 				Id = Guid.NewGuid(),
 				Name = "Смартфоны",
-			},
+                BrandId = brands[0].Id,
+            },
 			new Category()
 			{
 				Id = Guid.NewGuid(),
-				Name = "Аксессуары",
-			},
+                Name = "Аксессуары",
+                BrandId = brands[1].Id,
+            },
 			new Category()
 			{
 				Id = Guid.NewGuid(),
-				Name = "Гаджеты",
-			},
-		};
+                Name = "Гаджеты",
+                BrandId = brands[0].Id,
+            },
+            new Category()
+            {
+				Id = Guid.NewGuid(),
+                Name = "Экшн-камеры",
+                BrandId = brands[2].Id,
+            },
+            new Category()
+            {
+				Id = Guid.NewGuid(),
+                Name = "Умные брелоки",
+				BrandId = brands[2].Id,
+            },
+            new Category()
+            {
+				Id = Guid.NewGuid(),
+                Name = "Смарт часы",
+				BrandId = brands[2].Id,
+            }
+        };
 
-		var brands = new Brand[]
+		var subCategories = new SubCategory[]
 		{
-			new Brand()
+			new SubCategory()
 			{
-				Name = "Apple Iphone",
-				CategoryId = categories[0].Id,
-			},
-			new Brand()
-			{
-				Name = "Xiaomi",
-				CategoryId = categories[0].Id,
-			},
-			new Brand()
-			{
-				Name = "Экшн-камеры",
-				CategoryId = categories[2].Id,
-			},
-			new Brand()
-			{
-				Name = "Умные брелоки",
-				CategoryId = categories[2].Id,
-			},
-			new Brand()
-			{
-				Name = "Смарт часы",
-				CategoryId = categories[1].Id,
-			}
+                Name = "Смартфоны",
+                CategoryId = categories[0].Id,
+            }
 		};
 
 		builder.Entity<Admin>().HasData(admins);
@@ -260,5 +300,6 @@ public class ApplicationDbContext : DbContext
 		builder.Entity<User>().HasData(users);
 		builder.Entity<Brand>().HasData(brands);
 		builder.Entity<Category>().HasData(categories);
+		builder.Entity<SubCategory>().HasData(subCategories);
 	}
 }

@@ -11,5 +11,11 @@ public class Category
     [MaxLength(32, ErrorMessage = "Перевышено макс. длина строки (32).")]
     public string Name { get; set; } = "";
 
-    public ICollection<Brand>? Brands { get; set; }
+    public Guid? BrandId { get; set; }
+
+    public Brand? Brand { get; set; }
+
+    public ICollection<SubCategory>? SubCategories { get; set; }
+
+    public ICollection<Photo>? Photos { get; set; }
 }

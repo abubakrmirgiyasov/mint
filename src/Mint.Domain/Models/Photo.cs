@@ -7,7 +7,7 @@ public class Photo
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [MaxLength(100, ErrorMessage = "Название файла слишком большое")]
+    [MaxLength(60, ErrorMessage = "Макс. длина строки 60")]
     public string FileName { get; set; } = "";
 
     public string FileExtension { get; set; } = "";
@@ -21,6 +21,14 @@ public class Photo
     public Guid? UserId { get; set; }
 
     public User? User { get; set; }
+
+    public Guid? SubCategoryId { get; set; }
+
+    public SubCategory? SubCategory { get; set; }
+
+    public Guid CategoryId { get; set; }
+
+    public Category? Category { get; set; }
 
     public Guid? BrandId { get; set; }
 
