@@ -226,71 +226,59 @@ namespace Mint.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Brands",
                 columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("251435e6-e24a-4871-ac83-c59b2f5a6903"), "Samsung" },
-                    { new Guid("40915553-d89b-4701-9f95-c0babc4e4660"), "Apple" },
-                    { new Guid("7b6d1176-ddf2-4fc3-95ea-b5e3265650d9"), "Xiaomi" }
-                });
+                values: new object[] { new Guid("7d5847ad-549e-46dd-8734-89985740d18c"), "Samsung" });
 
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("28d2c9ef-5088-4a9c-b5a4-ab7d58283b19"), "Россия" });
+                values: new object[] { new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"), "Россия" });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("c0256e11-9014-4dae-a582-be799f9e6934"), "Deliver" },
-                    { new Guid("e134f2b0-c5b6-4c7e-82c5-6a6fc033d62e"), "Admin" },
-                    { new Guid("f234d2d2-5d12-457d-9082-1e92cb1d3de6"), "Buyer" }
+                    { new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"), "Admin" },
+                    { new Guid("3f68cf14-7a68-40a4-a3c8-5f51e64d4c51"), "Buyer" },
+                    { new Guid("a45359cf-d936-4a60-b07c-53964eb0308e"), "Deliver" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "City", "CountryId", "Description", "Home", "PostCode", "Street" },
-                values: new object[,]
-                {
-                    { new Guid("0fed4fb4-a0ab-4d42-88a6-6705c5b3213a"), "Test", new Guid("28d2c9ef-5088-4a9c-b5a4-ab7d58283b19"), "г. Test Street, ком. 302", "302", 123456, "Street" },
-                    { new Guid("f78716a2-6240-495c-b0a0-41e2b322d208"), "Новокузнецк", new Guid("28d2c9ef-5088-4a9c-b5a4-ab7d58283b19"), "г. Новокузнецк ул. Бардина 23, ком. 302", "302", 640000, "Бардина 23" }
-                });
+                values: new object[] { new Guid("65f3b1c9-ac01-41f7-a709-0c7dd31f74b9"), "Test", new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"), "г. Test Street, ком. 302", "302", 123456, "Street" });
+
+            migrationBuilder.InsertData(
+                table: "Addresses",
+                columns: new[] { "Id", "City", "CountryId", "Description", "Home", "PostCode", "Street" },
+                values: new object[] { new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"), "Новокузнецк", new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"), "г. Новокузнецк ул. Бардина 23, ком. 302", "302", 640000, "Бардина 23" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "BrandId", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("0c89933d-6bfa-4822-a852-0663a3350fff"), new Guid("40915553-d89b-4701-9f95-c0babc4e4660"), "Гаджеты" },
-                    { new Guid("65948de5-991c-4ee8-8a88-d84a24d7618f"), new Guid("251435e6-e24a-4871-ac83-c59b2f5a6903"), "Экшн-камеры" },
-                    { new Guid("8211b092-d498-4877-942e-5b30a83d1c72"), new Guid("251435e6-e24a-4871-ac83-c59b2f5a6903"), "Смарт часы" },
-                    { new Guid("84cb92ef-2f4b-4f81-a443-09de001ad984"), new Guid("7b6d1176-ddf2-4fc3-95ea-b5e3265650d9"), "Аксессуары" },
-                    { new Guid("b4f269e4-07c2-422b-b358-b16492505f73"), new Guid("40915553-d89b-4701-9f95-c0babc4e4660"), "Смартфоны" },
-                    { new Guid("f239bd6b-fc84-4bc7-ab5e-ea67c9398d31"), new Guid("251435e6-e24a-4871-ac83-c59b2f5a6903"), "Умные брелоки" }
-                });
+                values: new object[] { new Guid("fe8a83da-ecf9-4db1-b39d-7611382a4628"), new Guid("7d5847ad-549e-46dd-8734-89985740d18c"), "Смартфоны" });
 
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "AddressId", "ConfirmedPassword", "Email", "FirstName", "IsActive", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
                 values: new object[,]
                 {
-                    { new Guid("7d5686c7-cad7-4b72-9d03-9808be3c8572"), new Guid("f78716a2-6240-495c-b0a0-41e2b322d208"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", "abubakrmirgiyasov@gmail.com", "Миргиясов", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("e134f2b0-c5b6-4c7e-82c5-6a6fc033d62e"), "Абубакр" },
-                    { new Guid("8666de54-7327-4bfc-a86a-357ac1c16fdf"), new Guid("0fed4fb4-a0ab-4d42-88a6-6705c5b3213a"), "dGVzdF8x", "test@gmail.com", "Test", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("e134f2b0-c5b6-4c7e-82c5-6a6fc033d62e"), "User" }
+                    { new Guid("204fbdce-0c01-490f-8c8c-513ad7eaca87"), new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", "abubakrmirgiyasov@gmail.com", "Миргиясов", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"), "Абубакр" },
+                    { new Guid("b9d7c7c3-e0e6-40ff-b2df-e3cc36d89be0"), new Guid("65f3b1c9-ac01-41f7-a709-0c7dd31f74b9"), "dGVzdF8x", "test@gmail.com", "Test", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"), "User" }
                 });
 
             migrationBuilder.InsertData(
                 table: "SubCategories",
                 columns: new[] { "Id", "CategoryId", "Name" },
-                values: new object[] { new Guid("78f79914-1bd2-4aa8-a69b-c1c5f2691896"), new Guid("b4f269e4-07c2-422b-b358-b16492505f73"), "Смартфоны" });
+                values: new object[] { new Guid("479c6618-75e2-4b60-b00c-ffe2def73aca"), new Guid("fe8a83da-ecf9-4db1-b39d-7611382a4628"), "Samsung Galaxy" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AddressId", "ConfirmedPassword", "CreatedDate", "Email", "FirstName", "Ip", "IsActiveAccount", "LastName", "NumOfAttempts", "Password", "Phone", "RoleId", "SecondName" },
                 values: new object[,]
                 {
-                    { new Guid("3dc4d6c0-0b26-4f90-9a07-297c828924b8"), new Guid("f78716a2-6240-495c-b0a0-41e2b322d208"), "dGVzdF8x", new DateTime(2022, 11, 6, 15, 42, 11, 897, DateTimeKind.Local).AddTicks(1866), "test@gmail.com", "Test", "127.0.0.1", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("e134f2b0-c5b6-4c7e-82c5-6a6fc033d62e"), "User" },
-                    { new Guid("5221fe2f-7ab0-4e88-b65f-af7e4270898e"), new Guid("f78716a2-6240-495c-b0a0-41e2b322d208"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 11, 6, 15, 42, 11, 897, DateTimeKind.Local).AddTicks(1802), "abubakrmirgiyasov@gmail.com", "Миргиясов", "127.0.0.1", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("e134f2b0-c5b6-4c7e-82c5-6a6fc033d62e"), "Абубакр" }
+                    { new Guid("9910adab-0e1a-48aa-957c-a9f090c9d7c6"), new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"), "dGVzdF8x", new DateTime(2022, 11, 13, 12, 31, 20, 1, DateTimeKind.Local).AddTicks(7394), "test@gmail.com", "Test", "127.0.0.1", true, null, 0, "dGVzdF8x", 89502768529L, new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"), "User" },
+                    { new Guid("9d976cee-99ee-4ccb-81aa-944a9d1ddd95"), new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"), "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", new DateTime(2022, 11, 13, 12, 31, 20, 1, DateTimeKind.Local).AddTicks(7354), "abubakrmirgiyasov@gmail.com", "Миргиясов", "127.0.0.1", true, "Мукимжонович", 0, "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN", 89502768428L, new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"), "Абубакр" }
                 });
 
             migrationBuilder.CreateIndex(

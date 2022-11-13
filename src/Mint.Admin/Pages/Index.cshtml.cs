@@ -20,10 +20,10 @@ namespace Mint.Admin.Pages
 
         public void OnGet()
         {
-            if (HttpContext.IsAuthenticated())
-            {
-                Response.Redirect("/dashboard/");
-            }
+            //if (HttpContext.IsAuthenticated())
+            //{
+            //    Response.Redirect("/dashboard/");
+            //}
         }
 
         public async Task OnPost(AdminBindingModel admin)

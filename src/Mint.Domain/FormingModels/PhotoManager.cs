@@ -32,6 +32,35 @@ public class PhotoManager
         }
     }
 
+    public List<PhotoBindingModel> FormingViewModels(List<Photo>? photos)
+    {
+        try
+        {
+            if (photos != null)
+            {
+                var photoBindingModels = new List<PhotoBindingModel>();
+
+                foreach (var photo in photos)
+                {
+                    photoBindingModels.Add(new PhotoBindingModel()
+                    {
+                        FileName = photo.FileName,
+                        FileSize = photo.FileSize,
+                        FileExtension = photo.FileExtension,
+                        FileBytes = photo.FileBytes,
+                        FilePath = photo.FilePath,
+                    });
+                }
+                return photoBindingModels;
+            }
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
+
     public PhotoBindingModel FormingSinglePhoto(List<PhotoBindingModel> photos)
     {
         if (photos != null)
@@ -73,15 +102,14 @@ public class PhotoManager
                         {
                             var newPhoto = new PhotoBindingModel()
                             {
+                                Name = file.Name,
                                 FileName = Path.GetFileName(file.FileName/*.Split('.')[0]*/),
                                 FileSize = ms.Length,
                                 FileExtension = Path.GetExtension(file.FileName/*.Split('.')[file.FileName.Length - 1]*/),
                                 FilePath = Path.GetFullPath(file.FileName),
                                 FileBytes = ms.ToArray(),
                             };
-
                             photos.Add(newPhoto);
-                            return photos;
                         }
                         else
                         {
@@ -89,8 +117,8 @@ public class PhotoManager
                         }
                     }
                 }
+                return photos;
             }
-
             return null!;
         }
         catch (Exception ex)

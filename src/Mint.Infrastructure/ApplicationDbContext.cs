@@ -229,16 +229,6 @@ public class ApplicationDbContext : DbContext
         {
             new Brand()
             {
-				Id = Guid.NewGuid(),
-                Name = "Apple",
-            },
-            new Brand()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Xiaomi",
-            },
-            new Brand()
-            {
                 Id = Guid.NewGuid(),
                 Name = "Samsung",
             },
@@ -251,36 +241,6 @@ public class ApplicationDbContext : DbContext
 				Id = Guid.NewGuid(),
 				Name = "Смартфоны",
                 BrandId = brands[0].Id,
-            },
-			new Category()
-			{
-				Id = Guid.NewGuid(),
-                Name = "Аксессуары",
-                BrandId = brands[1].Id,
-            },
-			new Category()
-			{
-				Id = Guid.NewGuid(),
-                Name = "Гаджеты",
-                BrandId = brands[0].Id,
-            },
-            new Category()
-            {
-				Id = Guid.NewGuid(),
-                Name = "Экшн-камеры",
-                BrandId = brands[2].Id,
-            },
-            new Category()
-            {
-				Id = Guid.NewGuid(),
-                Name = "Умные брелоки",
-				BrandId = brands[2].Id,
-            },
-            new Category()
-            {
-				Id = Guid.NewGuid(),
-                Name = "Смарт часы",
-				BrandId = brands[2].Id,
             }
         };
 
@@ -288,7 +248,7 @@ public class ApplicationDbContext : DbContext
 		{
 			new SubCategory()
 			{
-                Name = "Смартфоны",
+                Name = "Samsung Galaxy",
                 CategoryId = categories[0].Id,
             }
 		};

@@ -6,65 +6,92 @@ namespace Mint.Domain.FormingModels;
 
 public class BrandManager
 {
-    //public List<BrandViewModel> FormingViewModels(List<Brand> brands)
-    //{
-    //    try
-    //    {
-    //        var brandViewModels = new List<BrandViewModel>();
+    public List<BrandViewModel> FormingViewModels(List<Brand> brands)
+    {
+        try
+        {
+            var brandViewModels = new List<BrandViewModel>();
 
-    //        for (int i = 0; i < brands.Count; i++)
-    //        {
-    //            brandViewModels.Add(new BrandViewModel()
-    //            {
-    //                Id = brands[i].Id,
-    //                Name = brands[i].Name,
-    //                Photos = brands[i].Photos?.ToList()
-    //            });
-    //        }
+            for (int i = 0; i < brands.Count; i++)
+            {
+                brandViewModels.Add(new BrandViewModel
+                {
+                    Id = brands[i].Id,
+                    Name = brands[i].Name,
+                    Categories = new CategoryManager().FormingViewModels(brands[i].Categories!.ToList()),
+                    Photos = new PhotoManager().FormingViewModels(brands[i].Photos?.ToList()),
+                });
+            }
 
-    //        return brandViewModels;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw new Exception(ex.Message, ex);
-    //    }
-    //}
+            return brandViewModels;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
 
-    //public List<Brand> FormingBindingModels(List<BrandBindingModel> brandBindindingModels, Guid categoryId)
-    //{
-    //    try
-    //    {
-    //        var brand = new List<Brand>();
+    public BrandViewModel FormingViewModel(Brand? brand)
+    {
+        try
+        {
+            if (brand != null)
+            {
+                var brandViewModel = new BrandViewModel
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                    Categories = new CategoryManager().FormingViewModels(brand.Categories!.ToList())
+                };
 
-    //        for (int i = 0; i < brandBindindingModels.Count; i++)
-    //        {
-    //            brand.Add(new Brand()
-    //            {
-    //                Id = brandBindindingModels[i].Id,
-    //                Name = brandBindindingModels[i].Name,
-    //                CategoryId = categoryId,
-    //                Photos = new List<Photo>(),
-    //            });
+                return brandViewModel;
+            }
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
 
-    //            for (int j = 0; j < brandBindindingModels[i].Photos.Count; j++)
-    //            {
-    //                brand[i].Photos!.Add(new Photo()
-    //                {
-    //                    BrandId = brand[j].Id,
-    //                    FileName = brandBindindingModels[i].Photos[j].FileName,
-    //                    FileExtension = brandBindindingModels[i].Photos[j].FileExtension,
-    //                    FilePath = brandBindindingModels[i].Photos[j].FilePath,
-    //                    FileSize = brandBindindingModels[i].Photos[j].FileSize,
-    //                    FileBytes = brandBindindingModels[i].Photos[j].FileBytes,
-    //                });
-    //            }
-    //        }
+    public Brand FormingBindingModel(BrandBindingModel brandBindindingModel)
+    {
+        try
+        {
+            var brand = new Brand
+            {
+                Id = brandBindindingModel.Id,
+                Name = brandBindindingModel.Name,
+                Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Photos!.ToList()),
+                Categories = new List<Category>(),
+            };
 
-    //        return brand;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw new Exception(ex.Message, ex);
-    //    }
-    //}
+            for (int i = 0; i < brandBindindingModel.Categories.Count; i++)
+            {
+                brand.Categories.Add(new Category
+                {
+                    Name = brandBindindingModel.Categories[i].Name,
+                    BrandId = brandBindindingModel.Categories[i].Id,
+                    SubCategories = new List<SubCategory>(),
+                    Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Categories[i].Photos),
+                });
+
+                for (int j = 0; j < brandBindindingModel.Categories[i].SubCategories.Count; j++)
+                {
+                    brand.Categories.ToList()[i].SubCategories!.Add(new SubCategory
+                    {
+                        Name = brandBindindingModel.Categories[i].SubCategories[j].Name,
+                        CategoryId = brandBindindingModel.Categories[i].SubCategories[j].CategoryId,
+                        Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Categories[i].SubCategories[j].Photos),
+                    });
+                }
+            }
+
+            return brand;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
+        }
+    }
 }

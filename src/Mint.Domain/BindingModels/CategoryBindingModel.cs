@@ -6,5 +6,9 @@ public class CategoryBindingModel
 
     public string Name { get; set; } = "";
 
-    public List<BrandBindingModel> Brands { get; set; } = null!; 
+    public Guid BrandId { get; set; }
+
+    public List<SubCategoryBindingModel> SubCategories { get; set; } = null!;
+
+    public List<PhotoBindingModel> Photos { get; set; } = null!;
 }

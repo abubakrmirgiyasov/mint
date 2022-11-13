@@ -64,6 +64,13 @@ public class RequestService<T>
         }
     }
 
+    public async Task<T> UpdateRequestAsync(string content, string route)
+    {
+        var response = await _client.PutAsync(route, new StringContent(content, Encoding.UTF8, "application/json"));
+        var apiResponse = await response.Content.ReadAsStringAsync();
+        return new JsonResponse<T>().GetResponse(response, apiResponse);
+    }
+
     private void Validation()
     {
 
