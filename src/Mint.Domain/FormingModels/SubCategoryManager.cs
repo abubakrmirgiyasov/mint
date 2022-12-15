@@ -15,10 +15,10 @@ namespace Mint.Domain.FormingModels
 
                     foreach (var subCategory in subCategories)
                     {
-                        subCategoriesViewModel.Add(new SubCategoryViewModel
+                        subCategoriesViewModel.Add(new SubCategoryViewModel()
                         {
+                            Id = subCategory.Id,
                             Name = subCategory.Name,
-                            CategoryId = subCategory.Id,
                             Photos = new PhotoManager().FormingViewModels(subCategory.Photos?.ToList()),
                         });
                     }

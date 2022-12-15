@@ -14,11 +14,10 @@ public class BrandManager
 
             for (int i = 0; i < brands.Count; i++)
             {
-                brandViewModels.Add(new BrandViewModel
+                brandViewModels.Add(new BrandViewModel()
                 {
                     Id = brands[i].Id,
                     Name = brands[i].Name,
-                    Categories = new CategoryManager().FormingViewModels(brands[i].Categories!.ToList()),
                     Photos = new PhotoManager().FormingViewModels(brands[i].Photos?.ToList()),
                 });
             }
@@ -37,11 +36,11 @@ public class BrandManager
         {
             if (brand != null)
             {
-                var brandViewModel = new BrandViewModel
+                var brandViewModel = new BrandViewModel()
                 {
                     Id = brand.Id,
                     Name = brand.Name,
-                    Categories = new CategoryManager().FormingViewModels(brand.Categories!.ToList())
+                    //Categories = new CategoryManager().FormingViewModels(brand.Categories!.ToList())
                 };
 
                 return brandViewModel;
@@ -58,36 +57,61 @@ public class BrandManager
     {
         try
         {
-            var brand = new Brand
-            {
-                Id = brandBindindingModel.Id,
-                Name = brandBindindingModel.Name,
-                Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Photos!.ToList()),
-                Categories = new List<Category>(),
-            };
+            //var brand = new Brand()
+            //{
+            //    Id = brandBindindingModel.Id,
+            //    Name = brandBindindingModel.Name,
+            //};
 
-            for (int i = 0; i < brandBindindingModel.Categories.Count; i++)
-            {
-                brand.Categories.Add(new Category
-                {
-                    Name = brandBindindingModel.Categories[i].Name,
-                    BrandId = brandBindindingModel.Categories[i].Id,
-                    SubCategories = new List<SubCategory>(),
-                    Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Categories[i].Photos),
-                });
+            //var brandsPhoto = new List<Photo>();
 
-                for (int j = 0; j < brandBindindingModel.Categories[i].SubCategories.Count; j++)
-                {
-                    brand.Categories.ToList()[i].SubCategories!.Add(new SubCategory
-                    {
-                        Name = brandBindindingModel.Categories[i].SubCategories[j].Name,
-                        CategoryId = brandBindindingModel.Categories[i].SubCategories[j].CategoryId,
-                        Photos = new PhotoManager().FormingBindingModel(brandBindindingModel.Categories[i].SubCategories[j].Photos),
-                    });
-                }
-            }
+            //for (int i = 0; i < brandBindindingModel.Photos.Count; i++)
+            //{
+            //    brandsPhoto.Add(new Photo()
+            //    {
+            //        Id = brandBindindingModel.Photos[i].Id,
+            //        BrandId = brandBindindingModel.Id,
+            //        FileName = brandBindindingModel.Photos[i].FileName,
+            //        FileSize = brandBindindingModel.Photos[i].FileSize,
+            //        FileExtension = brandBindindingModel.Photos[i].FileExtension,
+            //        FileBytes = brandBindindingModel.Photos[i].FileBytes,
+            //        FilePath = brandBindindingModel.Photos[i].FilePath,
+            //    });
+            //}
+            //brand.Photos = brandsPhoto;
 
-            return brand;
+            //for (int i = 0; i < brandBindindingModel.Categories.Count; i++)
+            //{
+            //    var categoriesPhoto = new List<Photo>();
+
+            //    brand.Categories = new List<Category>
+            //    {
+            //        new Category()
+            //        {
+            //            Id = brandBindindingModel.Categories[i].Id,
+            //            Name = brandBindindingModel.Categories[i].Name,
+            //            BrandId = brandBindindingModel.Categories[i].BrandId,
+            //        }
+            //    };
+
+            //    for (int j = 0; j < brandBindindingModel.Categories[i].Photos.Count; j++)
+            //    {
+            //        categoriesPhoto.Add(new Photo()
+            //        {
+            //            Id = brandBindindingModel.Categories[i].Photos[j].Id,
+            //            CategoryId = brandBindindingModel.Categories[j].Id,
+            //            FileName = brandBindindingModel.Photos[i].FileName,
+            //            FileSize = brandBindindingModel.Photos[i].FileSize,
+            //            FileExtension = brandBindindingModel.Photos[i].FileExtension,
+            //            FileBytes = brandBindindingModel.Photos[i].FileBytes,
+            //            FilePath = brandBindindingModel.Photos[i].FilePath,
+            //        });
+            //    }
+            //    brand.Categories.ToList()[i].Photos = categoriesPhoto;
+            //}
+
+            //return brand; 
+            return new Brand();
         }
         catch (Exception ex)
         {

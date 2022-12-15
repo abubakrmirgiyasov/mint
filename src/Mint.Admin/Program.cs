@@ -22,7 +22,7 @@ builder.Services.AddCookiePolicy(options =>
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<IBrandRequest, BrandRequest>();
+builder.Services.AddScoped<ICategoryRequest, CategoryRequest>();
 builder.Services.AddScoped<IAdminRequestService, AdminRequestService>();
 
 var app = builder.Build();

@@ -49,7 +49,8 @@ public class UserManager
 				newUser.Photos = new List<Photo>();
 				newUser.Photos!.Add(new Photo()
 				{
-					FileName = user.Photo!.FileName,
+					FullName = user.Photo.FullName!,
+					FileName = user.Photo.FileName,
 					FileExtension = user.Photo.FileExtension,
 					FilePath = user.Photo.FilePath,
 					FileSize = user.Photo.FileSize,

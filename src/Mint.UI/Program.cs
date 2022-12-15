@@ -22,6 +22,7 @@ builder.Services.AddCookiePolicy(options =>
 });
 
 builder.Services.AddScoped<IAuthenticationRequest, AuthenticationRequest>();
+builder.Services.AddScoped<ICategoryRequest, CategoryRequest>();
 builder.Services.AddScoped<IUserRequest, UserRequest>();
 
 builder.Services.AddRazorPages();

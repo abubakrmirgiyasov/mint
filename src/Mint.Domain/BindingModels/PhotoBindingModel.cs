@@ -2,7 +2,9 @@
 
 public class PhotoBindingModel
 {
-    public string? Name { get; set; }
+    public Guid Id { get; set; }
+
+    public string? FullName { get; set; }
 
     public string FileName { get; set; } = "";
 
@@ -13,4 +15,12 @@ public class PhotoBindingModel
     public string FilePath { get; set; } = "";
 
     public byte[] FileBytes { get; set; } = Array.Empty<byte>();
+
+    public Guid? CategoryId { get; set; }
+
+    public Guid? BrandId { get; set; }
+
+    public Guid? SubCategoryId { get; set; }
+
+    public Guid? UserId { get; set; }
 }

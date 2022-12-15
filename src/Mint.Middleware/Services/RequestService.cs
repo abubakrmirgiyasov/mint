@@ -28,7 +28,7 @@ public class RequestService<T>
         if (_auth)
         {
             Client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(Constants.TOKEN_SCHEME, Params.AccessToken);
+                new AuthenticationHeaderValue(Constants.TOKEN_SCHEME, Params.AccessToken); ///////
         }
     }
 
@@ -42,6 +42,7 @@ public class RequestService<T>
         }
         catch (Exception ex)
         {
+            Validation(ex);
             throw new Exception(ex.Message, ex);
         }
     }
@@ -71,7 +72,7 @@ public class RequestService<T>
         return new JsonResponse<T>().GetResponse(response, apiResponse);
     }
 
-    private void Validation()
+    private void Validation(Exception ex)
     {
 
     }

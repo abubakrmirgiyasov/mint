@@ -1,0 +1,149 @@
+﻿@page
+@using Mint.Admin.Pages.Category;
+@model IndexModel
+@{
+    ViewData["Title"] = "Категории";
+    int i = 1;
+}
+
+<style>
+    .accordion {
+        background-color: transparent;
+        color: #505050;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #505050;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.25s;
+        border-radius: 10px;
+    }
+
+    .accordion:after {
+        content: "\002B";
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .accActive:after {
+        content: "\2212";
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .mr-10 {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container">
+    <div class="d-flex align-items-start flex-column mb-3">
+        <h3>Категории</h3>
+    </div>
+    <div class="d-flex align-items-end flex-column mb-3">
+        <p>
+            <a href="/category/action" class="btn btn-info" style="width: 200px; color: #fff;"><i class="bi bi-plus-square"></i> Добавить</a>
+            <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                <i class="bi bi-funnel"></i> Поиск по
+            </button>
+        </p>
+        <div class="collapse mb-3" id="collapseFilter">
+            <div class="card card-body">
+                <div class="d-flex">
+                    <input placeholder="Название" class="form-control mr-10" />
+                    <input placeholder="ID" class="form-control mr-10" />
+                    <button class="btn btn-warning">Поиск</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"><a href="#"># <i class="bi bi-sort-down"></i></a></th>
+                <th scope="col">Ico</th>
+                <th scope="col"><a href="#">Название <i class="bi bi-sort-down"></i></a></th>
+                <th scope="col"><a href="#">Событие <i class="bi bi-sort-down"></i></a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Categories != null)
+            {
+                @foreach (var category in Model.Categories)
+                {
+                    <tr>
+                        <th scope="row">@(i++)</th>
+                        <td><img src="~/images/logo/logo 85.png" class="img-thumbnail" width="50" /></td>
+                        <td>
+                            <button class="accordion">@category.Name</button>
+                            <div class="panel">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><a href="#"># <i class="bi bi-sort-down"></i></a></th>
+                                            <th scope="col">Ico</th>
+                                            <th scope="col"><a href="#">Бренд <i class="bi bi-sort-down"></i></a></th>
+                                            <th scope="col"><a href="#">Под категория <i class="bi bi-sort-down"></i></a></th>
+                                            <th scope="col"><a href="#">Событие <i class="bi bi-sort-down"></i></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>ico</td>
+                                            <td>
+                                                @foreach (var brand in category.Brands!)
+                                                {
+                                                    @brand.Name
+                                                }
+                                            </td>
+                                            <td>
+                                                @foreach (var subCategory in category.SubCategories!)
+                                                {
+                                                    @subCategory.Name
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/category/action?id=@category.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a> |
+                                                <a href="/category/action?id=@category.Id" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/category/action?id=@category.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a> |
+                            <a href="/category/action?id=@category.Id" class="btn btn-danger"><i class="bi bi-x-square"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var accordions = document.querySelectorAll(".accordion");
+    accordions.forEach(accordion => {
+        accordion.addEventListener("click", () => {
+            accordion.classList.toggle("accActive");
+            var panel = accordion.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    });
+</script>

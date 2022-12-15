@@ -10,6 +10,8 @@ public class Photo
     [MaxLength(60, ErrorMessage = "Макс. длина строки 60")]
     public string FileName { get; set; } = "";
 
+    public string FullName { get; set; } = "";
+
     public string FileExtension { get; set; } = "";
 
     public double FileSize { get; set; }
@@ -26,7 +28,7 @@ public class Photo
 
     public SubCategory? SubCategory { get; set; }
 
-    public Guid CategoryId { get; set; }
+    public Guid? CategoryId { get; set; }
 
     public Category? Category { get; set; }
 

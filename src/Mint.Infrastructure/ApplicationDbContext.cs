@@ -75,10 +75,10 @@ public class ApplicationDbContext : DbContext
 			.HasForeignKey(x => x.SubCategoryId)
 			.OnDelete(DeleteBehavior.Cascade);
 
-		builder.Entity<Category>()
-			.HasOne(x => x.Brand)
-			.WithMany(x => x.Categories)
-			.HasForeignKey(x => x.BrandId)
+		builder.Entity<Brand>()
+			.HasOne(x => x.Category)
+			.WithMany(x => x.Brands)
+			.HasForeignKey(x => x.CategoryId)
 			.OnDelete(DeleteBehavior.Cascade);
 
 		builder.Entity<SubCategory>()
@@ -225,26 +225,26 @@ public class ApplicationDbContext : DbContext
 			}
         };
 
-        var brands = new Brand[]
-        {
-            new Brand()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Samsung",
-            },
-        };
-
         var categories = new Category[]
 		{
 			new Category()
 			{
 				Id = Guid.NewGuid(),
 				Name = "Смартфоны",
-                BrandId = brands[0].Id,
             }
         };
 
-		var subCategories = new SubCategory[]
+        var brands = new Brand[]
+        {
+            new Brand()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Samsung",
+                CategoryId = categories[0].Id,
+            },
+        };
+
+        var subCategories = new SubCategory[]
 		{
 			new SubCategory()
 			{

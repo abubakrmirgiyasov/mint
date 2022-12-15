@@ -5,14 +5,14 @@ using System.Text.Json;
 
 namespace Mint.Api.Services;
 
-public class ExceptionHandlingEtensions
+public class ExceptionHandlingExtension
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<ExceptionHandlingEtensions> _logger;
+    private readonly ILogger<ExceptionHandlingExtension> _logger;
 
-    public ExceptionHandlingEtensions(
+    public ExceptionHandlingExtension(
         RequestDelegate next,
-        ILogger<ExceptionHandlingEtensions> logger)
+        ILogger<ExceptionHandlingExtension> logger)
     {
         _next = next;
         _logger = logger;

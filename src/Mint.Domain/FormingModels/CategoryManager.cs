@@ -18,6 +18,7 @@ public class CategoryManager
                 {
                     Id = category.Id,
                     Name = category.Name,
+                    Brands = new BrandManager().FormingViewModels(category.Brands!.ToList()),
                     SubCategories = new SubCategoryManager().FormingViewModels(category.SubCategories?.ToList()),
                     Photos = new PhotoManager().FormingViewModels(category.Photos?.ToList()),
                 });
@@ -30,20 +31,88 @@ public class CategoryManager
         }
     }
 
-    public List<Category> FormingBindingModels(List<CategoryBindingModel> category)
+    public CategoryViewModel FormingViewModel(Category category)
     {
         try
         {
-            var categories = new List<Category>();
+            var categoryViewModel = new CategoryViewModel();
 
-            for (int i = 0; i < category.Count; i++)
+            for (int i = 0; i < category.Photos!.Count; i++)
             {
-                categories.Add(new Category
+                categoryViewModel.Photos!.Add(new PhotoBindingModel()
                 {
-                    Name = category[i].Name,
+                    Id = category.Photos.ToList()[i].Id,
+                    FileExtension = category.Photos.ToList()[i].FileExtension,
+                    FileBytes = category.Photos.ToList()[i].FileBytes,
+                    FileSize = category.Photos.ToList()[i].FileSize,
+                    FileName = category.Photos.ToList()[i].FileName,
+                    FilePath = category.Photos.ToList()[i].FilePath,
+                    FullName = category.Photos.ToList()[i].FullName,
                 });
             }
-            return categories;
+
+            for (int i = 0; i < category.Brands!.Count; i++)
+            {
+                categoryViewModel.Brands = new List<BrandViewModel>()
+                {
+                    new BrandViewModel()
+                    {
+                        Id = category.Brands.ToList()[i].Id,
+                        Name = category.Brands.ToList()[i].Name,
+                    }
+                };
+
+                for (int j = 0; j < category.Brands.ToList()[i].Photos!.Count; j++)
+                {
+                    categoryViewModel.Brands.ToList()[i].Photos = new List<PhotoBindingModel>()
+                    {
+                        new PhotoBindingModel()
+                        {
+                            Id = category.Brands.ToList()[i].Photos!.ToList()[j].Id,
+                            FullName = category.Brands.ToList()[i].Photos!.ToList()[j].FullName,
+                            FileName = category.Brands.ToList()[i].Photos!.ToList()[j].FileName,
+                            FileExtension = category.Brands.ToList()[i].Photos!.ToList()[j].FileExtension,
+                            FileBytes = category.Brands.ToList()[i].Photos!.ToList()[j].FileBytes,
+                            FileSize = category.Brands.ToList()[i].Photos!.ToList()[j].FileSize,
+                            FilePath = category.Brands.ToList()[i].Photos!.ToList()[j].FilePath,
+                        }
+                    };
+                }
+            }
+
+            for (int i = 0; i < category.SubCategories!.Count; i++)
+            {
+                categoryViewModel.SubCategories = new List<SubCategoryViewModel>()
+                {
+                    new SubCategoryViewModel()
+                    {
+                        Id = category.SubCategories.ToList()[i].Id,
+                        Name = category.SubCategories.ToList()[i].Name,
+                    }
+                };
+
+                for (int j = 0; j < category.SubCategories.ToList()[i].Photos!.Count; j++)
+                {
+                    categoryViewModel.SubCategories.ToList()[i].Photos = new List<PhotoBindingModel>()
+                    {
+                        new PhotoBindingModel()
+                        {
+                            Id = category.SubCategories.ToList()[i].Photos!.ToList()[j].Id,
+                            FullName = category.SubCategories.ToList()[i].Photos!.ToList()[j].FullName,
+                            FileName = category.SubCategories.ToList()[i].Photos!.ToList()[j].FileName,
+                            FileExtension = category.SubCategories.ToList()[i].Photos!.ToList()[j].FileExtension,
+                            FileBytes = category.SubCategories.ToList()[i].Photos!.ToList()[j].FileBytes,
+                            FileSize = category.SubCategories.ToList()[i].Photos!.ToList()[j].FileSize,
+                            FilePath = category.SubCategories.ToList()[i].Photos!.ToList()[j].FilePath,
+                        }
+                    };
+                }
+            }
+
+            categoryViewModel.Id = category.Id;
+            categoryViewModel.Name = category.Name;
+
+            return categoryViewModel;
         }
         catch (Exception ex)
         {

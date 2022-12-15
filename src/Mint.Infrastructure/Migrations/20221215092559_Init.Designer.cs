@@ -12,7 +12,7 @@ using Mint.Infrastructure;
 namespace Mint.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221113053120_Init")]
+    [Migration("20221215092559_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,9 +65,9 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"),
+                            Id = new Guid("6c914d98-996d-469d-b036-239c390f9181"),
                             City = "Новокузнецк",
-                            CountryId = new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"),
+                            CountryId = new Guid("74716b77-27c7-4931-9b10-d5952e1c7e39"),
                             Description = "г. Новокузнецк ул. Бардина 23, ком. 302",
                             Home = "302",
                             PostCode = 640000,
@@ -75,9 +75,9 @@ namespace Mint.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("65f3b1c9-ac01-41f7-a709-0c7dd31f74b9"),
+                            Id = new Guid("9b708e84-a2f4-4d7b-a5ef-c3b766ac4d45"),
                             City = "Test",
-                            CountryId = new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"),
+                            CountryId = new Guid("74716b77-27c7-4931-9b10-d5952e1c7e39"),
                             Description = "г. Test Street, ком. 302",
                             Home = "302",
                             PostCode = 123456,
@@ -150,8 +150,8 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("204fbdce-0c01-490f-8c8c-513ad7eaca87"),
-                            AddressId = new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"),
+                            Id = new Guid("7e05be4a-3e34-4a51-a0e0-eb2dce1d9dd7"),
+                            AddressId = new Guid("6c914d98-996d-469d-b036-239c390f9181"),
                             ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Email = "abubakrmirgiyasov@gmail.com",
                             FirstName = "Миргиясов",
@@ -160,13 +160,13 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Phone = 89502768428L,
-                            RoleId = new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"),
+                            RoleId = new Guid("bcf66b8c-3692-48ad-9729-4f88ea59e43d"),
                             SecondName = "Абубакр"
                         },
                         new
                         {
-                            Id = new Guid("b9d7c7c3-e0e6-40ff-b2df-e3cc36d89be0"),
-                            AddressId = new Guid("65f3b1c9-ac01-41f7-a709-0c7dd31f74b9"),
+                            Id = new Guid("68db30fe-e377-4d4b-88d0-2a6cc84eb690"),
+                            AddressId = new Guid("9b708e84-a2f4-4d7b-a5ef-c3b766ac4d45"),
                             ConfirmedPassword = "dGVzdF8x",
                             Email = "test@gmail.com",
                             FirstName = "Test",
@@ -174,7 +174,7 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "dGVzdF8x",
                             Phone = 89502768529L,
-                            RoleId = new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"),
+                            RoleId = new Guid("bcf66b8c-3692-48ad-9729-4f88ea59e43d"),
                             SecondName = "User"
                         });
                 });
@@ -185,6 +185,9 @@ namespace Mint.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32)
@@ -192,12 +195,15 @@ namespace Mint.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Brands");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7d5847ad-549e-46dd-8734-89985740d18c"),
+                            Id = new Guid("e7a71dd1-44ca-401f-bf9b-3adadcaa81d4"),
+                            CategoryId = new Guid("478b218c-6ceb-4a32-a745-f3d396dba216"),
                             Name = "Samsung"
                         });
                 });
@@ -208,9 +214,6 @@ namespace Mint.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BrandId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(32)
@@ -218,15 +221,12 @@ namespace Mint.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fe8a83da-ecf9-4db1-b39d-7611382a4628"),
-                            BrandId = new Guid("7d5847ad-549e-46dd-8734-89985740d18c"),
+                            Id = new Guid("478b218c-6ceb-4a32-a745-f3d396dba216"),
                             Name = "Смартфоны"
                         });
                 });
@@ -249,7 +249,7 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5817b613-b93f-4351-bcb8-53a49dabe128"),
+                            Id = new Guid("74716b77-27c7-4931-9b10-d5952e1c7e39"),
                             Name = "Россия"
                         });
                 });
@@ -266,7 +266,7 @@ namespace Mint.Infrastructure.Migrations
                     b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("FileBytes")
@@ -288,6 +288,10 @@ namespace Mint.Infrastructure.Migrations
 
                     b.Property<double>("FileSize")
                         .HasColumnType("float");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("SubCategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -328,17 +332,17 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"),
+                            Id = new Guid("bcf66b8c-3692-48ad-9729-4f88ea59e43d"),
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("3f68cf14-7a68-40a4-a3c8-5f51e64d4c51"),
+                            Id = new Guid("a93076fe-d364-472f-8146-2abd15e980c8"),
                             Name = "Buyer"
                         },
                         new
                         {
-                            Id = new Guid("a45359cf-d936-4a60-b07c-53964eb0308e"),
+                            Id = new Guid("e1a1ad98-a384-477e-bed5-45280591f624"),
                             Name = "Deliver"
                         });
                 });
@@ -366,8 +370,8 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("479c6618-75e2-4b60-b00c-ffe2def73aca"),
-                            CategoryId = new Guid("fe8a83da-ecf9-4db1-b39d-7611382a4628"),
+                            Id = new Guid("a8097bc6-b167-4fcc-8128-c7aeee884f1b"),
+                            CategoryId = new Guid("478b218c-6ceb-4a32-a745-f3d396dba216"),
                             Name = "Samsung Galaxy"
                         });
                 });
@@ -446,10 +450,10 @@ namespace Mint.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9d976cee-99ee-4ccb-81aa-944a9d1ddd95"),
-                            AddressId = new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"),
+                            Id = new Guid("2cac7cd2-6a1c-4e58-81fc-5c4272094633"),
+                            AddressId = new Guid("6c914d98-996d-469d-b036-239c390f9181"),
                             ConfirmedPassword = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
-                            CreatedDate = new DateTime(2022, 11, 13, 12, 31, 20, 1, DateTimeKind.Local).AddTicks(7354),
+                            CreatedDate = new DateTime(2022, 12, 15, 16, 25, 59, 235, DateTimeKind.Local).AddTicks(6786),
                             Email = "abubakrmirgiyasov@gmail.com",
                             FirstName = "Миргиясов",
                             Ip = "127.0.0.1",
@@ -458,15 +462,15 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "QWJ1YWtyTWlyZ2l5YXNvdkApKSFN",
                             Phone = 89502768428L,
-                            RoleId = new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"),
+                            RoleId = new Guid("bcf66b8c-3692-48ad-9729-4f88ea59e43d"),
                             SecondName = "Абубакр"
                         },
                         new
                         {
-                            Id = new Guid("9910adab-0e1a-48aa-957c-a9f090c9d7c6"),
-                            AddressId = new Guid("edebd1a2-984f-463a-a827-d6fd71ab4526"),
+                            Id = new Guid("684dc365-f4ac-4afc-b053-532865669377"),
+                            AddressId = new Guid("6c914d98-996d-469d-b036-239c390f9181"),
                             ConfirmedPassword = "dGVzdF8x",
-                            CreatedDate = new DateTime(2022, 11, 13, 12, 31, 20, 1, DateTimeKind.Local).AddTicks(7394),
+                            CreatedDate = new DateTime(2022, 12, 15, 16, 25, 59, 235, DateTimeKind.Local).AddTicks(6844),
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             Ip = "127.0.0.1",
@@ -474,7 +478,7 @@ namespace Mint.Infrastructure.Migrations
                             NumOfAttempts = 0,
                             Password = "dGVzdF8x",
                             Phone = 89502768529L,
-                            RoleId = new Guid("1fc49e00-9904-4bd9-9dc9-41d5a7404fa8"),
+                            RoleId = new Guid("bcf66b8c-3692-48ad-9729-4f88ea59e43d"),
                             SecondName = "User"
                         });
                 });
@@ -506,14 +510,14 @@ namespace Mint.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Mint.Domain.Models.Category", b =>
+            modelBuilder.Entity("Mint.Domain.Models.Brand", b =>
                 {
-                    b.HasOne("Mint.Domain.Models.Brand", "Brand")
-                        .WithMany("Categories")
-                        .HasForeignKey("BrandId")
+                    b.HasOne("Mint.Domain.Models.Category", "Category")
+                        .WithMany("Brands")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Brand");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.Photo", b =>
@@ -531,8 +535,7 @@ namespace Mint.Infrastructure.Migrations
                     b.HasOne("Mint.Domain.Models.Category", "Category")
                         .WithMany("Photos")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Mint.Domain.Models.SubCategory", "SubCategory")
                         .WithMany("Photos")
@@ -596,13 +599,13 @@ namespace Mint.Infrastructure.Migrations
 
             modelBuilder.Entity("Mint.Domain.Models.Brand", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("Mint.Domain.Models.Category", b =>
                 {
+                    b.Navigation("Brands");
+
                     b.Navigation("Photos");
 
                     b.Navigation("SubCategories");

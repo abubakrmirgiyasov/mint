@@ -16,6 +16,7 @@ public class PhotoManager
             {
                 list.Add(new Photo()
                 {
+                    FullName = photo.FullName!,
                     FileName = photo.FileName,
                     FileSize = photo.FileSize,
                     FileExtension = photo.FileExtension,
@@ -44,6 +45,7 @@ public class PhotoManager
                 {
                     photoBindingModels.Add(new PhotoBindingModel()
                     {
+                        FullName = photo.FullName,
                         FileName = photo.FileName,
                         FileSize = photo.FileSize,
                         FileExtension = photo.FileExtension,
@@ -69,6 +71,7 @@ public class PhotoManager
 
             foreach (var photo in photos)
             {
+                newPhoto.FullName = photo.FullName;
                 newPhoto.FileName = photo.FileName;
                 newPhoto.FileSize = photo.FileSize;
                 newPhoto.FileExtension = photo.FileExtension;
@@ -102,7 +105,8 @@ public class PhotoManager
                         {
                             var newPhoto = new PhotoBindingModel()
                             {
-                                Name = file.Name,
+                                Id = Guid.NewGuid(),
+                                FullName = file.Name,
                                 FileName = Path.GetFileName(file.FileName/*.Split('.')[0]*/),
                                 FileSize = ms.Length,
                                 FileExtension = Path.GetExtension(file.FileName/*.Split('.')[file.FileName.Length - 1]*/),

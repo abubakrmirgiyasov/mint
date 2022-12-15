@@ -1,8 +1,41 @@
 ﻿@page
+@using Mint.Admin.Pages.Dashboard;
 @model IndexModel
 @{
     ViewData["Title"] = "Дашборд";
 }
+
+<style>
+    .drag-list {
+        overflow: hidden;
+        margin: 10px auto;
+        border: 1px solid #ccc;
+    }
+
+    .drag-item {
+        float: left;
+        padding: 50px 20px;
+        width: 25%;
+        text-align: center;
+        color: #555;
+        background: #ddd;
+        border: 1px solid #ccc;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: 0.25s;
+        -moz-transition: 0.25s;
+        -o-transition: 0.25s;
+        transition: 0.25s;
+    }
+
+    [draggable] {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
 
 <div class="container">
     <div class="content-header">
@@ -64,38 +97,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .drag-list {
-            overflow: hidden;
-            margin: 10px auto;
-            border: 1px solid #ccc;
-        }
-
-        .drag-item {
-            float: left;
-            padding: 50px 20px;
-            width: 25%;
-            text-align: center;
-            color: #555;
-            background: #ddd;
-            border: 1px solid #ccc;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            -webkit-transition: 0.25s;
-            -moz-transition: 0.25s;
-            -o-transition: 0.25s;
-            transition: 0.25s;
-        }
-
-        [draggable] {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-    </style>
 
     <div class="drag-list">
         <div class="drag-item" draggable="true">A</div>

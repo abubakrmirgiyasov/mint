@@ -84,9 +84,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/brand" class="nav-link text-white @ViewBag.Category" id="categoryLi">
-                            <i class="bi bi-grid"></i>
-                            Бренды
+                        <a href="/category" class="nav-link text-white @ViewBag.Category">
+                            <i class="bi bi-grid-1x2"></i>
+                            Категории
                         </a>
                     </li>
                     <li>
@@ -109,6 +109,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/requests.js" asp-append-version="true"></script>
+    <script src="~/js/elementCreator.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,71 @@
+﻿@page
+@using Mint.Admin.Pages.Category;
+@model ActionModel
+@{
+    ViewData["Title"] = Model.Category == null ? "Добавить категорию" : $"Изменить {Model.Category.Name}";
+
+    string? brandName = "";
+    //IFormFileCollection? brandFile = null;
+    Guid? brandId = Guid.Empty;
+
+    if (Model.Category != null)
+    {
+        for (int i = 0; i < Model.Category.Brands?.Count; i++)
+        {
+            brandName = Model.Category.Brands?.ToList()[i].Name;
+            brandId = Model.Category.Brands?.ToList()[i].Id;
+            //brandFile = Model.Category.Brands?.ToList()[i].Photos;
+        }
+    }
+
+}
+
+@ViewBag.Error
+
+<div class="container scroll-active" style="overflow: auto;">
+    <h1>Добавить Категорию</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Категория</label>
+            <input type="text" class="form-control" name="CategoryName" id="categoryName" placeholder="Категория" value="@(Model.Category?.Name ?? "")" required />
+            <label for="categoryFile" class="form-label">Фото для категории</label>
+            <input type="file" class="form-control" name="CategoryFile" id="categoryFile" required />
+            <img src="~/images/logo/logo 85.png" />
+            <input type="hidden" class="form-control" name="CategoryId" value="@(Model.Category?.Id)" />
+        </div>
+        <div class="card mb-3" id="categoryCard">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                Бренды
+                <div>
+                    <button type="button" class="btn btn-outline-success" onclick="addCategoryField()"><i class="bi bi-plus-square"></i></button>
+                    <button type="button" class="btn btn-outline-danger" onclick="removeLastCategoryField()"><i class="bi bi-dash-square"></i></button>
+                </div>
+            </div>
+            <div class="mb-3 px-2">
+                <label for="brandName" class="form-label">Бренд</label>
+                <input class="form-control" name="BrandName" id="brandName" value="@(brandName ?? "")" placeholder="Бренд">
+                <label for="brandFile" class="form-label">Фото для бренда</label>
+                <input type="file" class="form-control" name="BrandFile" id="brandFile" required />
+                <img src="~/images/logo/logo 85.png" />
+                <input type="hidden" class="form-control" name="BrandId" value="@(brandId == Guid.Empty ? "" : brandId)" />
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            @if (Model.Category != null)
+            {
+                <a href="/" class="btn btn-outline-danger" style="width: 200px; margin-right: 10px;">
+                    Удалить
+                </a>
+            }
+            <button type="submit" class="btn btn-primary" style="width: 200px;">
+                Сохранить
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}               

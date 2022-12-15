@@ -7,7 +7,5 @@ namespace Mint.Middleware.Services.Interfaces
         Task<string> SignIn(UserBindingModel user);
 
         Task SignUp(UserBindingModel user);
-
-        Task SignOut(UserBindingModel user);
     }
 }

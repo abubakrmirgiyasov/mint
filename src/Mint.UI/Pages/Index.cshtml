@@ -6,6 +6,9 @@
 
 <div class="container mr-auto ml-auto">
     <div class="slider">
-        SLIDER
+        @foreach (var item in Model.Categories!)
+        {
+            @item.Name
+        }
     </div>
 </div>

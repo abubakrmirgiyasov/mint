@@ -11,7 +11,11 @@ public class AuthenticationRequest : IAuthenticationRequest
         var baseRequestService = new RequestService<string>(false);
         var content = new JsonContent<UserBindingModel>().GetContent(user);
         var token = await baseRequestService.PostRequestAsync(content, Url.SIGN_IN);
+
+        ////
         Params.AccessToken = token;
+        ////
+
         return token;
     }
 
@@ -20,10 +24,5 @@ public class AuthenticationRequest : IAuthenticationRequest
         var baseRequestService = new RequestService<UserBindingModel>(false);
         var content = new JsonContent<UserBindingModel>().GetContent(user);
         await baseRequestService.PostRequestAsync(content, Url.SIGN_UP);
-    }
-
-    public async Task SignOut(UserBindingModel user)
-    {
-
     }
 }
